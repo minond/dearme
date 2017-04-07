@@ -44,13 +44,13 @@ export interface Manifest {
 export function configuration(): Configuration {
     dotenv.config({ silent: true });
     return config;
-};
+}
 
 export function bootstrap(config: Configuration = configuration()): Bootstrapped {
     const app = application(config);
     app.listen(config('port'));
     return { app, config };
-};
+}
 
 export function application(config: Configuration): Application {
     const app = express();
@@ -114,4 +114,4 @@ export function application(config: Configuration): Application {
     }
 
     return app;
-};
+}

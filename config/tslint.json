@@ -1,0 +1,16 @@
+{
+    "rules": {
+        "curly": true,
+        "eofline": true,
+        "forin": true,
+        "no-any": false,
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-internal-module": true,
+        "no-trailing-whitespace": true,
+        "no-unused-expression": true,
+        "semicolon": [ true, "always" ],
+        "indent": [ true, "spaces" ],
+        "quotemark": [ true, "single", "avoid-escape" ]
+    }
+}

@@ -1,0 +1,26 @@
+title: &title dear me
+description: &description dear me app
+
+social:
+  image:
+
+server:
+  cookies: on
+  session: on
+  body_parsing: on
+  robots_txt: off
+  compression: off
+  view_cache: on
+
+manifest:
+  name: *title
+  short_name: *title
+  description: *description
+  start_url: /?utm_source=homescreen
+  background_color: "#000"
+  theme_color: "#27b8e8"
+  display: standalone
+  icons: []
+    # - src:
+    #   sizes:
+    #   type:

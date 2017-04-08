@@ -1,33 +1,35 @@
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { SignupComponent } from './signup';
 import { WelcomeComponent } from './welcome';
 
 import * as React from 'react';
 
-type Props = {};
+enum Page { WELCOME, SIGNUP, CONFIRM };
 
-type State = {
-    active: boolean;
-};
+type Props = {};
+type State = { page: Page; };
 
 const styles = StyleSheet.create({
-    home: {
-        transition: 'background .2s, color .2s',
+    container: {
+        transition: 'background .6s, color .2s',
         height: '100vh',
         width: '100vw',
     },
 
-    inactive: {
+    black: {
         background: 'white',
         color: 'black',
     },
 
-    active: {
+    white: {
         background: 'black',
         color: 'white',
     },
 
     centered: {
+        height: '100vh',
+        width: '100vw',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -37,18 +39,33 @@ const styles = StyleSheet.create({
 export class HomeComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { active: false };
+        // this.state = { page: Page.WELCOME };
+        // XXX
+        this.state = { page: Page.SIGNUP };
     }
 
-    start() {
-        this.setState({ active: true });
+    goToSignup() {
+        this.setState({ page: Page.SIGNUP });
     }
 
     render() {
-        var style = this.state.active ? styles.active : styles.inactive;
+        let colo, view;
 
-        return  <div className={css(styles.home, styles.centered, style)}>
-                    <WelcomeComponent onSignUp={() => this.start()} />
-                </div>;
+        switch (this.state.page) {
+            case Page.WELCOME:
+                colo = styles.black;
+                view = <WelcomeComponent
+                    className={css(styles.centered)}
+                    onSignUp={() => this.goToSignup()} />;
+
+                break;
+
+            case Page.SIGNUP:
+                colo = styles.white;
+                view = <SignupComponent />;
+                break;
+        }
+
+        return  <div className={css(colo, styles.container)}>{view}</div>;
     }
 }

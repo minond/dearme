@@ -4,7 +4,8 @@ import { common } from './styles';
 import * as React from 'react';
 
 type Props = {
-    onSignUp: () => void
+    onSignUp: () => void;
+    className?: string;
 };
 
 const styles = StyleSheet.create({
@@ -18,19 +19,21 @@ const styles = StyleSheet.create({
     },
 });
 
-export const WelcomeComponent = ({ onSignUp }: Props) =>
-    <div className={css(common.centered_text)}>
-        <div className={css(styles.dearme_img)}></div>
-        <div className={css(common.med_space)}></div>
+export const WelcomeComponent = ({ onSignUp, className }: Props) =>
+    <div className={className}>
+        <div className={css(common.text_centered)}>
+            <div className={css(styles.dearme_img)}></div>
+            <div className={css(common.med_space)}></div>
 
-        <section className={css(common.text)}>
-            <div>The easiest way to journal EVER.</div>
-            <div>We send a few texts a day. You answer.</div>
-            <div>We add your instagram photos.</div>
-            <div>You have a journal.</div>
-        </section>
+            <section className={css(common.small_text)}>
+                <div>The easiest way to journal EVER.</div>
+                <div>We send a few texts a day. You answer.</div>
+                <div>We add your instagram photos.</div>
+                <div>You have a journal.</div>
+            </section>
 
-        <div className={css(common.med_space)}></div>
-        <button className={css(common.button)}
-            onClick={() => onSignUp()}>sign up</button>
+            <div className={css(common.med_space)}></div>
+            <button className={css(common.button)}
+                onClick={() => onSignUp()}>sign up</button>
+        </div>
     </div>;

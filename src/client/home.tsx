@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { WelcomeComponent } from './welcome';
 
 import * as React from 'react';
 
@@ -25,6 +26,12 @@ const styles = StyleSheet.create({
         background: 'black',
         color: 'white',
     },
+
+    centered: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export class HomeComponent extends Component<Props, State> {
@@ -40,9 +47,8 @@ export class HomeComponent extends Component<Props, State> {
     render() {
         var style = this.state.active ? styles.active : styles.inactive;
 
-        return  <div className={css(styles.home, style)}>
-                    <div>hi</div>
-                    <button onClick={() => this.start()}>start</button>
+        return  <div className={css(styles.home, styles.centered, style)}>
+                    <WelcomeComponent onSignUp={() => this.start()} />
                 </div>;
     }
 }

@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { SignupComponent } from './signup';
 import { WelcomeComponent } from './welcome';
 
-enum Page { WELCOME, SIGNUP, CONFIRM };
+enum Page { WELCOME, SIGNUP, CONFIRM }
 
 type Props = {};
 type State = { page: Page; };

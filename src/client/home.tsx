@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    padded_content: {
+        paddingTop: '10vw',
+        paddingLeft: '10vw',
+    }
 });
 
 export class HomeComponent extends Component<Props, State> {
@@ -62,7 +67,7 @@ export class HomeComponent extends Component<Props, State> {
 
             case Page.SIGNUP:
                 colo = styles.white;
-                view = <SignupComponent />;
+                view = <SignupComponent className={css(styles.padded_content)} />;
                 break;
         }
 

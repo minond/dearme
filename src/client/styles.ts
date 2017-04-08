@@ -2,6 +2,18 @@ import { StyleSheet } from 'aphrodite';
 
 export const med_font_size = '35px';
 
+export const fade_in_up = {
+    from: {
+        opacity: 0,
+        transform: 'translate3d(0, 70%, 0)',
+    },
+
+    to: {
+        opacity: 1,
+        transform: 'none',
+    }
+};
+
 export const common = StyleSheet.create({
     small_text: {
         fontSize: '22px',
@@ -44,5 +56,10 @@ export const common = StyleSheet.create({
         fontSize: med_font_size,
         outline: 0,
         width: '180px',
+    },
+
+    fade_in_up: {
+        animationName: [fade_in_up],
+        animationDuration: '.8s',
     },
 });

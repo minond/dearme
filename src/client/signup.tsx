@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { common } from './styles';
 
 type Props = { className?: string; };
-type State = {};
+type State = { hasPhone: boolean };
 
 const styles = StyleSheet.create({
     pull_in: {
@@ -15,17 +15,26 @@ const styles = StyleSheet.create({
 export class SignupComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
+        this.state = { hasPhone: false };
+    }
+
+    changedPhone(txt?: string) {
+        if (txt && txt.length >= 10) {
+            this.setState({ hasPhone: true });
+        }
     }
 
     render() {
         let phone =
-            <div className={css(common.med_text, common.med_space)}>
+            <div className={css(common.med_text, common.med_space, common.fade_in_up)}>
                 <span>my phone number is</span>
-                <input className={css(common.text_input)} type='text' />
+                <input type='text'
+                    className={css(common.text_input)}
+                    onChange={(e) => this.changedPhone(e.target.value)} />
             </div>;
 
-        let twitter =
-            <div className={css(common.med_text)}>
+        let twitter = !this.state.hasPhone ? <div></div> :
+            <div className={css(common.med_text, common.fade_in_up)}>
                 <span>my instagram handle is @</span>
                 <input className={css(common.text_input, styles.pull_in)} type='text' />
             </div>;

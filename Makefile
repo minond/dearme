@@ -17,7 +17,10 @@ clean:
 	-rm -r $(dir_dist)
 
 lint:
-	$(tslint) --config $(dir_conf)/tslint.json $(dir_src)/*.ts
+	$(tslint) --config $(dir_conf)/tslint.json \
+		$(dir_src)/*.ts \
+		$(dir_src)/**/*.ts \
+		$(dir_src)/**/*.tsx
 
 watch-client:
 	$(webpack) --config $(dir_conf)/webpack.js --watch

@@ -44,8 +44,10 @@
     "@types/react-dom": "0.14.23",
     "@types/serve-favicon": "2.2.28",
     "@types/swig": "0.0.28",
-    "browserify": "14.3.0",
+    "awesome-typescript-loader": "3.1.2",
+    "source-map-loader": "0.2.1",
     "tslint": "5.0.0",
-    "typescript": "2.2.2"
+    "typescript": "2.2.2",
+    "webpack": "2.3.3"
   }
 }

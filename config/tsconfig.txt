@@ -1,0 +1,12 @@
+--module commonjs
+--removeComments
+--noUnusedLocals
+--moduleResolution node
+--noImplicitAny
+--noImplicitThis
+--noImplicitReturns
+--alwaysStrict
+--forceConsistentCasingInFileNames
+--experimentalDecorators
+--strictNullChecks
+--pretty

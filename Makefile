@@ -1,20 +1,7 @@
 npm = npm
-
-browserify = ./node_modules/.bin/browserify
+webpack = ./node_modules/.bin/webpack
 tslint = ./node_modules/.bin/tslint
-tsc = ./node_modules/.bin/tsc \
-	--module commonjs \
-	--removeComments \
-	--noUnusedLocals \
-	--moduleResolution node \
-	--noImplicitAny \
-	--noImplicitThis \
-	--noImplicitReturns \
-	--alwaysStrict \
-	--forceConsistentCasingInFileNames \
-	--experimentalDecorators \
-	--strictNullChecks \
-	--pretty \
+tsc = ./node_modules/.bin/tsc
 
 dir_src = src
 dir_dist = dist
@@ -32,18 +19,14 @@ clean:
 lint:
 	$(tslint) --config $(dir_conf)/tslint.json $(dir_src)/*.ts
 
+watch-client:
+	$(webpack) --config $(dir_conf)/webpack.js --watch
+
 build-client:
-	-mkdir -p dist/client
-	$(tsc) \
-		--outDir $(dir_dist)/client \
-		--jsx react \
-		$(dir_src)/client/main.tsx
-	$(browserify) \
-		$(dir_dist)/client/main.js \
-		--full-paths > $(dir_dist)/client/bundle.js
+	$(webpack) --config $(dir_conf)/webpack.js
 
 build-server:
-	$(tsc) \
+	$(tsc) @$(dir_conf)/tsconfig.txt \
 		--outDir $(dir_dist) \
 		$(dir_src)/declarations.d.ts \
 		$(dir_src)/server/main.ts

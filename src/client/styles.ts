@@ -32,7 +32,7 @@ export const common = StyleSheet.create({
     },
 
     text_input: {
-        background: 'black',
+        background: 'transparent',
         borderBottom: '1px solid white',
         borderLeft: 0,
         borderRight: 0,

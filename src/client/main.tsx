@@ -1,5 +1,5 @@
-import { HomeComponent } from './home';
-import * as DOM from 'react-dom';
 import * as React from 'react';
+import * as DOM from 'react-dom';
+import { HomeComponent } from './home';
 
 DOM.render(<HomeComponent />, document.querySelector('#app'));

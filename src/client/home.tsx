@@ -1,9 +1,8 @@
+import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { SignupComponent } from './signup';
 import { WelcomeComponent } from './welcome';
-
-import * as React from 'react';
 
 enum Page { WELCOME, SIGNUP, CONFIRM };
 
@@ -12,7 +11,7 @@ type State = { page: Page; };
 
 const styles = StyleSheet.create({
     container: {
-        transition: 'background .6s, color .2s',
+        transition: 'background .6s, color .6s',
         height: '100vh',
         width: '100vw',
     },
@@ -59,9 +58,10 @@ export class HomeComponent extends Component<Props, State> {
         switch (this.state.page) {
             case Page.WELCOME:
                 colo = styles.black;
-                view = <WelcomeComponent
-                    className={css(styles.centered)}
-                    onSignUp={() => this.goToSignup()} />;
+                view =
+                    <WelcomeComponent
+                        className={css(styles.centered)}
+                        onSignUp={() => this.goToSignup()} />;
 
                 break;
 
@@ -71,6 +71,6 @@ export class HomeComponent extends Component<Props, State> {
                 break;
         }
 
-        return  <div className={css(colo, styles.container)}>{view}</div>;
+        return <div className={css(colo, styles.container)}>{view}</div>;
     }
 }

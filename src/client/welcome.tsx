@@ -1,7 +1,6 @@
+import * as React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { common } from './styles';
-
-import * as React from 'react';
 
 type Props = {
     onSignUp: () => void;

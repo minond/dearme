@@ -43,9 +43,7 @@ const styles = StyleSheet.create({
 export class HomeComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        // this.state = { page: Page.WELCOME };
-        // XXX
-        this.state = { page: Page.SIGNUP };
+        this.state = { page: Page.WELCOME };
     }
 
     goToSignup() {

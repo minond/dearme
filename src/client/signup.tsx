@@ -18,7 +18,7 @@ export class SignupComponent extends Component<Props, State> {
         this.state = { hasPhone: false };
     }
 
-    changedPhone(txt?: string) {
+    changedPhone(txt: string | null) {
         if (txt && txt.length >= 10) {
             this.setState({ hasPhone: true });
         }
@@ -34,9 +34,14 @@ export class SignupComponent extends Component<Props, State> {
             </div>;
 
         let twitter = !this.state.hasPhone ? <div></div> :
-            <div className={css(common.med_text, common.fade_in_up)}>
-                <span>my instagram handle is @</span>
-                <input className={css(common.text_input, styles.pull_in)} type='text' />
+            <div className={css(common.fade_in_up_slow)}>
+                <div className={css(common.med_text, common.large_space)}>
+                    <span>my instagram handle is @</span>
+                    <input className={css(common.text_input, styles.pull_in)} type='text' />
+                </div>
+                <div className={css(common.med_text)}>
+                    <button className={css(common.button)}>submit</button>
+                </div>
             </div>;
 
         return (

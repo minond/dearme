@@ -2,18 +2,6 @@ import { StyleSheet } from 'aphrodite';
 
 export const med_font_size = '35px';
 
-export const fade_in_up = {
-    from: {
-        opacity: 0,
-        transform: 'translate3d(0, 70%, 0)',
-    },
-
-    to: {
-        opacity: 1,
-        transform: 'none',
-    }
-};
-
 export const common = StyleSheet.create({
     small_text: {
         fontSize: '22px',
@@ -43,6 +31,10 @@ export const common = StyleSheet.create({
         height: '75px',
     },
 
+    large_space: {
+        height: '125px',
+    },
+
     text_input: {
         background: 'transparent',
         borderBottom: '1px solid white',
@@ -59,7 +51,32 @@ export const common = StyleSheet.create({
     },
 
     fade_in_up: {
-        animationName: [fade_in_up],
         animationDuration: '.8s',
+        animationName: [{
+            from: {
+                opacity: 0,
+                transform: 'translate3d(0, 70%, 0)',
+            },
+
+            to: {
+                opacity: 1,
+                transform: 'none',
+            }
+        }],
+    },
+
+    fade_in_up_slow: {
+        animationDuration: '1s',
+        animationName: [{
+            from: {
+                opacity: 0,
+                transform: 'translate3d(0, 50%, 0)',
+            },
+
+            to: {
+                opacity: 1,
+                transform: 'none',
+            }
+        }],
     },
 });

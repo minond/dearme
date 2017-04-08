@@ -66,7 +66,7 @@ export const common = StyleSheet.create({
     },
 
     fade_in_up_slow: {
-        animationDuration: '1s',
+        animationDuration: '1.2s',
         animationName: [{
             from: {
                 opacity: 0,

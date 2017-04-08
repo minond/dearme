@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { common } from './styles';
 
 type Props = {
-    onSignUp: () => void;
+    onComplete: () => void;
     className?: string;
 };
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export const WelcomeComponent = ({ onSignUp, className }: Props) =>
+export const WelcomeComponent = ({ onComplete, className }: Props) =>
     <div className={className}>
         <div className={css(common.text_centered)}>
             <div className={css(styles.dearme_img)}></div>
@@ -33,6 +33,6 @@ export const WelcomeComponent = ({ onSignUp, className }: Props) =>
 
             <div className={css(common.med_space)}></div>
             <button className={css(common.button)}
-                onClick={() => onSignUp()}>sign up</button>
+                onClick={() => onComplete()}>sign up</button>
         </div>
     </div>;

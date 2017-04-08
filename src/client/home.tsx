@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { SignupComponent } from './signup';
+import { SignupComponent, SignupState } from './signup';
 import { WelcomeComponent } from './welcome';
 
 enum Page { WELCOME, SIGNUP, CONFIRM }
@@ -50,6 +50,10 @@ export class HomeComponent extends Component<Props, State> {
         this.setState({ page: Page.SIGNUP });
     }
 
+    userSigned(signup: SignupState) {
+        console.log(signup);
+    }
+
     render() {
         let colo, view;
 
@@ -59,13 +63,16 @@ export class HomeComponent extends Component<Props, State> {
                 view =
                     <WelcomeComponent
                         className={css(styles.centered)}
-                        onSignUp={() => this.goToSignup()} />;
+                        onComplete={() => this.goToSignup()} />;
 
                 break;
 
             case Page.SIGNUP:
                 colo = styles.white;
-                view = <SignupComponent className={css(styles.padded_content)} />;
+                view =
+                    <SignupComponent
+                        className={css(styles.padded_content)}
+                        onComplete={(signup) => this.userSigned(signup)} />;
                 break;
         }
 

@@ -1,21 +1,59 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 export declare function fetch(url: string, config: Request): Promise<Response>;
 
-type Dictionary<T> = { [index: string]: T; };
+enum Method {
+    GET = <any>'GET',
+    POST = <any>'POST',
+    PUT = <any>'PUT',
+    HEAD = <any>'HEAD',
+    TRACE = <any>'TRACE',
+}
 
-type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'TRACE';
-type Mode = 'same-origin' | 'no-cors' | 'cors' | 'navigate';
-type Credentials =  'omit' | 'same-origin' | 'include';
-type Redirect = 'follow' | 'error' | 'manual';
+enum Mode {
+    SAME_ORIGIN = <any>'same-origin',
+    NO_CORS = <any>'no-cors',
+    CORS = <any>'cors',
+    NAVIGATE = <any>'navigate',
+}
 
-type Cache = 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache'
-    | 'only-if-cached';
+enum Credentials {
+    OMIT = <any>'omit',
+    SAME_ORIGIN = <any>'same-origin',
+    INCLUDE = <any>'include',
+}
 
-type ReferrerPolicy = 'no-referrer' | 'no-referrer-when-downgrade' | 'origin'
-    | 'origin-when-cross-origin' | 'same-origin' | 'strict-origin'
-    | 'strict-origin-when-cross-origin' | 'unsafe-url';
+enum Redirect {
+    FOLLOW = <any>'follow',
+    ERROR = <any>'error',
+    MANUAL = <any>'manual',
+}
 
-type Type = 'basic' | 'cors' | 'error' | 'opaque';
+enum Cache {
+    DEFAULT = <any>'default',
+    NO_STORE = <any>'no-store',
+    RELOAD = <any>'reload',
+    NO_CACHE = <any>'no-cache',
+    FORCE_CACHE = <any>'force-cache',
+    ONLY_IF_CACHED = <any>'only-if-cached',
+}
+
+enum ReferrerPolicy {
+    NO_REFERRER = <any>'no-referrer',
+    NO_REFERRER_WHEN_DOWNGRADE = <any>'no-referrer-when-downgrade',
+    ORIGIN = <any>'origin',
+    ORIGIN_WHEN_CROS_ORIGIN = <any>'origin-when-cross-origin',
+    SAME_ORIGIN = <any>'same-origin',
+    STRICT_ORIGIN = <any>'strict-origin',
+    STRICT_ORIGIN_WHEN_CROSS_ORIGIN = <any>'strict-origin-when-cross-origin',
+    UNSAFE_URL = <any>'unsafe-url',
+}
+
+enum Type {
+    BASIC = <any>'basic',
+    CORS = <any>'cors',
+    ERROR = <any>'error',
+    OPAQUE = <any>'opaque',
+}
 
 /**
  * https://developer.mozilla.org/en-US/docs/Web/API/Headers
@@ -29,8 +67,8 @@ type Type = 'basic' | 'cors' | 'error' | 'opaque';
  * https://developer.mozilla.org/en-US/docs/Web/API/Headers/keys
  * https://developer.mozilla.org/en-US/docs/Web/API/Headers/values
  */
-interface Headers {
-    new(headers: Dictionary<string>): this;
+export interface Headers {
+    new(headers: { [index: string]: string }): this;
     has(header: string): boolean;
     append(header: string, value: string): void;
     set(header: string, value: string): void;
@@ -53,7 +91,7 @@ interface Headers {
  * https://developer.mozilla.org/en-US/docs/Web/API/Request/redirect
  * https://developer.mozilla.org/en-US/docs/Web/API/Request/integrity
  */
-interface Request {
+export interface Request {
     readonly method?: Method;
     readonly headers?: Headers;
     readonly mode?: Mode;
@@ -76,7 +114,7 @@ interface Request {
  * https://developer.mozilla.org/en-US/docs/Web/API/Response/type
  * https://developer.mozilla.org/en-US/docs/Web/API/Response/url
  */
-interface Response {
+export interface Response {
     readonly headers: Headers;
     readonly ok: boolean;
     readonly redirected: boolean;
@@ -86,6 +124,12 @@ interface Response {
     readonly url: string;
 }
 
+export const HEADER_ACCEPT = 'Accept';
+export const HEADER_CONTENT_TYPE = 'Content-Type';
+
+export const TYPE_JSON = 'application/json';
+export const TYPE_PLAIN = 'plain/text';
+
 export const request = (url: string, conf: Request = {}): Promise<Response> => {
     return fetch(url, conf);
 };
@@ -93,11 +137,14 @@ export const request = (url: string, conf: Request = {}): Promise<Response> => {
 export const post = (url: string, raw_body: object = {}, conf: Request = {}): Promise<Response> => {
     let { headers = new Headers() } = conf;
     let body = JSON.stringify(raw_body);
+    let method = Method.POST;
+    let cache = Cache.NO_CACHE;
 
-    let updates = { body, headers };
+    let updates = { method, body, headers, cache };
     let override = Object.assign({}, conf, updates);
 
-    headers.set('Content-Type', 'application/json');
+    headers.set(HEADER_ACCEPT, TYPE_JSON);
+    headers.set(HEADER_CONTENT_TYPE, TYPE_JSON);
 
     return request(url, override);
 };

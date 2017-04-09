@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { common } from './styles';
 import { SignupComponent, SignupState } from './signup';
 import { WelcomeComponent } from './welcome';
 import { ConfirmComponent } from './confirm';
@@ -13,7 +14,7 @@ type State = { page: Page; };
 
 const styles = StyleSheet.create({
     container: {
-        transition: 'background .6s, color .6s',
+        transition: 'background .2s, color .2s',
         height: '100vh',
         width: '100vw',
     },
@@ -82,7 +83,8 @@ export class HomeComponent extends Component<Props, State> {
 
             case Page.CONFIRM:
                 colo = styles.white;
-                view = <ConfirmComponent className={css(styles.centered)} />;
+                view = <ConfirmComponent
+                    className={css(styles.centered, common.fade_in_up_large_slow)} />;
 
                 break;
         }

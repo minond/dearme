@@ -57,12 +57,12 @@ export const common = StyleSheet.create({
         width: '180px',
     },
 
-    fade_in_up: {
-        animationDuration: '.8s',
+    fade_in_up_slow: {
+        animationDuration: '1.2s',
         animationName: [{
             from: {
                 opacity: 0,
-                transform: 'translate3d(0, 70%, 0)',
+                transform: 'translate3d(0, 50%, 0)',
             },
 
             to: {
@@ -72,12 +72,12 @@ export const common = StyleSheet.create({
         }],
     },
 
-    fade_in_up_slow: {
+    fade_in_up_large_slow: {
         animationDuration: '1.2s',
         animationName: [{
             from: {
                 opacity: 0,
-                transform: 'translate3d(0, 50%, 0)',
+                transform: 'translate3d(0, 10%, 0)',
             },
 
             to: {

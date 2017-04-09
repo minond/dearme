@@ -12,6 +12,7 @@
         "noUnusedLocals": true,
         "pretty": true,
         "removeComments": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "target": "ES6"
     }
 }

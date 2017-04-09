@@ -10,3 +10,4 @@
 --experimentalDecorators
 --strictNullChecks
 --pretty
+--target ES6

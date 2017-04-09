@@ -25,6 +25,7 @@ export const common = StyleSheet.create({
     },
 
     button: {
+        cursor: 'pointer',
         border: '1px solid #c3c3c3',
         background: 'white',
         fontSize: small_font_size,

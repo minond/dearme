@@ -23,7 +23,7 @@ lint:
 		$(dir_src)/**/*.tsx
 
 watch-client:
-	$(webpack) --config $(dir_conf)/webpack.js --watch --verbose
+	$(webpack) --config $(dir_conf)/webpack.js --watch
 
 build-client:
 	$(webpack) --config $(dir_conf)/webpack.js

@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { SignupComponent, SignupState } from './signup';
 import { WelcomeComponent } from './welcome';
+import { ConfirmComponent } from './confirm';
+import { post } from './http';
 
 enum Page { WELCOME, SIGNUP, CONFIRM }
 
@@ -16,12 +18,12 @@ const styles = StyleSheet.create({
         width: '100vw',
     },
 
-    black: {
+    white: {
         background: 'white',
         color: 'black',
     },
 
-    white: {
+    black: {
         background: 'black',
         color: 'white',
     },
@@ -51,7 +53,10 @@ export class HomeComponent extends Component<Props, State> {
     }
 
     userSigned(signup: SignupState) {
-        console.log(signup);
+        post('/', signup).then(res => {
+            console.log(res);
+            this.setState({ page: Page.CONFIRM });
+        });
     }
 
     render() {
@@ -59,7 +64,7 @@ export class HomeComponent extends Component<Props, State> {
 
         switch (this.state.page) {
             case Page.WELCOME:
-                colo = styles.black;
+                colo = styles.white;
                 view =
                     <WelcomeComponent
                         className={css(styles.centered)}
@@ -68,11 +73,17 @@ export class HomeComponent extends Component<Props, State> {
                 break;
 
             case Page.SIGNUP:
-                colo = styles.white;
+                colo = styles.black;
                 view =
                     <SignupComponent
                         className={css(styles.padded_content)}
                         onComplete={(signup) => this.userSigned(signup)} />;
+                break;
+
+            case Page.CONFIRM:
+                colo = styles.white;
+                view = <ConfirmComponent className={css(styles.centered)} />;
+
                 break;
         }
 

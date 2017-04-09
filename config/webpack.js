@@ -24,7 +24,10 @@ const RULE_SOURCE_MAP = {
 };
 
 module.exports = {
-    entry: SRC('client', 'main.tsx'),
+    entry: [
+        'whatwg-fetch',
+        SRC('client', 'main.tsx')
+    ],
 
     output: {
         filename: 'bundle.js',

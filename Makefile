@@ -2,6 +2,7 @@ npm = npm
 webpack = ./node_modules/.bin/webpack
 tslint = ./node_modules/.bin/tslint
 tsc = ./node_modules/.bin/tsc
+pm2 = ./node_modules/.bin/pm2
 
 dir_src = src
 dir_dist = dist
@@ -33,3 +34,6 @@ build-server:
 		--outDir $(dir_dist) \
 		$(dir_src)/declarations.d.ts \
 		$(dir_src)/server/main.ts
+
+pm:
+	$(pm2) start config/processes.yml --no-daemon

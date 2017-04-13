@@ -13,6 +13,8 @@ import * as compression from 'compression';
 import * as cookie from 'cookie-parser';
 import * as session from 'express-session';
 
+export { config };
+
 export const router = Router;
 
 export type Request = Request;

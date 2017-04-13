@@ -9,7 +9,7 @@ dir_dist = dist
 dir_conf = config
 dir_script = script
 
-build: clean build-server build-client
+build: clean build-server build-client build-worker
 
 install:
 	$(npm) install
@@ -34,6 +34,15 @@ build-server:
 		--outDir $(dir_dist) \
 		$(dir_src)/declarations.d.ts \
 		$(dir_src)/server/main.ts
+
+build-worker:
+	$(tsc) @$(dir_conf)/tsconfig.txt \
+		--outDir $(dir_dist) \
+		$(dir_src)/declarations.d.ts \
+		$(dir_src)/worker/main.ts
+
+worker:
+	node dist/worker/main.js
 
 pm:
 	$(pm2) start config/processes.yml --no-daemon

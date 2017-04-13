@@ -5,9 +5,10 @@ import { common } from './styles';
 import { SignupComponent, SignupState } from './signup';
 import { WelcomeComponent } from './welcome';
 import { ConfirmComponent } from './confirm';
+import { ErrorComponent } from './error';
 import { post } from './http';
 
-enum Page { WELCOME, SIGNUP, CONFIRM }
+enum Page { WELCOME, SIGNUP, CONFIRM, ERROR }
 
 type Props = {};
 type State = { page: Page; };
@@ -84,6 +85,13 @@ export class HomeComponent extends Component<Props, State> {
             case Page.CONFIRM:
                 colo = styles.white;
                 view = <ConfirmComponent
+                    className={css(styles.centered, common.fade_in_up_large_slow)} />;
+
+                break;
+
+            case Page.ERROR:
+                colo = styles.white;
+                view = <ErrorComponent
                     className={css(styles.centered, common.fade_in_up_large_slow)} />;
 
                 break;

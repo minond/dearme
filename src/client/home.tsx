@@ -55,10 +55,9 @@ export class HomeComponent extends Component<Props, State> {
     }
 
     userSigned(signup: SignupState) {
-        post('/', signup).then(res => {
-            console.log(res);
-            this.setState({ page: Page.CONFIRM });
-        });
+        post('/signup', signup)
+            .then(res => this.setState({ page: Page.CONFIRM }))
+            .catch(res => this.setState({ page: Page.ERROR }));
     }
 
     render() {

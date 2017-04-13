@@ -1,6 +1,5 @@
-import { configuration, application } from '../application';
+import { config, application } from '../application';
 
-const config = configuration();
 const server = application(config);
 
 server.get('/', (req, res) =>

@@ -9,7 +9,7 @@ dir_dist = dist
 dir_conf = config
 dir_script = script
 
-build: clean build-server build-client build-worker
+build: clean build-server build-worker build-client
 
 install:
 	$(npm) install
@@ -43,6 +43,9 @@ build-worker:
 
 worker:
 	node dist/worker/main.js
+
+server:
+	node dist/server/main.js
 
 pm:
 	$(pm2) start config/processes.yml --no-daemon

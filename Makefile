@@ -12,7 +12,7 @@ dir_script = script
 build: clean build-server build-worker build-client
 
 install:
-	$(npm) install
+	@$(npm) install
 
 clean:
 	-rm -r $(dir_dist)

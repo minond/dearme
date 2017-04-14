@@ -30,7 +30,7 @@ export class SignupComponent extends Component<Props, SignupState> {
                 <div className={css(common.fade_in_up_slow)}>
                     <div className={css(common.med_text, common.large_space)}>
                         <span>my phone number is</span>
-                        <input type="text"
+                        <input type="phone"
                             autoFocus={true}
                             className={css(common.text_input)}
                             onChange={(e) => this.changedPhone(e.target.value)} />

@@ -126,9 +126,15 @@ export interface Response {
 
 export const HEADER_ACCEPT = 'Accept';
 export const HEADER_CONTENT_TYPE = 'Content-Type';
+export const HEADER_CSRF_TOKEN = 'x-csrf-token';
 
 export const TYPE_JSON = 'application/json';
 export const TYPE_PLAIN = 'plain/text';
+
+function get_csrf_token(): string {
+    var match = document.cookie.match(/tototoken=(.+)/) || ['', ''];
+    return match[1].split(';')[0];
+}
 
 export const request = (url: string, conf: Request = {}): Promise<Response> => {
     return fetch(url, conf);
@@ -145,6 +151,7 @@ export const post = (url: string, raw_body: object = {}, conf: Request = {}): Pr
 
     headers.set(HEADER_ACCEPT, TYPE_JSON);
     headers.set(HEADER_CONTENT_TYPE, TYPE_JSON);
+    headers.set(HEADER_CSRF_TOKEN, get_csrf_token());
 
     return request(url, override);
 };

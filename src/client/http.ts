@@ -137,7 +137,13 @@ function get_csrf_token(): string {
 }
 
 export const request = (url: string, conf: Request = {}): Promise<Response> => {
-    return fetch(url, conf);
+    return fetch(url, conf).then((res) => {
+        if (!res.ok) {
+            throw res;
+        } else {
+            return res;
+        }
+    });
 };
 
 export const post = (url: string, raw_body: object = {}, conf: Request = {}): Promise<Response> => {

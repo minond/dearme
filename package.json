@@ -35,7 +35,6 @@
     "serve-favicon": "2.4.2",
     "swig": "1.4.2",
     "twilio": "2.11.1",
-    "uuid": "3.0.1",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -54,7 +53,6 @@
     "@types/serve-favicon": "2.2.28",
     "@types/swig": "0.0.28",
     "@types/twilio": "0.0.8",
-    "@types/uuid": "2.0.29",
     "awesome-typescript-loader": "3.1.2",
     "source-map-loader": "0.2.1",
     "tslint": "5.0.0",

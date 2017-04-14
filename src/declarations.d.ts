@@ -1,5 +1,4 @@
 type _ = any;
-type UUID = string;
 
 declare module 'acm' {
     namespace config {

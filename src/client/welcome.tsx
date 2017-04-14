@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import { css } from 'aphrodite';
 import { common } from './styles';
 
 type Props = {
@@ -7,21 +7,10 @@ type Props = {
     className?: string;
 };
 
-const styles = StyleSheet.create({
-    dearme_img: {
-        backgroundImage: 'url(/assets/images/dearme.png)',
-        height: '130px',
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: '50%',
-        width: '650px',
-    },
-});
-
 export const WelcomeComponent = ({ onComplete, className }: Props) =>
     <div className={className}>
         <div className={css(common.text_centered)}>
-            <div className={css(styles.dearme_img)}></div>
+            <div className={css(common.large_text)}>dear me,</div>
             <div className={css(common.med_space_but_a_little_smaller)}></div>
 
             <section className={css(common.small_text)}>

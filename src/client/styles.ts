@@ -1,11 +1,20 @@
 import { StyleSheet } from 'aphrodite';
 
-export const small_font_size = '22px';
+export const small_font_size = '18px';
 export const med_font_size = '35px';
 export const large_font_size = '120px';
 
+export const century_schoolbook_std_font = {
+    fontFamily: 'CenturySchoolbookStd',
+    src: 'url("/assets/fonts/CenturySchoolbookStd.eot?#iefix") format("embedded-opentype"),' +
+         'url("/assets/fonts/CenturySchoolbookStd.woff2") format("woff2"),' +
+         'url("/assets/fonts/CenturySchoolbookStd.woff") format("woff"),' +
+         'url("/assets/fonts/CenturySchoolbookStd.ttf") format("truetype")'
+};
+
 export const common = StyleSheet.create({
     small_text: {
+        fontFamily: century_schoolbook_std_font,
         fontSize: small_font_size,
         lineHeight: '32px',
     },
@@ -16,7 +25,9 @@ export const common = StyleSheet.create({
     },
 
     large_text: {
+        fontFamily: century_schoolbook_std_font,
         fontSize: large_font_size,
+        letterSpacing: '-1px',
         lineHeight: large_font_size,
     },
 
@@ -33,15 +44,20 @@ export const common = StyleSheet.create({
         textTransform: 'uppercase',
         fontWeight: 'bold',
         padding: '20px',
-        minWidth: '350px',
+        minWidth: '325px',
     },
 
     med_space: {
-        height: '70px',
+        height: '60px',
     },
 
     med_space_but_a_little_smaller: {
-        height: '50px',
+        height: '40px',
+    },
+
+    wrap_it_around_a_bit: {
+        maxWidth: '400px',
+        margin: '0 auto',
     },
 
     large_space: {

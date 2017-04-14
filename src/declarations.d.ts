@@ -1,3 +1,6 @@
+type _ = any;
+type UUID = string;
+
 declare module 'acm' {
     namespace config {
         export type Configuration = <T>(str: string) => T;

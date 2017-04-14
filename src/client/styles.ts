@@ -25,6 +25,7 @@ export const common = StyleSheet.create({
     },
 
     button: {
+        letterSpacing: '4px',
         cursor: 'pointer',
         border: '1px solid #c3c3c3',
         background: 'white',
@@ -36,7 +37,11 @@ export const common = StyleSheet.create({
     },
 
     med_space: {
-        height: '90px',
+        height: '70px',
+    },
+
+    med_space_but_a_little_smaller: {
+        height: '50px',
     },
 
     large_space: {

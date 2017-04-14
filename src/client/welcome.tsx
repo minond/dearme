@@ -22,7 +22,7 @@ export const WelcomeComponent = ({ onComplete, className }: Props) =>
     <div className={className}>
         <div className={css(common.text_centered)}>
             <div className={css(styles.dearme_img)}></div>
-            <div className={css(common.med_space)}></div>
+            <div className={css(common.med_space_but_a_little_smaller)}></div>
 
             <section className={css(common.small_text)}>
                 <div>The easiest way to journal EVER.</div>

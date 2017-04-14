@@ -1,6 +1,10 @@
 title: &title dear me
 description: &description dear me app
 
+csrf:
+  cookie:
+    key: tototoken
+
 social:
   image:
 

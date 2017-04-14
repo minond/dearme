@@ -20,8 +20,9 @@ export namespace user {
 
     export function save({ phone, handle }: User): Promise<User> {
         let inactive = false;
+        let date_created = Date.now();
 
-        let user: User = { inactive, phone, handle };
+        let user: User = { inactive, phone, handle, date_created };
         console.info('saving', user);
 
         return coll()

@@ -1,7 +1,8 @@
 import { connection, Cursor, Collection } from '../device/mongo';
+import { Model } from '../device/model';
 import { config } from '../application';
 
-export interface User {
+export interface User extends Model {
     inactive?: boolean;
     phone: string | null;
     handle: string | null;

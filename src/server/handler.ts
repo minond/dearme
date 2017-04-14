@@ -9,10 +9,10 @@ export function handler_save_user(req: Request, res: Response): void {
     user.save({
         phone: req.body.phone,
         handle: req.body.handle,
-    }).then(user => {
+    }).then(() => {
         res.status(200);
         res.json({ ok: true });
-    }).catch(err => {
+    }).catch(() => {
         res.status(500);
         res.json({ ok: false });
     });

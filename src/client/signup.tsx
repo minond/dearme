@@ -40,7 +40,7 @@ export class SignupComponent extends Component<Props, SignupState> {
         let { onComplete } = this.props;
 
         let phone =
-            <div className={css(common.med_text, common.med_space, common.fade_in_up_slow)}>
+            <div className={css(common.med_text, common.large_space_but_a_little_smaller, common.fade_in_up_slow)}>
                 <span>my phone number is</span>
                 <input type="text"
                     autoFocus={true}

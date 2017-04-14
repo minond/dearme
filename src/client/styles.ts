@@ -55,13 +55,17 @@ export const common = StyleSheet.create({
         height: '40px',
     },
 
-    wrap_it_around_a_bit: {
-        maxWidth: '400px',
-        margin: '0 auto',
+    large_space_but_a_little_smaller: {
+        height: '110px',
     },
 
     large_space: {
         height: '125px',
+    },
+
+    wrap_it_around_a_bit: {
+        maxWidth: '400px',
+        margin: '0 auto',
     },
 
     text_input: {

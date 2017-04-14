@@ -4,8 +4,8 @@ import { config } from '../application';
 
 export interface User extends Model {
     inactive?: boolean;
+    handle?: string | null;
     phone: string | null;
-    handle: string | null;
 }
 
 export namespace user {
@@ -18,7 +18,7 @@ export namespace user {
         return coll().find({ inactive: false });
     }
 
-    export function save({ phone, handle }: User): Promise<User> {
+    export function save({ phone, handle = null }: User): Promise<User> {
         let inactive = false;
         let date_created = Date.now();
 

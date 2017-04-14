@@ -10,7 +10,7 @@ type Props = {
 
 export type SignupState = {
     phone: string | null,
-    twitter: string | null,
+    handle: string | null,
 };
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ export class SignupComponent extends Component<Props, SignupState> {
         super(props);
         this.state = {
             phone: null,
-            twitter: null,
+            handle: null,
         };
     }
 
@@ -32,8 +32,8 @@ export class SignupComponent extends Component<Props, SignupState> {
         this.setState({ phone });
     }
 
-    changedTwitter(twitter: string | null) {
-        this.setState({ twitter });
+    changedHandle(handle: string | null) {
+        this.setState({ handle });
     }
 
     render() {
@@ -48,13 +48,13 @@ export class SignupComponent extends Component<Props, SignupState> {
                     onChange={(e) => this.changedPhone(e.target.value)} />
             </div>;
 
-        let twitter = !this.state.phone ? <div></div> :
+        let handle = !this.state.phone ? <div></div> :
             <div className={css(common.fade_in_up_slow)}>
                 <div className={css(common.med_text, common.large_space)}>
                     <span>my instagram handle is @</span>
                     <input type="text"
                         className={css(common.text_input, styles.pull_in)}
-                        onChange={(e) => this.changedTwitter(e.target.value)} />
+                        onChange={(e) => this.changedHandle(e.target.value)} />
                 </div>
                 <div className={css(common.med_text)}>
                     <button className={css(common.button)}
@@ -65,7 +65,7 @@ export class SignupComponent extends Component<Props, SignupState> {
         return (
             <div className={this.props.className}>
                 {phone}
-                {twitter}
+                {handle}
             </div>
         );
     }

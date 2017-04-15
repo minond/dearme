@@ -4,9 +4,9 @@ import { Configuration, config as default_config } from '../application';
 export type Cursor<T> = Cursor<T>;
 export type Collection = Collection;
 
-export const [ connection ]: [Db, _] = connect(default_config);
+export const [ , connection ]: [_, Db] = connect(default_config);
 
-export function connect(config: Configuration = default_config): [Db, Promise<Db>] {
+export function connect(config: Configuration = default_config): [Promise<Db>, Db] {
     const host = config<string>('mongo.host');
     const port = config<number>('mongo.port');
     const database = config<string>('mongo.database');
@@ -20,5 +20,5 @@ export function connect(config: Configuration = default_config): [Db, Promise<Db
             return db;
         });
 
-    return [db, connecting];
+    return [connecting, db];
 }

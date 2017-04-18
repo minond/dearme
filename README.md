@@ -21,6 +21,7 @@ export TWILIO_AUTH_TOKEN=          # your twilio account auth token
 export TWILIO_SERVICE_SID=         # your twilio messaging service id
 ```
 
-### build
+### building and test
 
-run `make`.
+run `make` to build everything. `make lint test` runs the linters and all
+tests.

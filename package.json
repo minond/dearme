@@ -56,7 +56,11 @@
     "@types/swig": "0.0.28",
     "@types/twilio": "0.0.8",
     "awesome-typescript-loader": "3.1.2",
+    "enzyme": "2.8.2",
+    "jsdom": "9.12.0",
+    "react-addons-test-utils": "15.5.1",
     "source-map-loader": "0.2.1",
+    "tape": "4.6.3",
     "tslint": "5.0.0",
     "typescript": "2.2.2",
     "webpack": "2.3.3"

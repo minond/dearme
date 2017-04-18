@@ -8,10 +8,10 @@ import { ConfirmComponent } from './confirm';
 import { ErrorComponent } from './error';
 import { post } from './http';
 
-enum Page { WELCOME, SIGNUP, CONFIRM, ERROR }
+export enum Page { WELCOME, SIGNUP, CONFIRM, ERROR }
 
+export type HomeState = { page: Page; };
 type Props = {};
-type State = { page: Page; };
 
 const styles = StyleSheet.create({
     container: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export class HomeComponent extends Component<Props, State> {
+export class HomeComponent extends Component<Props, HomeState> {
     constructor(props: Props) {
         super(props);
         this.state = { page: Page.WELCOME };

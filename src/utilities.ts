@@ -9,6 +9,6 @@ export function maybe<T>(val: T | null) {
 export function thenable<T>(fn: () => _): Promise<T> {
     return new Promise<T>((resolve, reject) => {
         fn().then((res: T) => resolve(res))
-            .catch((err: Error) => reject(err))
+            .catch((err: Error) => reject(err));
     });
 }

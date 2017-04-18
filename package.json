@@ -18,6 +18,7 @@
   "homepage": "https://github.com/minond/dearme#readme",
   "dependencies": {
     "acm": "2.0.1",
+    "amqplib": "0.5.1",
     "aphrodite": "1.2.0",
     "body-parser": "1.17.1",
     "compression": "1.6.2",
@@ -38,6 +39,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
+    "@types/amqplib": "0.5.1",
     "@types/aphrodite": "0.5.5",
     "@types/body-parser": "1.16.3",
     "@types/compression": "0.0.33",

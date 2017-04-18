@@ -1,4 +1,5 @@
 npm = npm
+node = node
 webpack = ./node_modules/.bin/webpack
 tslint = ./node_modules/.bin/tslint
 tsc = ./node_modules/.bin/tsc
@@ -8,6 +9,17 @@ dir_src = src
 dir_dist = dist
 dir_conf = config
 dir_script = script
+
+opt_webpack_config = --config $(dir_conf)/webpack.js
+opt_tsc_config= @$(dir_conf)/tsconfig.txt
+
+opt_tsc_worker = --outDir $(dir_dist) \
+	$(dir_src)/declarations.d.ts \
+	$(dir_src)/worker/main.ts
+
+opt_tsc_server = --outDir $(dir_dist) \
+	$(dir_src)/declarations.d.ts \
+	$(dir_src)/server/main.ts
 
 build: clean build-server build-worker build-client
 
@@ -24,28 +36,28 @@ lint:
 		$(dir_src)/**/*.tsx
 
 watch-client:
-	$(webpack) --config $(dir_conf)/webpack.js --watch
+	$(webpack) $(opt_webpack_config) --watch
 
 build-client:
-	$(webpack) --config $(dir_conf)/webpack.js
+	$(webpack) $(opt_webpack_config)
+
+watch-server:
+	$(tsc) $(opt_tsc_config) $(opt_tsc_server) --watch
 
 build-server:
-	$(tsc) @$(dir_conf)/tsconfig.txt \
-		--outDir $(dir_dist) \
-		$(dir_src)/declarations.d.ts \
-		$(dir_src)/server/main.ts
+	$(tsc) $(opt_tsc_config) $(opt_tsc_server)
+
+watch-worker:
+	$(tsc) $(opt_tsc_config) $(opt_tsc_worker) --watch
 
 build-worker:
-	$(tsc) @$(dir_conf)/tsconfig.txt \
-		--outDir $(dir_dist) \
-		$(dir_src)/declarations.d.ts \
-		$(dir_src)/worker/main.ts
+	$(tsc) $(opt_tsc_config) $(opt_tsc_worker)
 
 worker:
-	node dist/worker/main.js
+	$(node) $(dir_dist)/worker/main.js
 
 server:
-	node dist/server/main.js
+	$(node) $(dir_dist)/server/main.js
 
 pm:
 	$(pm2) start config/processes.yml --no-daemon

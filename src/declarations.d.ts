@@ -9,6 +9,23 @@ declare module 'acm' {
     export = config;
 }
 
+declare module 'react-input-mask' {
+    import { HTMLAttributes, Component } from 'react';
+
+    type State = {
+        value: string;
+    };
+
+    type Props = HTMLAttributes<{ value: string }> & {
+        mask: string;
+        maskChar: string;
+    };
+
+    namespace InputElement {}
+    class InputElement extends Component<Props, State> {}
+    export = InputElement;
+}
+
 declare module 'tape' {
     type Tests = (runner: Runner) => void;
     type Runner = {

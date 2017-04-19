@@ -36,8 +36,8 @@ export const common = StyleSheet.create({
     },
 
     button: {
+        transition: 'color .5s',
         letterSpacing: '4px',
-        cursor: 'pointer',
         border: '1px solid #c3c3c3',
         background: 'white',
         fontSize: small_font_size,
@@ -45,6 +45,10 @@ export const common = StyleSheet.create({
         fontWeight: 'bold',
         padding: '20px',
         minWidth: '325px',
+
+        ':not([disabled])': {
+            cursor: 'pointer',
+        }
     },
 
     med_space: {
@@ -80,7 +84,7 @@ export const common = StyleSheet.create({
         paddingLeft: '5px',
         fontSize: med_font_size,
         outline: 0,
-        width: '180px',
+        width: '245px',
     },
 
     fade_in_up_slow: {

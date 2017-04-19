@@ -4,6 +4,13 @@ export const small_font_size = '18px';
 export const med_font_size = '35px';
 export const large_font_size = '120px';
 
+export const poppins_bold_font = {
+    fontFamily: 'Poppins',
+    src: 'local("Poppins Bold"), ' +
+         'local("Poppins-Bold"), ' +
+         'url("/assets/fonts/Poppins-Bold.woff2") format("woff2")'
+};
+
 export const century_schoolbook_std_font = {
     fontFamily: 'CenturySchoolbookStd',
     src: 'url("/assets/fonts/CenturySchoolbookStd.eot?#iefix") format("embedded-opentype"),' +
@@ -36,6 +43,7 @@ export const common = StyleSheet.create({
     },
 
     button: {
+        fontFamily: poppins_bold_font,
         transition: 'color .5s',
         letterSpacing: '4px',
         border: '1px solid #c3c3c3',

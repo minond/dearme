@@ -1,5 +1,3 @@
-/// <reference path="../declarations.d.ts"/>
-
 import * as React from 'react';
 import { Component } from 'react';
 import * as InputElement from 'react-input-mask';

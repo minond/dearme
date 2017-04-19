@@ -4,15 +4,15 @@ import { css } from 'aphrodite';
 import { common } from './styles';
 
 type Props = {
-    onComplete: (signup: SignupState) => void;
+    onComplete: (signup: State) => void;
     className?: string;
 };
 
-export type SignupState = {
+export type State = {
     phone: string | null
 };
 
-export class SignupComponent extends Component<Props, SignupState> {
+export class SignupComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = { phone: null };

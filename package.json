@@ -33,6 +33,7 @@
     "pm2": "2.4.4",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-input-mask": "0.8.0",
     "serve-favicon": "2.4.2",
     "swig": "1.4.2",
     "twilio": "2.11.1",

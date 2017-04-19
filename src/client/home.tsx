@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { common } from './styles';
-import { SignupComponent, SignupState } from './signup';
+import { SignupComponent, State as SignupState } from './signup';
 import { WelcomeComponent } from './welcome';
 import { ConfirmComponent } from './confirm';
 import { ErrorComponent } from './error';
@@ -10,7 +10,7 @@ import { post } from './http';
 
 export enum Page { WELCOME, SIGNUP, CONFIRM, ERROR }
 
-export type HomeState = { page: Page; };
+export type State = { page: Page; };
 type Props = {};
 
 const styles = StyleSheet.create({
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export class HomeComponent extends Component<Props, HomeState> {
+export class HomeComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = { page: Page.WELCOME };

@@ -15,7 +15,7 @@ dir_test = test
 opt_webpack_config = --config $(dir_conf)/webpack.js
 opt_tsc_config = @$(dir_conf)/tsconfig.txt
 
-opt_tsc_worker = --outDir $(dir_dist) \
+opt_tsc_worker = --outDir $(dir_dist)/worker \
 	$(dir_src)/declarations.d.ts \
 	$(dir_src)/worker/main.ts
 

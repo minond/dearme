@@ -1,11 +1,8 @@
 {
   "name": "dearme",
   "version": "1.0.0",
-  "description": "",
+  "description": "the easiest way to journal ever. we send a few texts a day. you answer. we add your instagram photos. you have a journal.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/minond/dearme.git"

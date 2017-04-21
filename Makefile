@@ -1,4 +1,4 @@
-npm = npm
+yarn = yarn
 node = node
 webpack = ./node_modules/.bin/webpack
 tslint = ./node_modules/.bin/tslint
@@ -32,7 +32,7 @@ opt_tsc_client_tests = --jsx react \
 build: clean build-server build-worker build-test build-client
 
 install:
-	@$(npm) install
+	@$(yarn) install
 
 clean:
 	-rm -r $(dir_dist)

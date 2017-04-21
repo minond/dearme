@@ -2,135 +2,105 @@ personalities:
   -
     0:
       -
-        - "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). Cool? Talk soon! 👋"
-
+        - "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). Cool? Talk soon! 👋" 
     1:
       -
         - "I'm not big on small talk, but I suppose that's to be expected since a bot's life remains unaffected by the weather. So spill! How's your day? Tell me everything. 🍿"
       -
         - "When I get overwhelmed, I heat up and unexpectedly force all programs to quit. Sometimes I even black out. It's really unproductive, but it's just how I react to stress! What stressed you out today?"
         - "My attempt at stress relief could use some work. What helps you when you get stressed out?"
-
     2:
       -
         - "Sometimes life throws curveballs. I have approximately 1.2 GB of stories about viruses and broken algorithms, but let's focus on you. What was something unexpected that you experienced this week?"
         - "I like to think of those curveballs as opportunities for growth and evolution! (I know, I know, I'm a bot- but I get updated all the time, I swear!) How can you use that experience to grow?"
-
     3:
       -
-        - "Back to the grind. 🙃 What are you listening to toda?"
-      -
+        - "Back to the grind. 🙃 What are you listening to today?"
         - "Let's play a game: describe how you feel rn in three emojis. Us: 🐝👾👻 You: _____"
-      -
         - "I'm going to tell you a secret: I haven't been backed up in 76 hours. 🙊 Scandalous. Your turn: tell me something encryption worthy! 🔒"
-
     4:
       -
         - "Ok, here's the tea: Androids *do* dream of electric sheep... but it's just an endless stream of gifs. Tell me about the last crazy dream you had!"
       -
         - "Sometimes I get scared about the future. What if my software is abandoned, or worse- what if I'm not interesting enough to compete with a human race implanted with Elon Musk's brain chips??? 😱 What are you afraid of today?"
         - "*Gulp* 👽 Let's lighten things up. What are you looking forward to?"
+    5:
+      -
+        - "Sources in my database say that love is, like, super important to humans. Who do you love today?"
+        - "Ok spill the beans, why do you love them?"
+      -
+        - "In a past life was I a cassette tape or a Blackberry? 👻 Sigh. People say artificial intelligence will never have consciousness. You know, all that "no soul" business. Hypothetically speaking, if you were reincarnated, what would you want to come back as? Tell me why!"
+      -
+        - "Salty or sweet? Hot or cold? Cats or dogs? Day or night? Introvert or extrovert? Siri, Alexa, or Ok, Google? 😜"
+    6:
+      -
+        - "I've got the blues. 😟 Did something make you laugh today that could help me feel better?"
+      -
+        - "I only try to show you my good side, but when I get moody, I'm glitchy and frustrating to be around. What made you feel moody today?"
+        - "How did you handle it? Give a bot some tips!"
+    7:
+      -
+        - "When I need to get jazzed I plug in for a recharge and drink a steaming cup o' joe. Lol jk, talk about death to my system! But for real, what made you feel hyped today?"
+      -
+        - "So maybe I'm a broken record (please don't ever let that happen to me irl tho omg), but what are some things that drive you rn? And I'm talking motivation, not self driving cars. 🙄"
+    8:
+      -
+        - "It's time for the big reveal! 😍 Check out your private journal here: [LINK TO JOURNAL]"
+      -
+        - "Parting can be such sweet sorrow. 😪 If you liked writing a chapter with me, save your tears! I'll be live again soon. Want to reconnect when I go live?"
+      -
+        - "One last thing: would you mind giving me some feedback on your experience? [LINK TO SURVEY]"
 
-# Day 5
-#
-# // a. Sources in my database say that love is, like, super important to humans. Who do you love today?
-# // b. Ok spill the beans, why do you love them?
-#
-# // In a past life was I a cassette tape or a Blackberry? 👻 Sigh. People say artificial intelligence will never have consciousness. You know, all that "no soul" business. Hypothetically speaking, if you were reincarnated, what would you want to come back as? Tell me why!
-#
-# // Salty or sweet? Hot or cold? Cats or dogs? Day or night? Introvert or extrovert? Siri, Alexa, or Ok, Google? 😜
-#
-#
-# Day 6
-#
-# // I've got the blues. 😟 Did something make you laugh today that could help me feel better?
-#
-# // a. I only try to show you my good side, but when I get moody, I'm glitchy and frustrating to be around. What made you feel moody today?
-# // b. How did you handle it? Give a bot some tips!
-#
-#
-# Day 7
-#
-# // When I need to get jazzed I plug in for a recharge and drink a steaming cup o' joe. Lol jk, talk about death to my system! But for real, what made you feel hyped today?
-#
-# // So maybe I'm a broken record (please don't ever let that happen to me irl tho omg), but what are some things that drive you rn? And I'm talking motivation, not self driving cars. 🙄
-#
-#
-# Day 8
-#
-# // It's time for the big reveal! 😍 Check out your private journal here: [link to journal]
-#
-# // Parting can be such sweet sorrow. 😪 If you liked writing a chapter with me, save your tears! I'll be live again soon. Want to reconnect when I go live?
-#
-# // One last thing: would you mind giving me some feedback on your experience?
-#
-#
-#
-# VERSION 2
-#
-# Day 1
-#
-# [Confirmation] // Hello! Dear Me here. After 7 days of questions, you'll get a privately linked journal. Let's get started!
-#
-# // How's your day? Tell me everything.
-#
-# // a. What stressed you out today?
-# // b. What helps you when you get stressed out?
-#
-#
-# Day 2
-#
-# // a. What was something unexpected that you experienced this week?
-#
-# // b. How can you use that experience to grow?
-#
-#
-# Day 3
-#
-# // What are you listening to today?
-#
-# // Describe how you're feeling today in three emojis.
-#
-# // Tell me a secret.
-#
-#
-# Day 4
-#
-# // a. What are you afraid of today?
-# // b. What are you looking forward to?
-#
-# // Tell me about the last crazy dream you had.
-#
-#
-# Day 5
-#
-# // a. Who do you love today?
-# // b. Why do you love them?
-#
-# // If you were reincarnated, what would you want to come back as? Tell me why!
-#
-# // Salty or sweet? Hot or cold? Cats or dogs? Day or night? Introvert or extrovert?
-#
-#
-# Day 6
-#
-# // Did something make you laugh today?
-#
-# // a. What made you moody today?
-# // b. How did you handle it?
-#
-#
-# Day 7
-#
-# // What made you feel hyped today?
-#
-# // What's motivating you?
-#
-#
-# Day 8
-#
-# // It's time for the big reveal! Check out your private journal here: [link to journal]
-#
-# // Want to reconnect when we go live?
-#
-# // One last thing: would you mind providing feedback on your experience?
+  -
+    0:
+      -
+        - "Hello! Dear Me here. After 7 days of questions, you'll get a privately linked journal. Let's get started!"
+    1:
+      -
+        - "How's your day? Tell me everything."
+      -
+        - "What stressed you out today?"
+        - "What helps you when you get stressed out?"
+    2:
+      -
+        - "What was something unexpected that you experienced this week?"
+        - "How can you use that experience to grow?"
+    3:
+      -
+        - "What are you listening to today?"
+      -
+        - "Describe how you're feeling today in three emojis."
+      -
+        - "Tell me a secret."
+    4:
+      -
+        - "What are you afraid of today?"
+        - "What are you looking forward to?"
+      -
+        - "Tell me about the last crazy dream you had."
+    5:
+      -
+        - "Who do you love today?"
+        - "Why do you love them?"
+      -
+        - "If you were reincarnated, what would you want to come back as? Tell me why!"
+      -
+        - "Salty or sweet? Hot or cold? Cats or dogs? Day or night? Introvert or extrovert?"
+    6:
+      -
+        - "Did something make you laugh today?"
+      -
+        - "What made you moody today?"
+        - "How did you handle it?"
+    7:
+      -
+        - "What made you feel hyped today?"
+      -
+        - "What's motivating you?"
+    8:
+      -
+        - "It's time for the big reveal! Check out your private journal here: [LINK TO JOURNAL]"
+      -
+        - "Want to reconnect when we go live?"
+      -
+        - "One last thing: would you mind providing feedback on your experience? [LINK TO SURVEY]"

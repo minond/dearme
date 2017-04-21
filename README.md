@@ -3,9 +3,17 @@ your instagram photos. you have a journal.
 
 ### messaging rules
 
-1. send group 1 at noon
-2. group 2 at 3:30pm
-3. and group 3 at 9pm
+Three text groups go out at:
+- 12:00 PM
+- 3:30 PM
+- 8:00 PM
+
+If there are only two groups send them at:
+- 12:00 PM
+- 8:00 PM
+
+If there is only one group send it at:
+- 8:00 PM
 
 ### running the app
 

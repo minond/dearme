@@ -1,6 +1,12 @@
 the easiest way to journal ever. we send a few texts a day. you answer. we add
 your instagram photos. you have a journal.
 
+### messaging rules
+
+1. send group 1 at noon
+2. group 2 at 3:30pm
+3. and group 3 at 9pm
+
 ### running the app
 
 ```bash

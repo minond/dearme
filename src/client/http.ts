@@ -126,15 +126,15 @@ export interface Response {
 
 export const HEADER_ACCEPT = 'Accept';
 export const HEADER_CONTENT_TYPE = 'Content-Type';
-export const HEADER_CSRF_TOKEN = 'x-csrf-token';
+export const HEADER_CSRF_TOKEN = 'X-Csrf-Token';
 
 export const TYPE_JSON = 'application/json';
 export const TYPE_PLAIN = 'plain/text';
 
-function get_csrf_token(): string {
+const get_csrf_token = (): string => {
     var match = document.cookie.match(/tototoken=(.+)/) || ['', ''];
     return match[1].split(';')[0];
-}
+};
 
 export const request = (url: string, conf: Request = {}): Promise<Response> => {
     return fetch(url, conf).then((res) => {
@@ -151,8 +151,9 @@ export const post = (url: string, raw_body: object = {}, conf: Request = {}): Pr
     let body = JSON.stringify(raw_body);
     let method = Method.POST;
     let cache = Cache.NO_CACHE;
+    let credentials = Credentials.SAME_ORIGIN;
 
-    let updates = { method, body, headers, cache };
+    let updates = { method, body, headers, cache, credentials };
     let override = Object.assign({}, conf, updates);
 
     headers.set(HEADER_ACCEPT, TYPE_JSON);

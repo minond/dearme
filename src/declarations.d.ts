@@ -1,5 +1,24 @@
 type _ = any;
 
+declare module 'csrf' {
+    namespace Tokens {}
+
+    interface Options {
+        saltLength: number;
+        secretLength: number;
+    }
+
+    class Tokens {
+        new(options: Options): Tokens;
+        create(secret: string): string;
+        secret(callback: (ret: string) => void): Promise<string>;
+        secretSync(): string;
+        verify(secret: string, token: string): boolean;
+    }
+
+    export = Tokens;
+}
+
 declare module 'acm' {
     namespace config {
         export type Configuration = <T>(str: string) => T;

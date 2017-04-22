@@ -1,14 +1,11 @@
 title: &title dear me
 description: &description dear me app
 
-csrf:
-  cookie:
-    key: tototoken
-
 social:
   image:
 
 server:
+  csrf: on
   cookies: on
   session: on
   body_parsing: on

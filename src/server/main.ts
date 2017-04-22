@@ -1,19 +1,17 @@
 import * as RateLimit from 'express-rate-limit';
-// import * as Csurf from 'csurf';
 
 import { user } from '../repository/user';
 import { connecting } from '../device/mongo';
 import { config, application } from '../application';
 
 const server = application(config);
-const limit = new RateLimit(config<RateLimit.Options>('ratelimit.default'));
-// const csrf = Csurf({ cookie: config<Csurf.CookieOptions>('app.csrf.cookie') });
+const limit = new RateLimit(config('ratelimit.default'));
 
-server.get('/', /*csrf,*/ (req, res) =>
+server.get('/', (req, res) =>
     res.render('index'));
 
 Promise.all([connecting]).then(([db]) => {
-    server.post('/signup', limit, /*csrf,*/ (req, res) => {
+    server.post('/signup', limit, (req, res) => {
         user(db).save({ phone: req.body.phone })
             .then(() => {
                 res.status(200);

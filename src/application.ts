@@ -1,6 +1,7 @@
-import { Express, Request, Response, Router } from 'express';
+import { Express, Request, Response, Router, RequestHandler } from 'express';
 import { Configuration } from 'acm';
 
+import * as Tokens from 'csrf';
 import * as express from 'express';
 import * as config from 'acm';
 import { static as serve } from 'express';
@@ -65,6 +66,7 @@ export function application(config: Configuration): Application {
     const BODY_PARSING = config<boolean>('app.server.body_parsing');
     const SESSION = config<boolean>('app.server.session');
     const COOKIES = config<boolean>('app.server.cookies');
+    const CSRF = config<boolean>('app.server.csrf');
 
     const KEY_COOKIE = config<string>('key.cookie');
     const KEY_SESSION = config<string>('key.session');
@@ -115,5 +117,45 @@ export function application(config: Configuration): Application {
         }));
     }
 
+    if (CSRF) {
+        app.use(csrf());
+    }
+
     return app;
+}
+
+export function csrf(): RequestHandler {
+    const tokens = new Tokens();
+
+    var secret: string;
+    var token: string;
+
+    return (req, res, next) => {
+        switch (req.method) {
+            case 'POST':
+            case 'PUT':
+                secret = req.session ? req.session.secret : '';
+                token = req.headers['x-csrf-token'];
+
+                if (!tokens.verify(secret, token)) {
+                    next(new Error());
+                    return;
+                }
+
+                break;
+
+            case 'GET':
+                secret = tokens.secretSync();
+                token = tokens.create(secret);
+
+                if (req.session) {
+                    req.session.secret = secret;
+                }
+
+                res.cookie('tototoken', token);
+                break;
+        }
+
+        next();
+    };
 }

@@ -6,7 +6,7 @@ export type ObjectID = ObjectID;
 export type Cursor<T> = Cursor<T>;
 export type Collection = Collection;
 
-export const connecting: Promise<Db> = connect(default_config);
+export const mongo: Promise<Db> = connect(default_config);
 
 export function connect(config: Configuration = default_config): Promise<Db> {
     const host = config<string>('mongo.host');

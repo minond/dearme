@@ -88,6 +88,7 @@ declare module 'enzyme' {
         text(): string;
         state(): S;
         props(): P;
+        instance<T>(): T;
     };
 
     export function mount<P, S>(elem: _): WrappedComponent<P, S>;

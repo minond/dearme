@@ -2,13 +2,32 @@ import { connect as client, Channel, Connection } from 'amqplib';
 import { Configuration, config as default_config } from '../application';
 import { thenable } from '../utilities';
 
-export type Channel = Channel;
 export type Connection = Connection;
+export type Channel = Channel;
+export type LazyChannel = () => Promise<Channel>;
+export type Channels = { messages: LazyChannel };
 
 export const amqp: Promise<Connection> = connect(default_config);
+export const channel = channels(amqp);
 
 export function connect(config: Configuration = default_config): Promise<Connection> {
     const URL = config<string>('amqp.url');
 
     return thenable(() => client(URL));
+}
+
+export function channels(conn: Promise<Connection>): Channels {
+    return {
+        messages: queue('messages', conn),
+    };
+}
+
+export function queue(name: string, conn: Promise<Connection>): () => Promise<Channel> {
+    return () => conn.then((conn) => {
+        return conn.createChannel().then((ch: Channel) => {
+            return ch.assertQueue(name).then(() => {
+                return ch;
+            });
+        });
+    }) as Promise<_>;
 }

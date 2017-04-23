@@ -1,1 +1,4 @@
 url: 'amqp://localhost'
+
+queues:
+  messages: messages

@@ -6,7 +6,7 @@ import { rand } from '../utilities';
 const PERSONALITIES = [0, 1];
 
 export interface User extends Model {
-    phone: string | null;
+    phone: string;
     inactive: boolean;
     assigned_personality: number;
 }
@@ -18,7 +18,7 @@ export function user(db: Db): Repository<User> {
     const all = (): Cursor<User> =>
         coll().find({ inactive: false });
 
-    const save = ({ phone }: { phone: string }): Promise<Readonly<User>> => {
+    const save = ({ phone }: { phone: string }): Promise<User> => {
         let inactive = false;
         let date_created = Date.now();
         let assigned_personality = rand(PERSONALITIES);

@@ -16,3 +16,7 @@ export function thenable<T>(fn: () => _): Promise<T> {
 export function rand<T>(items: T[]): T {
   return items[ Math.floor(Math.random() * items.length) ];
 }
+
+export function buffer(obj: object): Buffer {
+  return new Buffer(JSON.stringify(obj));
+}

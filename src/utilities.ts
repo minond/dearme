@@ -12,3 +12,7 @@ export function thenable<T>(fn: () => _): Promise<T> {
             .catch((err: Error) => reject(err));
     });
 }
+
+export function rand<T>(items: T[]): T {
+  return items[ Math.floor(Math.random() * items.length) ];
+}

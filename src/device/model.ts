@@ -7,5 +7,5 @@ export interface Model {
 
 export interface Repository<T extends Model> {
     all(): Cursor<T>;
-    save(obj: T): Promise<T>;
+    save(obj: object): Promise<T>;
 }

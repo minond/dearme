@@ -3,9 +3,7 @@ import { Component } from 'react';
 import * as InputElement from 'react-input-mask';
 import { css } from 'aphrodite';
 import { common } from './styles';
-
-const PHONE_MASK = '+1 999 999 9999';
-const PHONE_TEST = /^\+1 \d\d\d \d\d\d \d\d\d\d$/;
+import { PHONE_MASK, valid_phone } from '../validation';
 
 type Props = {
     onComplete: (signup: State) => void;
@@ -27,7 +25,7 @@ export class SignupComponent extends Component<Props, State> {
     }
 
     hasValidState(): boolean {
-        return !!this.state.phone && PHONE_TEST.test(this.state.phone);
+        return valid_phone(this.state.phone);
     }
 
     onSubmit() {

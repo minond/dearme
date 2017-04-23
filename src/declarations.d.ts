@@ -74,27 +74,6 @@ declare module 'tape' {
     export = tape;
 }
 
-declare module 'enzyme' {
-    import { Component, DOMElement } from 'react';
-
-    export type WrappedComponent<P, S> = {
-        length: number;
-        find<P2, S2>(selector: string): WrappedComponent<P2, S2>;
-        contains<P2, S2 extends Element>(elem: DOMElement<P2, S2>): boolean;
-        props(): { [index: string]: string };
-        setProps(props: P): WrappedComponent<P, S>;
-        setState(state: S): WrappedComponent<P, S>;
-        simulate(ev: string): void;
-        text(): string;
-        state(): S;
-        props(): P;
-        instance<T>(): T;
-    };
-
-    export function mount<P, S>(elem: _): WrappedComponent<P, S>;
-    export function shallow<P, S>(elem: _): WrappedComponent<P, S>;
-}
-
 declare module 'jsdom' {
     export type JSDOM = { defaultView: _ };
     export function jsdom(selector: string): JSDOM;

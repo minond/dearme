@@ -33,7 +33,7 @@ Promise.all([mongo, channel.messages()]).then(([db, messages]) => {
                     next(error(503, 'could not queue message'));
                 }
             })
-            .catch((err) => next(error(503, err.message)))
+            .catch((err) => next(error(503, err.message)));
     });
 
     server.listen(3000, () =>

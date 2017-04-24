@@ -4,6 +4,7 @@ import { config } from '../application';
 import { buffer } from '../utilities';
 
 export enum Message { CONFIRMATION, DAY }
+export type QueuedMessage = { phone: string, body: string };
 
 const QUEUE = config<string>('amqp.queues.messages');
 const QUESTIONS = config<string[][][][]>('questions.personalities');
@@ -19,7 +20,7 @@ export function message(chan: Channel) {
 
             return new Promise<boolean>((resolve, reject) => {
                 let { phone } = user;
-                let item = { phone, body };
+                let item: QueuedMessage = { phone, body };
                 let buff = buffer(item);
 
                 if (!phone) {

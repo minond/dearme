@@ -1,11 +1,14 @@
-import { connect as client, Channel, Connection } from 'amqplib';
+import { connect as client, Channel, Connection, Message } from 'amqplib';
 import { Configuration, config as default_config } from '../application';
 import { thenable } from '../utilities';
 
 export type Connection = Connection;
+export type Message = Message;
 export type Channel = Channel;
 export type LazyChannel = () => Promise<Channel>;
 export type Channels = { messages: LazyChannel };
+
+const MESSAGES_QUEUE = default_config<string>('amqp.queues.messages');
 
 export const amqp: Promise<Connection> = connect(default_config);
 export const channel = channels(amqp);
@@ -18,7 +21,7 @@ export function connect(config: Configuration = default_config): Promise<Connect
 
 export function channels(conn: Promise<Connection>): Channels {
     return {
-        messages: queue('messages', conn),
+        messages: queue(MESSAGES_QUEUE, conn),
     };
 }
 

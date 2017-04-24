@@ -1,3 +1,8 @@
 apps:
   - script: dist/server/main.js
     name: server
+
+  - script: dist/worker/worker/texter.js
+    name: texter
+    instances: 3
+    exec_mode: cluster

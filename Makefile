@@ -17,7 +17,7 @@ opt_tsc_config = @$(dir_conf)/tsconfig.txt
 
 opt_tsc_worker = --outDir $(dir_dist)/worker \
 	$(dir_src)/declarations.d.ts \
-	$(dir_src)/worker/main.ts
+	$(dir_src)/worker/texter.ts
 
 opt_tsc_server = --outDir $(dir_dist) \
 	$(dir_src)/declarations.d.ts \
@@ -73,12 +73,6 @@ watch-test:
 
 build-test:
 	$(tsc) $(opt_tsc_config) $(opt_tsc_client_tests)
-
-worker:
-	$(node) $(dir_dist)/worker/main.js
-
-server:
-	$(node) $(dir_dist)/server/main.js
 
 pm:
 	$(pm2) start config/processes.yml --no-daemon

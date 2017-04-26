@@ -5,7 +5,7 @@ import { user } from '../repository/user';
 import { message, Message } from '../controller/message';
 import { mongo } from '../device/mongo';
 import { channel } from '../device/amqp';
-import { config, application } from '../application';
+import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
 
 const server = application(config);
@@ -15,7 +15,9 @@ server.get('/', (req, res) =>
     res.render('index'));
 
 Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
-    server.post('/signup', limit, (req, res, next) => {
+    let msgctrl = message(chan);
+
+    server.post('/signup', csrf(), limit, (req, res, next) => {
         let { phone } = req.body;
 
         if (!valid_phone(phone)) {
@@ -24,7 +26,7 @@ Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
         }
 
         user(db).save({ phone })
-            .then((user) => message(chan).schedule(user, Message.CONFIRMATION))
+            .then((user) => msgctrl.schedule(user, Message.CONFIRMATION))
             .then((ok) => res.json({ ok }))
             .catch((err) => next(error(503, err.message)));
     });

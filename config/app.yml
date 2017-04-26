@@ -5,7 +5,6 @@ social:
   image:
 
 server:
-  csrf: on
   cookies: on
   session: on
   body_parsing: on

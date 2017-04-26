@@ -66,7 +66,6 @@ export function application(config: Configuration): Application {
     const BODY_PARSING = config<boolean>('app.server.body_parsing');
     const SESSION = config<boolean>('app.server.session');
     const COOKIES = config<boolean>('app.server.cookies');
-    const CSRF = config<boolean>('app.server.csrf');
 
     const KEY_COOKIE = config<string>('key.cookie');
     const KEY_SESSION = config<string>('key.session');
@@ -115,10 +114,6 @@ export function application(config: Configuration): Application {
             saveUninitialized: false,
             resave: false,
         }));
-    }
-
-    if (CSRF) {
-        app.use(csrf());
     }
 
     return app;

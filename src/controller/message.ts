@@ -1,4 +1,5 @@
 import { Channel } from '../device/amqp';
+import { message as sms_message, response as sms_response } from '../device/sms';
 import { User } from '../repository/user';
 import { config } from '../application';
 import { buffer } from '../utilities';
@@ -11,6 +12,14 @@ const QUESTIONS = config<string[][][][]>('questions.personalities');
 
 export function message(chan: Channel) {
     return {
+        response(msg: string): string {
+            return sms_response(sms_message(msg)).toString();
+        },
+
+        no_response(): string {
+            return sms_response().toString();
+        },
+
         schedule(user: User, mtype: Message): Promise<boolean> {
             let body: string = '';
 
@@ -22,6 +31,11 @@ export function message(chan: Channel) {
                 let { phone } = user;
                 let item: QueuedMessage = { phone, body };
                 let buff = buffer(item);
+
+                if (!chan) {
+                    reject(new Error('missing channel'));
+                    return;
+                }
 
                 if (!phone) {
                     reject(new Error('missing phone'));

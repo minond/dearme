@@ -1,4 +1,9 @@
 import * as twilio from 'twilio';
+import * as create from 'twilio/lib/TwimlResponse';
+
+import { Ack } from 'twilio/lib/RestClient';
+import { TagName, TwimlNode } from 'twilio/lib/TwimlResponse';
+
 import { config } from '../application';
 
 const ACCOUNT_SID = config<string>('twilio.account_sid');
@@ -7,15 +12,22 @@ const SERVICE_SID = config<string>('twilio.service_sid');
 
 const client = twilio(ACCOUNT_SID, AUTH_TOKEN);
 
-type Status = 'accepted' | 'queued' | 'sending' | 'sent' | 'failed'
-    | 'delivered' | 'undelivered' | 'receiving' | 'received';
+function sub(name: TagName, text: string = ''): TwimlNode {
+    let node = create();
+    node.name = name;
+    node.text = text;
+    node.topLevel = false;
+    return node;
+}
 
-interface Ack {
-    sid: string;
-    to: string;
-    error_code: null;
-    error_message: null;
-    status: Status;
+export function response(...children: TwimlNode[]): TwimlNode {
+    let node = create();
+    node.children = children;
+    return node;
+}
+
+export function message(text: string): TwimlNode {
+    return sub('Message', text);
 }
 
 export function send(to: string, body: string): Promise<Ack> {

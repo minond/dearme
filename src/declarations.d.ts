@@ -1,5 +1,41 @@
 type _ = any;
 
+declare module 'twilio/lib/RestClient' {
+    export type Status = 'accepted' | 'queued' | 'sending' | 'sent' | 'failed'
+        | 'delivered' | 'undelivered' | 'receiving' | 'received';
+
+    export interface Ack {
+        sid: string;
+        to: string;
+        error_code: null;
+        error_message: null;
+        status: Status;
+    }
+}
+
+declare module 'twilio/lib/TwimlResponse' {
+    namespace response {
+        type TagName = 'Dial' | 'Enqueue' | 'Gather' | 'Message' | 'Response';
+
+        type LegalNodes = 'Body' | 'Client' | 'Conference' | 'Dial' | 'Enqueue' |
+            'Gather' | 'Hangup' | 'Leave' | 'Media' | 'Message' | 'Number' |
+            'Pause' | 'Pause' | 'Play' | 'Queue' | 'Record' | 'Redirect' |
+            'Reject' | 'Say' | 'Sip' | 'Sms' | 'Task';
+
+        export class TwimlNode {
+            topLevel: boolean;
+            name: TagName;
+            legalNodes: LegalNodes[];
+            children: TwimlNode[];
+            text: string;
+        }
+    }
+
+    function response(): response.TwimlNode;
+
+    export = response;
+}
+
 declare module 'csrf' {
     namespace Tokens {}
 

@@ -10,8 +10,9 @@ import { valid_phone } from '../validation';
 
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
+const validate = csrf();
 
-server.get('/', (req, res) =>
+server.get('/', csrf(), (req, res) =>
     res.render('index'));
 
 Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
@@ -29,6 +30,13 @@ Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
             .then((user) => msgctrl.schedule(user, Message.CONFIRMATION))
             .then((ok) => res.json({ ok }))
             .catch((err) => next(error(503, err.message)));
+    });
+
+    server.post('/api/message', (req, res) => {
+        console.log(req.body.From);
+        console.log(req.body.Body);
+        res.header('Content-Type', 'text/xml');
+        res.end(msgctrl.no_response());
     });
 
     server.listen(3000, () =>

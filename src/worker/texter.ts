@@ -10,26 +10,33 @@ function parse(msg: Message): QueuedMessage {
     return JSON.parse(str);
 }
 
+function error(...args: _[]): void {
+    console.error.apply(console, args);
+}
+
+function info(...args: _[]): void {
+    console.info.apply(console, args);
+}
+
 export function texter() {
     channel.messages().then((chan) => {
-        console.log('consuming %s', QUEUE);
+        info('consuming %s', QUEUE);
 
         chan.consume(QUEUE, (msg) => {
-            console.log('got message');
+            info('got message');
             let { phone, body } = parse(msg);
 
             send(phone, body)
                 .then((ack) => {
                     if (!ack.error_code) {
-                        console.log('sent text, sending ack');
+                        info('sent text, sending ack');
                         chan.ack(msg);
                     } else {
-                        console.error('error from messaging service', ack);
+                        error('error from messaging service', ack);
                     }
                 })
-                .catch((err) => {
-                    console.error('cound not talk to messaging service', err);
-                })
+                .catch((err) =>
+                    error('cound not talk to messaging service', err));
         });
     });
 }

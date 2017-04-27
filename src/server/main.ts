@@ -10,7 +10,6 @@ import { valid_phone } from '../validation';
 
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
-const validate = csrf();
 
 server.get('/', csrf(), (req, res) =>
     res.render('index'));

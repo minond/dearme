@@ -34,3 +34,8 @@ export function queue(name: string, conn: Promise<Connection>): () => Promise<Ch
         });
     }) as Promise<_>;
 }
+
+export function parse<T>(msg: Message): T {
+    let str = msg.content.toString();
+    return JSON.parse(str);
+}

@@ -1,42 +1,38 @@
 import { config } from '../application';
-import { send } from '../device/sms';
-import { channel, Message } from '../device/amqp';
+import { logger } from '../log';
+import { send, SMSSend, SMSAck } from '../device/sms';
+import { channel, parse, LazyChannel } from '../device/amqp';
 import { QueuedMessage } from '../controller/message';
 
-const QUEUE = config<string>('amqp.queues.messages');
+const log = logger(__filename);
+const queue = config<string>('amqp.queues.messages');
 
-function parse(msg: Message): QueuedMessage {
-    let str = msg.content.toString();
-    return JSON.parse(str);
-}
+const log_error = (err: Error) =>
+    log.error('cound not talk to messaging service', err);
 
-function error(...args: _[]): void {
-    console.error.apply(console, args);
-}
+const log_success = () =>
+    log.log('sent text, sent ack');
 
-function info(...args: _[]): void {
-    console.info.apply(console, args);
-}
+export function texter(
+    sender: SMSSend = send,
+    messages: LazyChannel = channel.messages
+) {
+    messages().then((chan) => {
+        log.info('consuming %s', queue);
 
-export function texter() {
-    channel.messages().then((chan) => {
-        info('consuming %s', QUEUE);
+        chan.consume(queue, (msg) => {
+            let { phone, body } = parse(msg) as QueuedMessage;
 
-        chan.consume(QUEUE, (msg) => {
-            info('got message');
-            let { phone, body } = parse(msg);
+            let ack_message = (ack: SMSAck) =>
+                !ack.error_code ? chan.ack(msg) :
+                    log.error('error from messaging service', ack);
 
-            send(phone, body)
-                .then((ack) => {
-                    if (!ack.error_code) {
-                        info('sent text, sending ack');
-                        chan.ack(msg);
-                    } else {
-                        error('error from messaging service', ack);
-                    }
-                })
-                .catch((err) =>
-                    error('cound not talk to messaging service', err));
+            log.info('got message');
+
+            sender(phone, body)
+                .then(ack_message)
+                .then(log_success)
+                .catch(log_error);
         });
     });
 }

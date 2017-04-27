@@ -6,6 +6,9 @@ import { TagName, TwimlNode } from 'twilio/lib/TwimlResponse';
 
 import { config } from '../application';
 
+export type SMSAck = Ack;
+export type SMSSend = (to: string, body: string) => Promise<SMSAck>;
+
 const ACCOUNT_SID = config<string>('twilio.account_sid');
 const AUTH_TOKEN = config<string>('twilio.auth_token');
 const SERVICE_SID = config<string>('twilio.service_sid');
@@ -30,12 +33,12 @@ export function message(text: string): TwimlNode {
     return sub('Message', text);
 }
 
-export function send(to: string, body: string): Promise<Ack> {
+export const send: SMSSend = (to: string, body: string): Promise<SMSAck> => {
     var payload = { to, body, messagingServiceSid: SERVICE_SID };
 
-    return new Promise<Ack>((resolve, reject) => {
+    return new Promise<SMSAck>((resolve, reject) => {
         client.sendMessage(payload)
             .then((msg) => resolve(msg))
             .catch((err) => reject(err));
     });
-}
+};

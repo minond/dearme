@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 
 import { HomeComponent, State as HomeState, Page } from '../../../src/client/home';
 
-import './dom';
+import './init';
 
 test('home component', (t) => {
     t.plan(3);

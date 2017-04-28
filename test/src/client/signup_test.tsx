@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 
 import { SignupComponent, State as SignupState } from '../../../src/client/signup';
 
-import './dom';
+import './init';
 
 test('signup component', (t) => {
     t.plan(3);

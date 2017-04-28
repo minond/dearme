@@ -20,7 +20,7 @@ export function user(db: Db): Repository<User> {
 
     const save = ({ phone }: { phone: string }): Promise<User> => {
         let inactive = false;
-        let date_created = Date.now();
+        let date_created = new Date;
         let assigned_personality = rand(personalities);
 
         let user: User = { inactive, phone, date_created, assigned_personality };

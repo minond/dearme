@@ -20,7 +20,3 @@ export function rand<T>(items: T[]): T {
 export function buffer(obj: object): Buffer {
   return new Buffer(JSON.stringify(obj));
 }
-
-export function now(): number {
-    return Date.now();
-}

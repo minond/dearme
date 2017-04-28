@@ -3,7 +3,7 @@ import { message as sms_message, response as sms_response } from '../device/sms'
 import { User } from '../repository/user';
 import { Message } from '../repository/conversation';
 import { config } from '../application';
-import { buffer, now } from '../utilities';
+import { buffer } from '../utilities';
 
 export type Questions = string[][][][];
 export type QueuedMessage = { phone: string, body: string };
@@ -19,8 +19,8 @@ export function no_response(): string {
     return sms_response().toString();
 }
 
-export function build_schedule(user: User, start: number = now()): Message[] {
-    let msg = (body: string, send_date: number) =>
+export function build_schedule(user: User, start: Date = new Date): Message[] {
+    let msg = (body: string, send_date: Date) =>
         ({ body, send_date });
 
     return [

@@ -1,9 +1,8 @@
 import * as test from 'tape';
 
-import { now } from '../../../src/utilities';
 import { build_schedule, questions } from '../../../src/controller/message';
 
-const start_time = now();
+const start_time = new Date;
 const my_questions = questions[0];
 
 const user = {

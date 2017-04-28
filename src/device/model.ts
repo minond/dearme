@@ -4,7 +4,7 @@ export type ModelID = ObjectID;
 
 export interface Model {
     _id?: ModelID;
-    date_created?: string | number | Date | null;
+    date_created?: Date;
 }
 
 export interface Repository<T extends Model> {

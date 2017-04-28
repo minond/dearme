@@ -4,9 +4,9 @@ import { config } from '../application';
 
 export interface Message {
     body: string;
-    send_date: number;
+    send_date: Date;
     response?: string;
-    response_date?: number;
+    response_date?: Date;
 }
 
 export interface Conversation extends Model {

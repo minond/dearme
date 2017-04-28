@@ -27,7 +27,8 @@ opt_tsc_client_tests = --jsx react \
 	--outDir $(dir_dist)/tests_build \
 	$(dir_src)/declarations.d.ts \
 	$(dir_test)/src/*/*.tsx \
-	$(dir_test)/src/*/*.ts
+	$(dir_test)/src/*/*.ts \
+	$(dir_test)/src/*.ts
 
 build: clean build-server build-worker build-test build-client
 
@@ -39,7 +40,7 @@ clean:
 
 .PHONY: test
 test:
-	$(tape) dist/tests_build/test/src/*/*.js
+	$(tape) dist/tests_build/test/src/*.js dist/tests_build/test/src/*/*.js
 
 lint:
 	$(tslint) --config $(dir_conf)/tslint.json \

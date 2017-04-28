@@ -2,7 +2,7 @@ import * as RateLimit from 'express-rate-limit';
 import * as error from 'http-errors';
 
 import { user } from '../repository/user';
-import { message, Message } from '../controller/message';
+import { no_response, schedule, Message } from '../controller/message';
 import { mongo } from '../device/mongo';
 import { channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
@@ -15,8 +15,6 @@ server.get('/', csrf(), (req, res) =>
     res.render('index'));
 
 Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
-    let msgctrl = message(chan);
-
     server.post('/signup', csrf(), limit, (req, res, next) => {
         let { phone } = req.body;
 
@@ -26,7 +24,7 @@ Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
         }
 
         user(db).save({ phone })
-            .then((user) => msgctrl.schedule(user, Message.CONFIRMATION))
+            .then((user) => schedule(chan, user, Message.CONFIRMATION))
             .then((ok) => res.json({ ok }))
             .catch((err) => next(error(503, err.message)));
     });
@@ -35,7 +33,7 @@ Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
         console.log(req.body.From);
         console.log(req.body.Body);
         res.header('Content-Type', 'text/xml');
-        res.end(msgctrl.no_response());
+        res.end(no_response());
     });
 
     server.listen(3000, () =>

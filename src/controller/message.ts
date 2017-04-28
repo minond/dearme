@@ -10,52 +10,48 @@ export type QueuedMessage = { phone: string, body: string };
 const QUEUE = config<string>('amqp.queues.messages');
 const QUESTIONS = config<string[][][][]>('questions.personalities');
 
-export function message(chan: Channel) {
-    return {
-        response(msg: string): string {
-            return sms_response(sms_message(msg)).toString();
-        },
+export function response(msg: string): string {
+    return sms_response(sms_message(msg)).toString();
+}
 
-        no_response(): string {
-            return sms_response().toString();
-        },
+export function no_response(): string {
+    return sms_response().toString();
+}
 
-        schedule(user: User, mtype: Message): Promise<boolean> {
-            let body: string = '';
+export function schedule(chan: Channel, user: User, mtype: Message): Promise<boolean> {
+    let body: string = '';
 
-            if (mtype === Message.CONFIRMATION) {
-                body = QUESTIONS[user.assigned_personality][0][0][0];
-            }
+    if (mtype === Message.CONFIRMATION) {
+        body = QUESTIONS[user.assigned_personality][0][0][0];
+    }
 
-            return new Promise<boolean>((resolve, reject) => {
-                let { phone } = user;
-                let item: QueuedMessage = { phone, body };
-                let buff = buffer(item);
+    return new Promise<boolean>((resolve, reject) => {
+        let { phone } = user;
+        let item: QueuedMessage = { phone, body };
+        let buff = buffer(item);
 
-                if (!chan) {
-                    reject(new Error('missing channel'));
-                    return;
-                }
-
-                if (!phone) {
-                    reject(new Error('missing phone'));
-                    return;
-                }
-
-                if (!body) {
-                    reject(new Error('missing body'));
-                    return;
-                }
-
-                let ok = chan.sendToQueue(QUEUE, buff);
-
-                if (!ok) {
-                    reject(new Error(`count not send to ${QUEUE} queue`));
-                    return;
-                }
-
-                resolve(true);
-            });
+        if (!chan) {
+            reject(new Error('missing channel'));
+            return;
         }
-    };
+
+        if (!phone) {
+            reject(new Error('missing phone'));
+            return;
+        }
+
+        if (!body) {
+            reject(new Error('missing body'));
+            return;
+        }
+
+        let ok = chan.sendToQueue(QUEUE, buff);
+
+        if (!ok) {
+            reject(new Error(`count not send to ${QUEUE} queue`));
+            return;
+        }
+
+        resolve(true);
+    });
 }

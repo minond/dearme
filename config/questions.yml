@@ -16,7 +16,9 @@ personalities:
     3:
       -
         - "Back to the grind. 🙃 What are you listening to today?"
+      -
         - "Let's play a game: describe how you feel rn in three emojis. Us: 🐝👾👻 You: _____"
+      -
         - "I'm going to tell you a secret: I haven't been backed up in 76 hours. 🙊 Scandalous. Your turn: tell me something encryption worthy! 🔒"
     4:
       -
@@ -74,10 +76,10 @@ personalities:
         - "Tell me a secret."
     4:
       -
+        - "Tell me about the last crazy dream you had."
+      -
         - "What are you afraid of today?"
         - "What are you looking forward to?"
-      -
-        - "Tell me about the last crazy dream you had."
     5:
       -
         - "Who do you love today?"

@@ -1,7 +1,9 @@
 import { Cursor, ObjectID } from '../device/mongo';
 
+export type ModelID = ObjectID;
+
 export interface Model {
-    _id?: ObjectID;
+    _id?: ModelID;
     date_created?: string | number | Date | null;
 }
 

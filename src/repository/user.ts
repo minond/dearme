@@ -3,7 +3,7 @@ import { Model, Repository } from '../device/model';
 import { config } from '../application';
 import { rand } from '../utilities';
 
-const PERSONALITIES = [0, 1];
+const personalities = [0, 1];
 
 export interface User extends Model {
     phone: string;
@@ -21,7 +21,7 @@ export function user(db: Db): Repository<User> {
     const save = ({ phone }: { phone: string }): Promise<User> => {
         let inactive = false;
         let date_created = Date.now();
-        let assigned_personality = rand(PERSONALITIES);
+        let assigned_personality = rand(personalities);
 
         let user: User = { inactive, phone, date_created, assigned_personality };
         console.info('saving', user);

@@ -2,7 +2,7 @@ import * as RateLimit from 'express-rate-limit';
 import * as error from 'http-errors';
 
 import { user } from '../repository/user';
-import { no_response, schedule, Message } from '../controller/message';
+import { no_response, schedule } from '../controller/message';
 import { mongo } from '../device/mongo';
 import { channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
@@ -24,7 +24,7 @@ Promise.all([mongo, channel.messages()]).then(([db, chan]) => {
         }
 
         user(db).save({ phone })
-            .then((user) => schedule(chan, user, Message.CONFIRMATION))
+            .then((user) => schedule(chan, user))
             .then((ok) => res.json({ ok }))
             .catch((err) => next(error(503, err.message)));
     });

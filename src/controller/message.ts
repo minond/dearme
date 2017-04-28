@@ -5,11 +5,11 @@ import { Message } from '../repository/conversation';
 import { config } from '../application';
 import { buffer, now } from '../utilities';
 
-type Questions = string[][][][];
+export type Questions = string[][][][];
 export type QueuedMessage = { phone: string, body: string };
 
 const queue = config<string>('amqp.queues.messages');
-const questions = config<Questions>('questions.personalities');
+export const questions = config<Questions>('questions.personalities');
 
 export function response(msg: string): string {
     return sms_response(sms_message(msg)).toString();
@@ -19,14 +19,12 @@ export function no_response(): string {
     return sms_response().toString();
 }
 
-export function build_schedule(user: User): Message[] {
+export function build_schedule(user: User, start: number = now()): Message[] {
     let msg = (body: string, send_date: number) =>
         ({ body, send_date });
 
     return [
-        msg(questions[user.assigned_personality][0][0][0], now() + 0),
-        msg(questions[user.assigned_personality][0][0][0], now() + 60000),
-        msg(questions[user.assigned_personality][0][0][0], now() + 120000),
+        msg(questions[user.assigned_personality][0][0][0], start),
     ];
 }
 

@@ -6,7 +6,7 @@ import { HomeComponent, State as HomeState, Page } from '../../../src/client/hom
 
 import './dom';
 
-test('HomeComponent', (t) => {
+test('home component', (t) => {
     t.plan(3);
 
     const elem = mount<_, HomeState>(<HomeComponent />);

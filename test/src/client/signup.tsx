@@ -6,7 +6,7 @@ import { SignupComponent, State as SignupState } from '../../../src/client/signu
 
 import './dom';
 
-test('SignupComponent', (t) => {
+test('signup component', (t) => {
     t.plan(3);
 
     const elem = mount<_, SignupState>(<SignupComponent onComplete={() => null} />);

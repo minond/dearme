@@ -5,10 +5,11 @@ import { Message } from '../repository/conversation';
 import { config } from '../application';
 import { buffer, now } from '../utilities';
 
+type Questions = string[][][][];
 export type QueuedMessage = { phone: string, body: string };
 
 const queue = config<string>('amqp.queues.messages');
-const questions = config<string[][][][]>('questions.personalities');
+const questions = config<Questions>('questions.personalities');
 
 export function response(msg: string): string {
     return sms_response(sms_message(msg)).toString();

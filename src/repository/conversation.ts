@@ -19,8 +19,8 @@ export function conversation(db: Db): Repository<Conversation> {
     const coll = (): Collection =>
         db.collection(config<string>('mongo.collections.conversations'));
 
-    const all = (): Cursor<Conversation> =>
-        coll().find({});
+    const find = (query: object, fields?: object): Cursor<Conversation> =>
+        coll().find(query, fields);
 
     const save = (conversation: Conversation): Promise<Conversation> => {
         console.info('saving', conversation);
@@ -30,5 +30,5 @@ export function conversation(db: Db): Repository<Conversation> {
             .then(() => conversation);
     };
 
-    return { all, save };
+    return { find, save };
 }

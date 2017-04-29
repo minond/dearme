@@ -8,6 +8,6 @@ export interface Model {
 }
 
 export interface Repository<T extends Model> {
-    all(): Cursor<T>;
+    find(query: object, fields?: object): Cursor<T>;
     save(obj: object): Promise<T>;
 }

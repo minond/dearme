@@ -104,9 +104,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
     }, [] as Message[]));
 }
 
-export function schedule(chan: Channel, user: User): Promise<boolean> {
-    let body = questions[user.assigned_personality][0][0][0];
-
+export function schedule(chan: Channel, user: User, body: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
         let { phone } = user;
         let item: QueuedMessage = { phone, body };

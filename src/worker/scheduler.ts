@@ -1,7 +1,8 @@
+import * as ms from 'millisecond';
+import { config } from '../application';
 import { mongo, Connecting } from '../device/mongo';
 import { channel, LazyChannel } from '../device/amqp';
 import { logger } from '../log';
-import { MINUTE } from '../utilities';
 import { user } from '../repository/user';
 import { schedule } from '../controller/message';
 import { conversation, Conversation } from '../repository/conversation';
@@ -10,8 +11,8 @@ const log = logger(__filename);
 const completed_convo_query = (err?: Error) =>
     err ? log.error(err) : log.log('ok');
 
-const range = MINUTE * 30;
-const interval = range * .75;
+const range = ms(config<string>('app.worker.scheduler.range'));
+const interval = ms(config<string>('app.worker.scheduler.interval'));
 
 export async function scheduler(
     connection: Connecting = mongo,

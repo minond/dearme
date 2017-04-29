@@ -1,6 +1,11 @@
 title: &title dear me
 description: &description dear me app
 
+worker:
+  scheduler:
+    range: 30 minutes
+    interval: 3 minutes
+
 social:
   image:
 

@@ -27,6 +27,7 @@
     "express-session": "1.15.2",
     "http-errors": "^1.6.1",
     "lodash": "^4.17.4",
+    "millisecond": "^0.1.2",
     "moment": "^2.18.1",
     "mongodb": "2.2.25",
     "normalize.css": "6.0.0",

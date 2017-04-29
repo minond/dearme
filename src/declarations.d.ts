@@ -1,5 +1,11 @@
 type _ = any;
 
+declare module 'millisecond' {
+    namespace fn {}
+    function fn(str: string): number;
+    export = fn;
+}
+
 declare module 'twilio/lib/RestClient' {
     export type Status = 'accepted' | 'queued' | 'sending' | 'sent' | 'failed'
         | 'delivered' | 'undelivered' | 'receiving' | 'received';

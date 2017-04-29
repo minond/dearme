@@ -1,5 +1,6 @@
 import { Cursor, Collection, Server, Db, ObjectID } from 'mongodb';
 import { Configuration, config as default_config } from '../application';
+import { logger } from '../log';
 
 export type Db = Db;
 export type Connecting = Promise<Db>;
@@ -7,6 +8,7 @@ export type ObjectID = ObjectID;
 export type Cursor<T> = Cursor<T>;
 export type Collection = Collection;
 
+const log = logger(__filename);
 export const mongo: Connecting = connect(default_config);
 
 export function connect(config: Configuration = default_config): Connecting {
@@ -18,7 +20,7 @@ export function connect(config: Configuration = default_config): Connecting {
     const db = new Db(database, server, { w: 1 });
 
     return db.open().then((db) => {
-        console.info('connected to %s', database);
+        log.info('connected to %s', database);
         return db;
     });
 }

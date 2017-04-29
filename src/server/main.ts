@@ -27,7 +27,7 @@ server.post('/api/message', (req, res) => {
     try {
         db = await mongo;
     } catch (err) {
-        console.error(err);
+        log.error(err);
         return;
     }
 
@@ -55,5 +55,5 @@ server.post('/api/message', (req, res) => {
     });
 
     server.listen(3000, () =>
-        console.info('ready for http calls'));
+        log.info('ready for http calls'));
 })();

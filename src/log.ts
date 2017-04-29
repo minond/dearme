@@ -13,7 +13,7 @@ type LoggerInstance = {
 
 function log_function(name: string, fn: Function): LogFunction {
     return (...params: any[]): void =>
-        fn.apply(console, params);
+        fn.apply(console, [`${name} ${Date.now()}`].concat(params));
 }
 
 export function logger(file: string): LoggerInstance {

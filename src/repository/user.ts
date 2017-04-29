@@ -24,7 +24,6 @@ export function user(db: Db): Repository<User> {
         let assigned_personality = rand(personalities);
 
         let user: User = { inactive, phone, date_created, assigned_personality };
-        console.info('saving', user);
 
         return coll()
             .insert(user)

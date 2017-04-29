@@ -122,3 +122,9 @@ declare namespace NodeJS {
         window: _;
     }
 }
+
+declare namespace Express {
+    export interface Response {
+        xml(xml: string): void;
+    }
+}

@@ -116,6 +116,15 @@ export function application(config: Configuration): Application {
         }));
     }
 
+    app.use((req, res, next) => {
+        res.xml = (xml: string) => {
+            res.header('Content-Type', 'text/xml');
+            res.end(xml);
+        };
+
+        next();
+    });
+
     return app;
 }
 

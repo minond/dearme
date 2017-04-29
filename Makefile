@@ -17,7 +17,8 @@ opt_tsc_config = @$(dir_conf)/tsconfig.txt
 
 opt_tsc_worker = --outDir $(dir_dist)/worker \
 	$(dir_src)/declarations.d.ts \
-	$(dir_src)/worker/texter.ts
+	$(dir_src)/worker/texter.ts \
+	$(dir_src)/worker/scheduler.ts
 
 opt_tsc_server = --outDir $(dir_dist) \
 	$(dir_src)/declarations.d.ts \

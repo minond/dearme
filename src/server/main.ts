@@ -18,7 +18,7 @@ server.get('/', csrf(), (req, res) =>
 
 server.post('/api/message', (req, res) => {
     log.info('got a message');
-    res.xml(no_response())
+    res.xml(no_response());
 });
 
 (async () => {

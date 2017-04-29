@@ -1,10 +1,9 @@
 import * as test from 'tape';
 
-import { build_schedule, questions } from '../../../src/controller/message';
+import { build_messages } from '../../../src/controller/message';
+import { expected_messages } from './expected_messages';
 
-const start_time = new Date;
-const my_questions = questions[0];
-
+const start_time = new Date(1493442000000);
 const user = {
     phone: '1231231234',
     inactive: false,
@@ -12,10 +11,16 @@ const user = {
 };
 
 test('messages controller', (t) => {
-    t.plan(2);
+    t.plan(expected_messages.length * 2);
 
-    const schedule = build_schedule(user, start_time);
+    const schedule = build_messages(user, start_time);
 
-    t.equal(schedule[0].body, my_questions[0][0][0], 'has the first confirmation message');
-    t.equal(schedule[0].send_date, start_time, 'with the right start time');
+    schedule.map((item, index) => {
+        t.equal(expected_messages[index].body, item.body,
+            `item #${index} has the right message body`);
+
+        t.equal(new Date(expected_messages[index].send_date).valueOf(),
+            item.send_date.valueOf(),
+            `item #${index} has the right scheduled date`);
+    });
 });

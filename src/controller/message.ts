@@ -33,6 +33,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
         second_of: boolean = false
     ): Date => {
         let holder = moment(start.valueOf())
+            .millisecond(0)
             .second(0)
             .minute(0)
             .hour(0)
@@ -75,11 +76,11 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
         if (day === '0') {
             store.push(msg(day_questions[0][0], start));
         } else {
-            day_questions.forEach((questions: string[], question_number: number) => {
+            day_questions.map((questions: string[], question_number: number) => {
                 // because the last group in day goes at 8pm
                 let is_last = question_number + 1 === day_questions.length;
 
-                questions.forEach((question, index) => {
+                questions.map((question, index) => {
                     let date = future(start, +day,
                         is_last ? 2 : question_number, !!index);
 

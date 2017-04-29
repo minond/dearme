@@ -19,8 +19,7 @@ If there is only one group send it at:
 
 ```bash
 make install
-make server
-make worker
+make pm
 ```
 
 ### configuration

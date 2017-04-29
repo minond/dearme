@@ -4,7 +4,7 @@ import { flatten } from 'lodash';
 import { Channel } from '../device/amqp';
 import { message as sms_message, response as sms_response } from '../device/sms';
 import { User } from '../repository/user';
-import { Message } from '../repository/conversation';
+import { Conversation, Message } from '../repository/conversation';
 import { config } from '../application';
 import { buffer } from '../utilities';
 
@@ -12,7 +12,7 @@ export type Questions = { [index: string]: string[][] }[];
 export type QueuedMessage = { phone: string, body: string };
 
 const queue = config<string>('amqp.queues.messages');
-export const questions = config<Questions>('questions.personalities');
+const questions = config<Questions>('questions.personalities');
 
 export function response(msg: string): string {
     return sms_response(sms_message(msg)).toString();
@@ -20,6 +20,17 @@ export function response(msg: string): string {
 
 export function no_response(): string {
     return sms_response().toString();
+}
+
+export function build_conversation(user: User): Conversation {
+    let { _id: user_id } = user;
+    let messages = build_messages(user);
+
+    if (!user_id) {
+        throw new Error('Missing user._id');
+    }
+
+    return { user_id, messages };
 }
 
 export function build_messages(user: User, start: Date = new Date): Message[] {
@@ -37,7 +48,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
             .second(0)
             .minute(0)
             .hour(0)
-            .add(days, 'days')
+            .add(days, 'days');
 
         switch (message_number) {
             case 0:
@@ -84,7 +95,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
                     let date = future(start, +day,
                         is_last ? 2 : question_number, !!index);
 
-                    store.push(msg(question, date))
+                    store.push(msg(question, date));
                 });
             });
         }

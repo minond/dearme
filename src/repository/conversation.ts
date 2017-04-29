@@ -3,6 +3,7 @@ import { Model, ModelID, Repository } from '../device/model';
 import { config } from '../application';
 
 export interface Message {
+    scheduled?: boolean;
     body: string;
     send_date: Date;
     response?: string;

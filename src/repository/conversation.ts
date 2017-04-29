@@ -22,8 +22,11 @@ export function conversation(db: Db): Repository<Conversation> {
     const find = (query: object, fields?: object): Cursor<Conversation> =>
         coll().find(query, fields);
 
+    const findOne = (query: object): Promise<Conversation> =>
+        coll().findOne(query);
+
     const save = (conversation: Conversation): Promise<Conversation> =>
         coll().insert(conversation).then(() => conversation);
 
-    return { find, save };
+    return { find, findOne, save };
 }

@@ -18,6 +18,9 @@ export function user(db: Db): Repository<User> {
     const find = (query: object, fields?: object): Cursor<User> =>
         coll().find(Object.assign({ inactive: false }, query), fields);
 
+    const findOne = (query: object): Promise<User> =>
+        coll().findOne(Object.assign({ inactive: false }, query));
+
     const save = ({ phone }: { phone: string }): Promise<User> => {
         let inactive = false;
         let date_created = new Date;
@@ -30,5 +33,5 @@ export function user(db: Db): Repository<User> {
             .then(() => user);
     };
 
-    return { find, save };
+    return { find, findOne, save };
 }

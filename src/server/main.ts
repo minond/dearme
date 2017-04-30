@@ -40,7 +40,16 @@ server.get('/', csrf(), (req, res) =>
             let { From: phone, Body: body } = req.body;
 
             let user = await users.find_one_by_phone(phone);
+
+            if (!user) {
+                throw new Error('could not find user');
+            }
+
             let item = await messages.find_users_last_message(user);
+
+            if (!item) {
+                throw new Error('could not find users last message');
+            }
 
             let filter = { _id: item._id };
             let update = { $push: { responses: { body, date: new Date } } };

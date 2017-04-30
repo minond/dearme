@@ -76,5 +76,8 @@ watch-test:
 build-test:
 	$(tsc) $(opt_tsc_config) $(opt_tsc_client_tests)
 
+daemon:
+	$(pm2) start config/processes.yml
+
 pm:
 	$(pm2) start config/processes.yml --no-daemon

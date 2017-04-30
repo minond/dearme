@@ -10,6 +10,7 @@ import { channel, Channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
 
+const port = config('port');
 const log = logger(__filename);
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
@@ -76,6 +77,6 @@ server.get('/', csrf(), (req, res) =>
         }
     });
 
-    server.listen(3000, () =>
-        log.info('ready for http calls'));
+    server.listen(port, () =>
+        log.info('ready for http calls on port', port));
 })();

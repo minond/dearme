@@ -1,7 +1,7 @@
 import { Db, Cursor, Collection } from '../device/mongo';
 import { Model, Repository } from '../device/model';
 import { config } from '../application';
-import { rand } from '../utilities';
+import { rand, not_yet_implemented } from '../utilities';
 
 const personalities = [0, 1];
 
@@ -33,9 +33,11 @@ export function user(db: Db): Repository<User> {
             .then(() => user);
     };
 
-    const save_many = (users: User[]): Promise<User[]> => {
-        throw new Error('Unimplemented');
-    };
+    const save_many = (users: User[]): Promise<User[]> =>
+        not_yet_implemented();
 
-    return { find, find_one, save, save_many };
+    const update = (filter: object, update: object): Promise<null> =>
+        not_yet_implemented();
+
+    return { find, find_one, save, save_many, update };
 }

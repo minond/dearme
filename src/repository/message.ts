@@ -13,7 +13,7 @@ export interface Message extends Model {
 
 export function message(db: Db): Repository<Message> {
     const coll = (): Collection =>
-        db.collection(config<string>('mongo.collections.message'));
+        db.collection(config<string>('mongo.collections.messages'));
 
     const find = (query: object, fields?: object): Cursor<Message> =>
         coll().find(query, fields);
@@ -27,5 +27,8 @@ export function message(db: Db): Repository<Message> {
     const save_many = (messages: Message[]): Promise<Message[]> =>
         coll().insertMany(messages).then(() => messages);
 
-    return { find, find_one, save, save_many };
+    const update = (filter: object, update: object): Promise<null> =>
+        coll().findOneAndUpdate(filter, update).then(() => null);
+
+    return { find, find_one, save, save_many, update };
 }

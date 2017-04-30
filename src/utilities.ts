@@ -22,9 +22,13 @@ export function thenable<T>(fn: () => _): Promise<T> {
 }
 
 export function rand<T>(items: T[]): T {
-  return items[ Math.floor(Math.random() * items.length) ];
+    return items[ Math.floor(Math.random() * items.length) ];
 }
 
 export function buffer(obj: object): Buffer {
-  return new Buffer(JSON.stringify(obj));
+    return new Buffer(JSON.stringify(obj));
+}
+
+export function not_yet_implemented(): _ {
+    throw new Error('Unimplemented');
 }

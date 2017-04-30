@@ -12,4 +12,5 @@ export interface Repository<T extends Model> {
     find_one(query: object): Promise<T>;
     save(obj: object): Promise<T>;
     save_many(obj: object[]): Promise<T[]>;
+    update(filter: object, update: object): Promise<null>;
 }

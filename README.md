@@ -25,16 +25,18 @@ make pm
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
-`config/` directory for additional configuration options (linkedin, embedly,
-monitoring, etc.). additional services and service providers:
+`config/` directory for additional configuration options. required values:
 
 ```bash
+export MONGO_URL=
+export AMQP_URL=
+
 export TWILIO_ACCOUNT_SID=         # your twilio account id
 export TWILIO_AUTH_TOKEN=          # your twilio account auth token
 export TWILIO_SERVICE_SID=         # your twilio messaging service id
 ```
 
-### building and test
+### building, running linters and tests
 
 run `make` to build everything. `make lint test` runs the linters and all
 tests.

@@ -18,7 +18,7 @@ export function user(db: Db): Repository<User> {
     const find = (query: object, fields?: object): Cursor<User> =>
         coll().find(Object.assign({ inactive: false }, query), fields);
 
-    const findOne = (query: object): Promise<User> =>
+    const find_one = (query: object): Promise<User> =>
         coll().findOne(Object.assign({ inactive: false }, query));
 
     const save = ({ phone }: { phone: string }): Promise<User> => {
@@ -33,5 +33,9 @@ export function user(db: Db): Repository<User> {
             .then(() => user);
     };
 
-    return { find, findOne, save };
+    const save_many = (users: User[]): Promise<User[]> => {
+        throw new Error('Unimplemented');
+    };
+
+    return { find, find_one, save, save_many };
 }

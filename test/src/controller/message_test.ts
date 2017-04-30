@@ -5,6 +5,7 @@ import { expected_messages } from './expected_messages';
 
 const start_time = new Date(1493442000000);
 const user = {
+    _id: '123' as _,
     phone: '1231231234',
     inactive: false,
     assigned_personality: 0,

@@ -3,8 +3,8 @@ import * as error from 'http-errors';
 
 import { logger } from '../log';
 import { user } from '../repository/user';
-import { conversation } from '../repository/conversation';
-import { build_conversation, no_response } from '../controller/message';
+import { message } from '../repository/message';
+import { build_messages, no_response } from '../controller/message';
 import { mongo, Db } from '../device/mongo';
 import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
@@ -32,7 +32,7 @@ server.post('/api/message', (req, res) => {
     }
 
     let users = user(db);
-    let conversations = conversation(db);
+    let messages = message(db);
 
     server.post('/signup', csrf(), limit, async (req, res, next) => {
         let { phone } = req.body;
@@ -44,9 +44,9 @@ server.post('/api/message', (req, res) => {
 
         try {
             let user = await users.save({ phone });
-            let conversation = build_conversation(user);
+            let msgs = build_messages(user);
 
-            await conversations.save(conversation);
+            await messages.save_many(msgs);
 
             res.json({ ok: true });
         } catch (err) {

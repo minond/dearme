@@ -4,4 +4,4 @@ database: dearme
 
 collections:
   users: users
-  conversations: conversations
+  messages: messages

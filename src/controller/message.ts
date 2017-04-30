@@ -4,7 +4,7 @@ import { flatten } from 'lodash';
 import { Channel } from '../device/amqp';
 import { message as sms_message, response as sms_response } from '../device/sms';
 import { User } from '../repository/user';
-import { Conversation, Message } from '../repository/conversation';
+import { Message } from '../repository/message';
 import { config } from '../application';
 import { buffer } from '../utilities';
 
@@ -22,20 +22,17 @@ export function no_response(): string {
     return sms_response().toString();
 }
 
-export function build_conversation(user: User): Conversation {
-    let { _id: user_id } = user;
-    let messages = build_messages(user);
-
-    if (!user_id) {
-        throw new Error('Missing user._id');
-    }
-
-    return { user_id, messages };
-}
-
 export function build_messages(user: User, start: Date = new Date): Message[] {
-    let msg = (body: string, send_date: Date) =>
-        ({ body, send_date });
+    let scheduled = false;
+    let { _id: user_id } = user;
+
+    let msg = (body: string, send_date: Date) => {
+        if (!user_id) {
+            throw new Error('missing user_id');
+        }
+
+        return { body, send_date, user_id, scheduled };
+    }
 
     let future = (
         start: Date,

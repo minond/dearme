@@ -1,4 +1,4 @@
-import { Cursor, Collection, Server, Db, ObjectID } from 'mongodb';
+import { MongoClient, Cursor, Collection, Db, ObjectID } from 'mongodb';
 import { Configuration, config as default_config } from '../application';
 import { logger } from '../log';
 
@@ -12,15 +12,19 @@ const log = logger(__filename);
 export const mongo: Connecting = connect(default_config);
 
 export function connect(config: Configuration = default_config): Connecting {
-    const host = config<string>('mongo.host');
-    const port = config<number>('mongo.port');
-    const database = config<string>('mongo.database');
+    const url = config<string>('mongo.url');
+    log.info('connecting to mongo server');
 
-    const server = new Server(host, port);
-    const db = new Db(database, server, { w: 1 });
-
-    return db.open().then((db) => {
-        log.info('connected to %s', database);
-        return db;
+    return new Promise<Db>((resolve, reject) => {
+        MongoClient.connect(url, (err, db) => {
+            if (err) {
+                log.error('error connecting to server');
+                log.error(err);
+                reject(err);
+            } else {
+                log.info('succesfully connected to server');
+                resolve(db);
+            }
+        });
     });
 }

@@ -14,9 +14,9 @@ export const amqp: Promise<Connection> = connect(default_config);
 export const channel = channels(amqp);
 
 export function connect(config: Configuration = default_config): Promise<Connection> {
-    const URL = config<string>('amqp.url');
+    const url = config<string>('amqp.url');
 
-    return thenable(() => client(URL));
+    return thenable(() => client(url));
 }
 
 export function channels(conn: Promise<Connection>): Channels {

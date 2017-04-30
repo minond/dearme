@@ -19,6 +19,12 @@ export function texter(
 
             log.info('got message');
 
+            if (!phone || !body) {
+                log.info('no phone or body, ignoring');
+                chan.ack(msg);
+                return;
+            }
+
             sender(phone, body)
                 .catch((err) => log.error('cound not talk to messaging service', err))
                 .then((ack) => chan.ack(msg));

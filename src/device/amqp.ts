@@ -37,5 +37,9 @@ export function queue(name: string, conn: Promise<Connection>): () => Promise<Ch
 
 export function parse<T>(msg: Message): T {
     let str = msg.content.toString();
-    return JSON.parse(str);
+    try {
+        return JSON.parse(str);
+    } catch (err) {
+        return {} as T;
+    }
 }

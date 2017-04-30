@@ -22,6 +22,10 @@ export function no_response(): string {
     return sms_response().toString();
 }
 
+export function get_confirmation(user: User): string {
+    return questions[user.assigned_personality][0][0][0];
+}
+
 export function build_messages(user: User, start: Date = new Date): Message[] {
     let scheduled = false;
     let { _id: user_id } = user;
@@ -80,10 +84,8 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
     return flatten(days.reduce((store, day: string) => {
         let day_questions: string[][] = my_questions[day];
 
-        // send confirmation message right now
-        if (day === '0') {
-            store.push(msg(day_questions[0][0], start));
-        } else {
+        // send confirmation message another way
+        if (day !== '0') {
             day_questions.map((questions: string[], question_number: number) => {
                 // because the last group in day goes at 8pm
                 let is_last = question_number + 1 === day_questions.length;

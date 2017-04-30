@@ -4,8 +4,9 @@ import * as error from 'http-errors';
 import { logger } from '../log';
 import { user } from '../repository/user';
 import { message } from '../repository/message';
-import { build_messages, no_response } from '../controller/message';
+import { build_messages, get_confirmation, schedule, no_response } from '../controller/message';
 import { mongo, Db } from '../device/mongo';
+import { channel, Channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
 
@@ -23,9 +24,11 @@ server.post('/api/message', (req, res) => {
 
 (async () => {
     let db: Db;
+    let chan: Channel;
 
     try {
         db = await mongo;
+        chan = await channel.messages();
     } catch (err) {
         log.error(err);
         return;
@@ -45,8 +48,10 @@ server.post('/api/message', (req, res) => {
         try {
             let user = await users.save({ phone });
             let msgs = build_messages(user);
+            let conf = get_confirmation(user);
 
             await messages.save_many(msgs);
+            await schedule(chan, user, conf);
 
             res.json({ ok: true });
         } catch (err) {

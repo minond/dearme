@@ -1,8 +1,6 @@
+export const expected_confirmation = "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). Cool? Talk soon! 👋";
+
 export const expected_messages = [
-    {
-        "body": "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). Cool? Talk soon! 👋",
-        "send_date": "2017-04-29T05:00:00.000Z",
-    },
     {
         "body": "I'm not big on small talk, but I suppose that's to be expected since a bot's life remains unaffected by the weather. So spill! How's your day? Tell me everything. 🍿",
         "send_date": "2017-04-29T18:00:00.000Z"

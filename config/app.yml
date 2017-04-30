@@ -3,8 +3,8 @@ description: &description dear me app
 
 worker:
   scheduler:
-    range: 30 minutes
-    interval: 3 minutes
+    range: 15 minutes
+    interval: 5 minutes
 
 social:
   image:

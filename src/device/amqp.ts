@@ -40,6 +40,7 @@ export function parse<T>(msg: Message): T {
     try {
         return JSON.parse(str);
     } catch (err) {
+        console.error('error parsing "%s"', str);
         return {} as T;
     }
 }

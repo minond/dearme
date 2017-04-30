@@ -17,11 +17,6 @@ const limit = new RateLimit(config('ratelimit.default'));
 server.get('/', csrf(), (req, res) =>
     res.render('index'));
 
-server.post('/api/message', (req, res) => {
-    log.info('got a message');
-    res.xml(no_response());
-});
-
 (async () => {
     let db: Db;
     let chan: Channel;
@@ -36,6 +31,28 @@ server.post('/api/message', (req, res) => {
 
     let users = user(db);
     let messages = message(db);
+
+    server.post('/api/message', async (req, res) => {
+        log.info('got a message');
+
+        try {
+            let { From: phone, Body: body } = req.body;
+
+            let user = await users.find_one_by_phone(phone);
+            let item = await messages.find_users_last_message(user);
+
+            let filter = { _id: item._id };
+            let update = { $push: { responses: { body, date: new Date } } };
+
+            await messages.update(filter, update);
+            log.info('saved response');
+        } catch (err) {
+            log.error('ran into problem saving response');
+            log.error(err);
+        }
+
+        res.xml(no_response());
+    });
 
     server.post('/signup', csrf(), limit, async (req, res, next) => {
         let { phone } = req.body;

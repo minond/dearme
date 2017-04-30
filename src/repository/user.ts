@@ -1,7 +1,7 @@
 import { Db, Cursor, Collection } from '../device/mongo';
 import { Model, Repository } from '../device/model';
 import { config } from '../application';
-import { rand, not_yet_implemented } from '../utilities';
+import { rand, format_phone, not_yet_implemented } from '../utilities';
 
 const personalities = [0, 1];
 
@@ -21,6 +21,9 @@ export function user(db: Db): Repository<User> {
     const find_one = (query: object): Promise<User> =>
         coll().findOne(Object.assign({ inactive: false }, query));
 
+    const find_one_by_phone = (raw: string): Promise<User> =>
+        find_one({ phone: format_phone(raw) });
+
     const save = ({ phone }: { phone: string }): Promise<User> => {
         let inactive = false;
         let date_created = new Date;
@@ -39,5 +42,5 @@ export function user(db: Db): Repository<User> {
     const update = (filter: object, update: object): Promise<null> =>
         not_yet_implemented();
 
-    return { find, find_one, save, save_many, update };
+    return { find, find_one, find_one_by_phone, save, save_many, update };
 }

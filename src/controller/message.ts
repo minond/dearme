@@ -35,8 +35,8 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
             throw new Error('missing user_id');
         }
 
-        return { body, send_date, user_id, scheduled };
-    }
+        return { body, send_date, user_id, scheduled, responses: [] };
+    };
 
     let future = (
         start: Date,

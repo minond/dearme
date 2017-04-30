@@ -38,7 +38,7 @@ export class SignupComponent extends Component<Props, State> {
         return (
             <div className={this.props.className}>
                 <div className={css(common.fade_in_up_slow)}>
-                    <form onSubmit={(ev) => { ev.preventDefault(); this.onSubmit() }}>
+                    <form onSubmit={(ev) => { ev.preventDefault(); this.onSubmit(); }}>
                         <div className={css(common.med_text, common.large_space)}>
                             <span>my phone number is</span>
                             <InputElement

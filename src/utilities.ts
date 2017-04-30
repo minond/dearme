@@ -32,3 +32,9 @@ export function buffer(obj: object): Buffer {
 export function not_yet_implemented(): _ {
     throw new Error('Unimplemented');
 }
+
+export function format_phone(raw: string): string {
+    return raw.trim()
+        .replace(/\s+/g, '')
+        .replace(/(\+1)(\d{3})(\d{3})(\d{4})/, '$1 $2 $3 $4');
+}

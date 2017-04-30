@@ -38,22 +38,23 @@ export class SignupComponent extends Component<Props, State> {
         return (
             <div className={this.props.className}>
                 <div className={css(common.fade_in_up_slow)}>
-                    <div className={css(common.med_text, common.large_space)}>
-                        <span>my phone number is</span>
-                        <InputElement
-                            autoFocus={true}
-                            className={css(common.text_input)}
-                            mask={PHONE_MASK}
-                            maskChar=" "
-                            onChange={(e) => this.changedPhone(e.currentTarget.value)}
-                        />
-                    </div>
+                    <form onSubmit={(ev) => { ev.preventDefault(); this.onSubmit() }}>
+                        <div className={css(common.med_text, common.large_space)}>
+                            <span>my phone number is</span>
+                            <InputElement
+                                autoFocus={true}
+                                className={css(common.text_input)}
+                                mask={PHONE_MASK}
+                                maskChar=" "
+                                onChange={(e) => this.changedPhone(e.currentTarget.value)}
+                            />
+                        </div>
 
-                    <div className={css(common.med_text)}>
-                        <button className={css(common.button)}
-                            disabled={!this.hasValidState()}
-                            onClick={() => this.onSubmit()}>submit</button>
-                    </div>
+                        <div className={css(common.med_text)}>
+                            <button className={css(common.button)}
+                                disabled={!this.hasValidState()}>submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         );

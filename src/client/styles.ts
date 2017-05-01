@@ -34,6 +34,7 @@ export const common = StyleSheet.create({
     },
 
     large_text: {
+        wordWrap: 'break-word',
         fontFamily: century_schoolbook_std_font,
         fontSize: large_font_size,
         letterSpacing: '-1px',
@@ -58,7 +59,11 @@ export const common = StyleSheet.create({
 
         ':not([disabled])': {
             cursor: 'pointer',
-        }
+        },
+
+        '@media (max-width: 600px)': {
+            minWidth: '100%',
+        },
     },
 
     med_space: {

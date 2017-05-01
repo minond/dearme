@@ -30,17 +30,8 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 
-    centered: {
-        height: '100vh',
-        width: '100vw',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
     padded_content: {
-        paddingTop: '10vw',
-        paddingLeft: '10vw',
+        padding: '10vw 7vw',
     }
 });
 
@@ -68,7 +59,7 @@ export class HomeComponent extends Component<Props, State> {
                 colo = styles.white;
                 view =
                     <WelcomeComponent
-                        className={css(styles.centered)}
+                        className={css(styles.padded_content)}
                         onComplete={() => this.goToSignup()} />;
 
                 break;
@@ -84,14 +75,14 @@ export class HomeComponent extends Component<Props, State> {
             case Page.CONFIRM:
                 colo = styles.white;
                 view = <ConfirmComponent
-                    className={css(styles.centered, common.fade_in_up_large_slow)} />;
+                    className={css(styles.padded_content, common.fade_in_up_large_slow)} />;
 
                 break;
 
             case Page.ERROR:
                 colo = styles.white;
                 view = <ErrorComponent
-                    className={css(styles.centered, common.fade_in_up_large_slow)} />;
+                    className={css(styles.padded_content, common.fade_in_up_large_slow)} />;
 
                 break;
         }

@@ -8,7 +8,8 @@ export const poppins_bold_font = {
     fontFamily: 'Poppins',
     src: 'local("Poppins Bold"), ' +
          'local("Poppins-Bold"), ' +
-         'url("/assets/fonts/Poppins-Bold.woff2") format("woff2")'
+         'url("/assets/fonts/Poppins-Bold.woff2") format("woff2"),' +
+         'url("/assets/fonts/Poppins-Bold.ttf") format("truetype")'
 };
 
 export const century_schoolbook_std_font = {
@@ -27,6 +28,7 @@ export const common = StyleSheet.create({
     },
 
     med_text: {
+        fontFamily: century_schoolbook_std_font,
         fontSize: med_font_size,
         lineHeight: med_font_size,
     },
@@ -81,18 +83,18 @@ export const common = StyleSheet.create({
     },
 
     text_input: {
+        fontFamily: century_schoolbook_std_font,
         background: 'transparent',
         borderBottom: '1px solid white',
         borderLeft: 0,
         borderRight: 0,
         borderTop: 0,
         color: 'white',
-        fontFamily: 'initial',
         marginLeft: '7px',
         paddingLeft: '5px',
         fontSize: med_font_size,
         outline: 0,
-        width: '245px',
+        width: '280px',
     },
 
     fade_in_up_slow: {

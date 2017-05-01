@@ -31,7 +31,7 @@ opt_tsc_client_tests = --jsx react \
 	$(dir_test)/src/*/*.ts \
 	$(dir_test)/src/*.ts
 
-build: clean build-server build-worker build-test build-client
+build: clean build-server build-worker build-client
 
 install:
 	@$(yarn) install

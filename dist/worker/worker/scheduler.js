@@ -26,17 +26,17 @@ function scheduler(connection = mongo_1.mongo, messages_chan = amqp_1.channel.me
         let users = user_1.user(db);
         let messages = message_2.message(db);
         let chan = yield messages_chan();
-        let now = Date.now();
-        let $gte = new Date(now - range / 2);
-        let $lte = new Date(now + range / 2);
-        let query = {
-            send_date: { $gte, $lte },
-            scheduled: false,
-            user_id: { $exists: true },
-            body: { $exists: true },
-        };
         let task = () => {
             let user_cache = {};
+            let now = Date.now();
+            let $gte = new Date(now - range / 2);
+            let $lte = new Date(now + range / 2);
+            let query = {
+                send_date: { $gte, $lte },
+                scheduled: false,
+                user_id: { $exists: true },
+                body: { $exists: true },
+            };
             messages.find(query)
                 .forEach((message) => __awaiter(this, void 0, void 0, function* () {
                 let { user_id, _id: message_id, body } = message;

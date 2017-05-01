@@ -24,20 +24,20 @@ export async function scheduler(
     let messages = message(db);
     let chan = await messages_chan();
 
-    let now = Date.now();
-
-    let $gte = new Date(now - range / 2);
-    let $lte = new Date(now + range / 2);
-
-    let query = {
-        send_date: { $gte, $lte },
-        scheduled: false,
-        user_id: { $exists: true },
-        body: { $exists: true },
-    };
-
     let task = () => {
         let user_cache: { [index: string]: User } = {};
+
+        let now = Date.now();
+
+        let $gte = new Date(now - range / 2);
+        let $lte = new Date(now + range / 2);
+
+        let query = {
+            send_date: { $gte, $lte },
+            scheduled: false,
+            user_id: { $exists: true },
+            body: { $exists: true },
+        };
 
         messages.find(query)
             .forEach(async (message: Message) => {

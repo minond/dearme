@@ -37,6 +37,7 @@ function scheduler(connection = mongo_1.mongo, messages_chan = amqp_1.channel.me
                 user_id: { $exists: true },
                 body: { $exists: true },
             };
+            log.info('query', query);
             messages.find(query)
                 .forEach((message) => __awaiter(this, void 0, void 0, function* () {
                 let { user_id, _id: message_id, body } = message;

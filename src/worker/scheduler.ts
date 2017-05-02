@@ -39,6 +39,8 @@ export async function scheduler(
             body: { $exists: true },
         };
 
+        log.info('query', query);
+
         messages.find(query)
             .forEach(async (message: Message) => {
                 let { user_id, _id: message_id, body } = message;

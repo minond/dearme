@@ -6,6 +6,7 @@ import { logger } from '../log';
 import { user, User } from '../repository/user';
 import { schedule } from '../controller/message';
 import { message, Message } from '../repository/message';
+import { HOUR } from '../utilities';
 
 const log = logger(__filename);
 
@@ -27,7 +28,8 @@ export async function scheduler(
     let task = () => {
         let user_cache: { [index: string]: User } = {};
 
-        let now = Date.now();
+        let offset = HOUR * 6;
+        let now = Date.now() - offset;
 
         let $gte = new Date(now - range / 2);
         let $lte = new Date(now + range / 2);

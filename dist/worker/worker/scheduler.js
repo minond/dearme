@@ -16,6 +16,7 @@ const log_1 = require("../log");
 const user_1 = require("../repository/user");
 const message_1 = require("../controller/message");
 const message_2 = require("../repository/message");
+const utilities_1 = require("../utilities");
 const log = log_1.logger(__filename);
 const range = ms(application_1.config('app.worker.scheduler.range'));
 const interval = ms(application_1.config('app.worker.scheduler.interval'));
@@ -28,7 +29,8 @@ function scheduler(connection = mongo_1.mongo, messages_chan = amqp_1.channel.me
         let chan = yield messages_chan();
         let task = () => {
             let user_cache = {};
-            let now = Date.now();
+            let offset = utilities_1.HOUR * 6;
+            let now = Date.now() - offset;
             let $gte = new Date(now - range / 2);
             let $lte = new Date(now + range / 2);
             let query = {

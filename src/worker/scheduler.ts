@@ -41,7 +41,7 @@ export async function scheduler(
             body: { $exists: true },
         };
 
-        log.info('query', query);
+        log.info(`query from ${$gte} to ${$lte}`);
 
         messages.find(query)
             .forEach(async (message: Message) => {

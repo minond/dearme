@@ -15,8 +15,10 @@ const log = logger(__filename);
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
 
-server.get('/', csrf(), (req, res) =>
-    res.render('index'));
+server.get('/', csrf(), (req, res) => {
+    let manifest = server.get('manifest');
+    res.render('index', { manifest });
+});
 
 (async () => {
     let db: Db;

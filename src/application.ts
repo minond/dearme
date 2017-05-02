@@ -70,6 +70,7 @@ export function application(config: Configuration): Application {
     const KEY_COOKIE = config<string>('key.cookie');
     const KEY_SESSION = config<string>('key.session');
 
+    app.set('manifest', MANIFEST);
     app.set('x-powered-by', false);
     app.set('view cache', true);
     app.set('view engine', 'html');

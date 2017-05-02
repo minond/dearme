@@ -6,9 +6,17 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>dear me</title>
+        <title>{{manifest.title}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="theme-color" content="{{manifest.theme_color}}">
+        <meta name="og:site_name" content="{{manifest.title}}">
+        <meta name="og:title" content="{{manifest.title}}">
+        <meta name="og:description" content="{{manifest.description}}">
+        <meta name="og:image" content="http://dearme.co/assets/images/dearme.png">
+
         <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+        <link rel="manifest" href="/manifest.json">
 
         <style>
         html, body {

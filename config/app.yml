@@ -1,5 +1,5 @@
 title: &title dear me
-description: &description dear me app
+description: &description The easiest way to journal ever. We send a few texts a day. You answer. We add your instagram photos. You have a journal.
 
 worker:
   scheduler:
@@ -23,7 +23,7 @@ manifest:
   description: *description
   start_url: /?utm_source=homescreen
   background_color: "#000"
-  theme_color: "#27b8e8"
+  theme_color: "#000"
   display: standalone
   icons: []
     # - src:

@@ -84,8 +84,12 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
     return flatten(days.reduce((store, day: string) => {
         let day_questions: string[][] = my_questions[day];
 
-        // send confirmation message another way
-        if (day !== '0') {
+        if (day === '0') {
+            // send confirmation message another way
+            let conf = msg(day_questions[0][0], start);
+            conf.scheduled = true;
+            store.push(conf);
+        } else {
             day_questions.map((questions: string[], question_number: number) => {
                 // because the last group in day goes at 8pm
                 let is_last = question_number + 1 === day_questions.length;

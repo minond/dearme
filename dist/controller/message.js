@@ -59,7 +59,12 @@ function build_messages(user, start = new Date) {
     let days = Object.keys(my_questions).sort();
     return lodash_1.flatten(days.reduce((store, day) => {
         let day_questions = my_questions[day];
-        if (day !== '0') {
+        if (day === '0') {
+            let conf = msg(day_questions[0][0], start);
+            conf.scheduled = true;
+            store.push(conf);
+        }
+        else {
             day_questions.map((questions, question_number) => {
                 let is_last = question_number + 1 === day_questions.length;
                 questions.map((question, index) => {

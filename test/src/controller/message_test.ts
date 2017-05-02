@@ -1,7 +1,7 @@
 import * as test from 'tape';
 
 import { build_messages, get_confirmation } from '../../../src/controller/message';
-import { expected_messages, expected_confirmation } from './expected_messages';
+import { expected_messages } from './expected_messages';
 
 const start_time = new Date(1493442000000);
 const user = {
@@ -16,7 +16,7 @@ test('messages controller', (t) => {
 
     const schedule = build_messages(user, start_time);
 
-    t.equal(expected_confirmation, get_confirmation(user));
+    t.equal(expected_messages[0].body, get_confirmation(user));
 
     schedule.map((item, index) => {
         t.equal(expected_messages[index].body, item.body,

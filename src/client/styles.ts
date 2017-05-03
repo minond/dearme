@@ -1,8 +1,13 @@
 import { StyleSheet } from 'aphrodite';
 
+export const small_font_height_mobile = '28px';
+export const small_font_size_mobile = '15px';
+export const small_font_height = '32px';
 export const small_font_size = '18px';
+export const med_font_size_mobile = '25px';
 export const med_font_size = '35px';
 export const large_font_size = '120px';
+export const large_font_size_mobile = '60px';
 
 export const poppins_bold_font = {
     fontFamily: 'Poppins',
@@ -24,13 +29,23 @@ export const common = StyleSheet.create({
     small_text: {
         fontFamily: century_schoolbook_std_font,
         fontSize: small_font_size,
-        lineHeight: '32px',
+        lineHeight: small_font_height,
+
+        '@media (max-width: 600px)': {
+            fontSize: small_font_size_mobile,
+            lineHeight: small_font_height_mobile,
+        },
     },
 
     med_text: {
         fontFamily: century_schoolbook_std_font,
         fontSize: med_font_size,
         lineHeight: med_font_size,
+
+        '@media (max-width: 600px)': {
+            fontSize: med_font_size_mobile,
+            lineHeight: med_font_size_mobile,
+        },
     },
 
     large_text: {
@@ -39,6 +54,11 @@ export const common = StyleSheet.create({
         fontSize: large_font_size,
         letterSpacing: '-1px',
         lineHeight: large_font_size,
+
+        '@media (max-width: 600px)': {
+            fontSize: large_font_size_mobile,
+            lineHeight: large_font_size_mobile,
+        },
     },
 
     text_centered: {
@@ -100,6 +120,14 @@ export const common = StyleSheet.create({
         fontSize: med_font_size,
         outline: 0,
         width: '280px',
+        boxSizing: 'border-box',
+
+        '@media (max-width: 600px)': {
+            display: 'block',
+            fontSize: med_font_size_mobile,
+            width: '100%',
+            margin: '20px 0',
+        },
     },
 
     fade_in_up_slow: {

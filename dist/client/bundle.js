@@ -2928,9 +2928,14 @@ module.exports = React;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const aphrodite_1 = __webpack_require__(18);
+exports.small_font_height_mobile = '28px';
+exports.small_font_size_mobile = '15px';
+exports.small_font_height = '32px';
 exports.small_font_size = '18px';
+exports.med_font_size_mobile = '25px';
 exports.med_font_size = '35px';
 exports.large_font_size = '120px';
+exports.large_font_size_mobile = '60px';
 exports.poppins_bold_font = {
     fontFamily: 'Poppins',
     src: 'local("Poppins Bold"), ' +
@@ -2949,12 +2954,20 @@ exports.common = aphrodite_1.StyleSheet.create({
     small_text: {
         fontFamily: exports.century_schoolbook_std_font,
         fontSize: exports.small_font_size,
-        lineHeight: '32px',
+        lineHeight: exports.small_font_height,
+        '@media (max-width: 600px)': {
+            fontSize: exports.small_font_size_mobile,
+            lineHeight: exports.small_font_height_mobile,
+        },
     },
     med_text: {
         fontFamily: exports.century_schoolbook_std_font,
         fontSize: exports.med_font_size,
         lineHeight: exports.med_font_size,
+        '@media (max-width: 600px)': {
+            fontSize: exports.med_font_size_mobile,
+            lineHeight: exports.med_font_size_mobile,
+        },
     },
     large_text: {
         wordWrap: 'break-word',
@@ -2962,6 +2975,10 @@ exports.common = aphrodite_1.StyleSheet.create({
         fontSize: exports.large_font_size,
         letterSpacing: '-1px',
         lineHeight: exports.large_font_size,
+        '@media (max-width: 600px)': {
+            fontSize: exports.large_font_size_mobile,
+            lineHeight: exports.large_font_size_mobile,
+        },
     },
     text_centered: {
         textAlign: 'center',
@@ -3013,6 +3030,13 @@ exports.common = aphrodite_1.StyleSheet.create({
         fontSize: exports.med_font_size,
         outline: 0,
         width: '280px',
+        boxSizing: 'border-box',
+        '@media (max-width: 600px)': {
+            display: 'block',
+            fontSize: exports.med_font_size_mobile,
+            width: '100%',
+            margin: '20px 0',
+        },
     },
     fade_in_up_slow: {
         animationDuration: '1.2s',

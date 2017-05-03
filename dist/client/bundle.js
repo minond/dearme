@@ -2985,9 +2985,10 @@ exports.common = aphrodite_1.StyleSheet.create({
     },
     button: {
         fontFamily: exports.poppins_bold_font,
-        transition: 'color .5s',
+        transition: 'background-color .2s, color .2s',
         letterSpacing: '4px',
         border: '1px solid #c3c3c3',
+        color: 'black',
         background: 'white',
         fontSize: exports.small_font_size,
         textTransform: 'uppercase',
@@ -2996,6 +2997,10 @@ exports.common = aphrodite_1.StyleSheet.create({
         minWidth: '325px',
         ':not([disabled])': {
             cursor: 'pointer',
+            ':hover': {
+                background: 'black',
+                color: 'white',
+            },
         },
         '@media (max-width: 600px)': {
             minWidth: '100%',

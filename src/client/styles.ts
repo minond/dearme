@@ -67,9 +67,10 @@ export const common = StyleSheet.create({
 
     button: {
         fontFamily: poppins_bold_font,
-        transition: 'color .5s',
+        transition: 'background-color .2s, color .2s',
         letterSpacing: '4px',
         border: '1px solid #c3c3c3',
+        color: 'black',
         background: 'white',
         fontSize: small_font_size,
         textTransform: 'uppercase',
@@ -79,6 +80,11 @@ export const common = StyleSheet.create({
 
         ':not([disabled])': {
             cursor: 'pointer',
+
+            ':hover': {
+                background: 'black',
+                color: 'white',
+            },
         },
 
         '@media (max-width: 600px)': {

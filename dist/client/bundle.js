@@ -11085,7 +11085,7 @@ class SignupComponent extends react_1.Component {
                 React.createElement("form", { onSubmit: (ev) => { ev.preventDefault(); this.onSubmit(); } },
                     React.createElement("div", { className: aphrodite_1.css(styles_1.common.med_text, styles_1.common.large_space) },
                         React.createElement("span", null, "my phone number is"),
-                        React.createElement(InputElement, { autoFocus: true, className: aphrodite_1.css(styles_1.common.text_input), mask: validation_1.PHONE_MASK, maskChar: " ", onChange: (e) => this.changedPhone(e.currentTarget.value) })),
+                        React.createElement(InputElement, { autoFocus: true, className: aphrodite_1.css(styles_1.common.text_input), mask: validation_1.PHONE_MASK, maskChar: " ", type: "phone", onChange: (e) => this.changedPhone(e.currentTarget.value) })),
                     React.createElement("div", { className: aphrodite_1.css(styles_1.common.med_text) },
                         React.createElement("button", { className: aphrodite_1.css(styles_1.common.button), disabled: !this.hasValidState() }, "submit"))))));
     }

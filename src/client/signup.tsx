@@ -46,6 +46,7 @@ export class SignupComponent extends Component<Props, State> {
                                 className={css(common.text_input)}
                                 mask={PHONE_MASK}
                                 maskChar=" "
+                                type="phone"
                                 onChange={(e) => this.changedPhone(e.currentTarget.value)}
                             />
                         </div>

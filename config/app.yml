@@ -14,7 +14,7 @@ server:
   session: on
   body_parsing: on
   robots_txt: off
-  compression: off
+  compression: on
   view_cache: on
 
 manifest:

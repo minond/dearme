@@ -1,6 +1,14 @@
 'use strict';
 
+const webpack = require('webpack');
 const { join } = require('path');
+
+const { DefinePlugin } = webpack;
+const { UglifyJsPlugin } = webpack.optimize;
+
+const { NODE_ENV } = process.env;
+
+const PLUGINS = [];
 
 const DIR = (dir) => (...path) =>
     join(__dirname, '..', dir, ...path);
@@ -23,6 +31,18 @@ const RULE_SOURCE_MAP = {
     loader: 'source-map-loader'
 };
 
+switch (NODE_ENV) {
+case 'production':
+    PLUGINS.push(new DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify(NODE_ENV)
+        }
+    }));
+
+    PLUGINS.push(new UglifyJsPlugin);
+    break;
+}
+
 module.exports = {
     entry: [
         'whatwg-fetch',
@@ -39,6 +59,8 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
     },
+
+    plugins: PLUGINS,
 
     module: {
         rules: [

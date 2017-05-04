@@ -56,7 +56,7 @@ watch-client:
 	$(webpack) $(opt_webpack_config) --watch
 
 build-client:
-	$(webpack) $(opt_webpack_config)
+	NODE_ENV=production $(webpack) $(opt_webpack_config)
 
 watch-server:
 	$(tsc) $(opt_tsc_config) $(opt_tsc_server) --watch

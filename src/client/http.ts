@@ -154,7 +154,7 @@ export const post = (url: string, raw_body: object = {}, conf: Request = {}): Pr
     let credentials = Credentials.SAME_ORIGIN;
 
     let updates = { method, body, headers, cache, credentials };
-    let override = Object.assign({}, conf, updates);
+    let override = (Object as _).assign({}, conf, updates);
 
     headers.set(HEADER_ACCEPT, TYPE_JSON);
     headers.set(HEADER_CONTENT_TYPE, TYPE_JSON);

@@ -13,6 +13,6 @@
         "pretty": true,
         "removeComments": true,
         "strictNullChecks": true,
-        "target": "ES6"
+        "target": "ES5"
     }
 }

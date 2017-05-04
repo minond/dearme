@@ -81,6 +81,11 @@ export const common = StyleSheet.create({
         ':not([disabled])': {
             cursor: 'pointer',
 
+            ':focus': {
+                background: 'black',
+                color: 'white',
+            },
+
             ':hover': {
                 background: 'black',
                 color: 'white',
@@ -114,6 +119,7 @@ export const common = StyleSheet.create({
     },
 
     text_input: {
+        borderRadius: 0,
         fontFamily: century_schoolbook_std_font,
         background: 'transparent',
         borderBottom: '1px solid white',

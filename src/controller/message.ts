@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { flatten } from 'lodash';
 
+import { ModelID } from '../device/model';
 import { Channel } from '../device/amqp';
 import { message as sms_message, response as sms_response } from '../device/sms';
 import { User } from '../repository/user';
@@ -13,6 +14,65 @@ export type QueuedMessage = { phone: string, body: string };
 
 const queue = config<string>('amqp.queues.messages');
 const questions = config<Questions>('questions.personalities');
+
+function build_message(
+    body: string,
+    send_date: Date,
+    user_id: ModelID | undefined,
+    scheduled: boolean
+): Message {
+    if (!user_id) {
+        throw new Error('missing user_id');
+    }
+
+    return {
+        body,
+        send_date,
+        user_id,
+        scheduled,
+        responses: []
+    };
+}
+
+function figure_out_date(
+    start: Date,
+    days: number,
+    message_number: 0 | 1 | 2 | number,
+    second_of: boolean = false
+): Date {
+    let holder = moment(start.valueOf())
+        .millisecond(0)
+        .second(0)
+        .minute(0)
+        .hour(0)
+        .add(days, 'days');
+
+    switch (message_number) {
+        case 0:
+            holder.hour(12);
+            break;
+
+        case 1:
+            holder.hour(15);
+            holder.minute(30);
+            break;
+
+        case 2:
+            holder.hour(20);
+            break;
+
+        default:
+            // ?
+            holder.hour(20);
+            break;
+    }
+
+    if (second_of) {
+        holder.add(45, 'minutes');
+    }
+
+    return holder.toDate();
+}
 
 export function response(msg: string): string {
     return sms_response(sms_message(msg)).toString();
@@ -27,56 +87,7 @@ export function get_confirmation(user: User): string {
 }
 
 export function build_messages(user: User, start: Date = new Date): Message[] {
-    let scheduled = false;
     let { _id: user_id } = user;
-
-    let msg = (body: string, send_date: Date) => {
-        if (!user_id) {
-            throw new Error('missing user_id');
-        }
-
-        return { body, send_date, user_id, scheduled, responses: [] };
-    };
-
-    let future = (
-        start: Date,
-        days: number,
-        message_number: 0 | 1 | 2 | number,
-        second_of: boolean = false
-    ): Date => {
-        let holder = moment(start.valueOf())
-            .millisecond(0)
-            .second(0)
-            .minute(0)
-            .hour(0)
-            .add(days, 'days');
-
-        switch (message_number) {
-            case 0:
-                holder.hour(12);
-                break;
-
-            case 1:
-                holder.hour(15);
-                holder.minute(30);
-                break;
-
-            case 2:
-                holder.hour(20);
-                break;
-
-            default:
-                // ?
-                holder.hour(20);
-                break;
-        }
-
-        if (second_of) {
-            holder.add(45, 'minutes');
-        }
-
-        return holder.toDate();
-    };
 
     let my_questions = questions[user.assigned_personality];
     let days = Object.keys(my_questions).sort();
@@ -86,19 +97,17 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
 
         if (day === '0') {
             // send confirmation message another way
-            let conf = msg(day_questions[0][0], start);
-            conf.scheduled = true;
-            store.push(conf);
+            store.push(build_message(day_questions[0][0], start, user_id, true));
         } else {
             day_questions.map((questions: string[], question_number: number) => {
                 // because the last group in day goes at 8pm
                 let is_last = question_number + 1 === day_questions.length;
 
                 questions.map((question, index) => {
-                    let date = future(start, +day,
+                    let date = figure_out_date(start, +day,
                         is_last ? 2 : question_number, !!index);
 
-                    store.push(msg(question, date));
+                    store.push(build_message(question, date, user_id, false));
                 });
             });
         }

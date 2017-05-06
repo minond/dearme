@@ -122,6 +122,7 @@ export interface Response {
     readonly statusText: string;
     readonly type: Type;
     readonly url: string;
+    json<T>(): Promise<T>;
 }
 
 export const HEADER_ACCEPT = 'Accept';
@@ -136,6 +137,9 @@ const get_csrf_token = (): string => {
     return match[1].split(';')[0];
 };
 
+const merge = (a: object, b: object): object =>
+    (Object as _).assign({}, a, b);
+
 export const request = (url: string, conf: Request = {}): Promise<Response> => {
     return fetch(url, conf).then((res) => {
         if (!res.ok) {
@@ -146,6 +150,16 @@ export const request = (url: string, conf: Request = {}): Promise<Response> => {
     });
 };
 
+export const get = (url: string, conf: Request = {}): Promise<Response> => {
+    let method = Method.GET;
+    let credentials = Credentials.SAME_ORIGIN;
+
+    let updates = { method, credentials };
+    let override = merge(conf, updates);
+
+    return request(url, override);
+};
+
 export const post = (url: string, raw_body: object = {}, conf: Request = {}): Promise<Response> => {
     let { headers = new Headers() } = conf;
     let body = JSON.stringify(raw_body);
@@ -154,7 +168,7 @@ export const post = (url: string, raw_body: object = {}, conf: Request = {}): Pr
     let credentials = Credentials.SAME_ORIGIN;
 
     let updates = { method, body, headers, cache, credentials };
-    let override = (Object as _).assign({}, conf, updates);
+    let override = merge(conf, updates);
 
     headers.set(HEADER_ACCEPT, TYPE_JSON);
     headers.set(HEADER_CONTENT_TYPE, TYPE_JSON);

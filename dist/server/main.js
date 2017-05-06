@@ -23,10 +23,6 @@ const port = application_1.config('port');
 const log = log_1.logger(__filename);
 const server = application_1.application(application_1.config);
 const limit = new RateLimit(application_1.config('ratelimit.default'));
-server.get('/', application_1.csrf(), (req, res) => {
-    let manifest = server.get('manifest');
-    res.render('index', { manifest });
-});
 (() => __awaiter(this, void 0, void 0, function* () {
     let db;
     let chan;
@@ -100,5 +96,9 @@ server.get('/', application_1.csrf(), (req, res) => {
             next(error(503, err.message));
         }
     }));
+    server.get('*', application_1.csrf(), (req, res) => {
+        let manifest = server.get('manifest');
+        res.render('index', { manifest });
+    });
     server.listen(port, () => log.info('ready for http calls on port', port));
 }))();

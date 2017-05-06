@@ -1,3 +1,4 @@
+import { v4 } from 'node-uuid';
 import { Db, Cursor, Collection } from '../device/mongo';
 import { Model, Repository } from '../device/model';
 import { config } from '../application';
@@ -6,6 +7,7 @@ import { rand, format_phone, not_yet_implemented } from '../utilities';
 const personalities = [0, 1];
 
 export interface User extends Model {
+    guid: string;
     phone: string;
     inactive: boolean;
     assigned_personality: number;
@@ -25,11 +27,12 @@ export function user(db: Db): Repository<User> {
         find_one({ phone: format_phone(raw) });
 
     const save = ({ phone }: { phone: string }): Promise<User> => {
+        let guid = v4();
         let inactive = false;
         let date_created = new Date;
         let assigned_personality = rand(personalities);
 
-        let user: User = { inactive, phone, date_created, assigned_personality };
+        let user: User = { guid, inactive, phone, date_created, assigned_personality };
 
         return coll()
             .insert(user)

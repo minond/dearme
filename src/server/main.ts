@@ -91,6 +91,13 @@ server.get('/', csrf(), (req, res) => {
         }
 
         try {
+            let dup_check = await users.find_one_by_phone(phone);
+
+            if (dup_check) {
+                log.warn('duplicate phone');
+                throw new Error();
+            }
+
             let user = await users.save({ phone });
             let msgs = build_messages(user, offset);
             let conf = get_confirmation(user);

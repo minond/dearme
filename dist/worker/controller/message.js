@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const moment = require("moment");
 const lodash_1 = require("lodash");
-const sms_1 = require("../device/sms");
+const sms = require("../device/sms");
 const application_1 = require("../application");
 const utilities_1 = require("../utilities");
 const queue = application_1.config('amqp.queues.messages');
@@ -47,11 +47,11 @@ function figure_out_date(start, days, message_number, second_of = false) {
     return holder.toDate();
 }
 function response(msg) {
-    return sms_1.response(sms_1.message(msg)).toString();
+    return sms.response(sms.message(msg)).toString();
 }
 exports.response = response;
 function no_response() {
-    return sms_1.response().toString();
+    return sms.response().toString();
 }
 exports.no_response = no_response;
 function get_confirmation(user) {

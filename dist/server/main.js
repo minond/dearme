@@ -40,6 +40,19 @@ server.get('/', application_1.csrf(), (req, res) => {
     }
     let users = user_1.user(db);
     let messages = message_1.message(db);
+    server.get('/api/user/:guid', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        let { guid } = req.params;
+        try {
+            let user = yield users.find_one({ guid });
+            let msgs = yield messages.find({ user_id: user._id }).toArray();
+            res.json(msgs);
+        }
+        catch (err) {
+            log.error('ran into problem getting messages for user');
+            log.error(err);
+            next(error(503, err.message));
+        }
+    }));
     server.post('/api/message', (req, res) => __awaiter(this, void 0, void 0, function* () {
         log.info('got a message');
         try {
@@ -63,7 +76,7 @@ server.get('/', application_1.csrf(), (req, res) => {
         }
         res.xml(message_2.no_response());
     }));
-    server.post('/signup', application_1.csrf(), limit, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    server.post('/api/signup', application_1.csrf(), limit, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         let { phone } = req.body;
         let offset = new Date(Date.now() - utilities_1.HOUR * 6);
         if (!validation_1.valid_phone(phone)) {
@@ -71,6 +84,11 @@ server.get('/', application_1.csrf(), (req, res) => {
             return;
         }
         try {
+            let dup_check = yield users.find_one_by_phone(phone);
+            if (dup_check) {
+                log.warn('duplicate phone');
+                throw new Error();
+            }
             let user = yield users.save({ phone });
             let msgs = message_2.build_messages(user, offset);
             let conf = message_2.get_confirmation(user);

@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 import { flatten } from 'lodash';
 
+import * as sms from '../device/sms';
 import { ModelID } from '../device/model';
 import { Channel } from '../device/amqp';
-import { message as sms_message, response as sms_response } from '../device/sms';
 import { User } from '../repository/user';
 import { Message } from '../repository/message';
 import { config } from '../application';
@@ -75,11 +75,11 @@ function figure_out_date(
 }
 
 export function response(msg: string): string {
-    return sms_response(sms_message(msg)).toString();
+    return sms.response(sms.message(msg)).toString();
 }
 
 export function no_response(): string {
-    return sms_response().toString();
+    return sms.response().toString();
 }
 
 export function get_confirmation(user: User): string {

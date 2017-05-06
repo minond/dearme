@@ -67,7 +67,7 @@ server.get('/', csrf(), (req, res) => {
         res.xml(no_response());
     });
 
-    server.post('/signup', csrf(), limit, async (req, res, next) => {
+    server.post('/api/signup', csrf(), limit, async (req, res, next) => {
         let { phone } = req.body;
         let offset = new Date(Date.now() - HOUR * 6);
 

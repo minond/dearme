@@ -36,6 +36,20 @@ server.get('/', csrf(), (req, res) => {
     let users = user(db);
     let messages = message(db);
 
+    server.get('/api/user/:guid', async (req, res, next) => {
+        let { guid } = req.params;
+
+        try {
+            let user = await users.find_one({ guid });
+            let msgs = await messages.find({ user_id: user._id }).toArray();
+            res.json(msgs);
+        } catch (err) {
+            log.error('ran into problem getting messages for user');
+            log.error(err);
+            next(error(503, err.message));
+        }
+    });
+
     server.post('/api/message', async (req, res) => {
         log.info('got a message');
 

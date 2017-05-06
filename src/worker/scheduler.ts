@@ -60,6 +60,11 @@ export async function scheduler(
                     await messages.update(message_filter, { $set: { scheduled: true } });
                     log.info(`updated scheduled flag for for User#${user_id}`);
 
+                    if (!user) {
+                        log.info('no user found. not scheduling message');
+                        return;
+                    }
+
                     let ok = await schedule(chan, user, body);
                     log.info(`scheduled message for User#${user_id} ok: ${ok}`);
                 } catch (err) {

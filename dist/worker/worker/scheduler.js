@@ -52,6 +52,10 @@ function scheduler(connection = mongo_1.mongo, messages_chan = amqp_1.channel.me
                 try {
                     yield messages.update(message_filter, { $set: { scheduled: true } });
                     log.info(`updated scheduled flag for for User#${user_id}`);
+                    if (!user) {
+                        log.info('no user found. not scheduling message');
+                        return;
+                    }
                     let ok = yield message_1.schedule(chan, user, body);
                     log.info(`scheduled message for User#${user_id} ok: ${ok}`);
                 }

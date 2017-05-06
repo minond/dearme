@@ -8,7 +8,7 @@ const log = log_1.logger(__filename);
 const queue = application_1.config('amqp.queues.messages');
 function texter(sender = sms_1.send, messages = amqp_1.channel.messages) {
     messages().then((chan) => {
-        log.info('consuming %s', queue);
+        log.info(`consuming ${queue}`);
         chan.consume(queue, (msg) => {
             let { phone, body } = amqp_1.parse(msg);
             log.info('got message');

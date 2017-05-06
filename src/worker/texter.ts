@@ -12,7 +12,7 @@ export function texter(
     messages: LazyChannel = channel.messages
 ) {
     messages().then((chan) => {
-        log.info('consuming %s', queue);
+        log.info(`consuming ${queue}`);
 
         chan.consume(queue, (msg) => {
             let { phone, body } = parse(msg) as QueuedMessage;

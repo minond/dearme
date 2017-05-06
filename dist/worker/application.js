@@ -36,6 +36,7 @@ function application(config) {
     const COOKIES = config('app.server.cookies');
     const KEY_COOKIE = config('key.cookie');
     const KEY_SESSION = config('key.session');
+    app.set('manifest', MANIFEST);
     app.set('x-powered-by', false);
     app.set('view cache', true);
     app.set('view engine', 'html');

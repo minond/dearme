@@ -2,6 +2,18 @@
 
 import * as React from 'react';
 import * as DOM from 'react-dom';
-import { HomeComponent } from './home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-DOM.render(<HomeComponent />, document.querySelector('#app'));
+import { HomeComponent } from './home';
+import { JournalComponent } from './journal';
+
+const Main = () => (
+    <Router>
+        <div>
+            <Route path="/" exact={true} render={() => <HomeComponent />} />
+            <Route path="/u/:guid" render={({ match }) => <JournalComponent guid={match.params.guid} />} />
+        </div>
+    </Router>
+);
+
+DOM.render(<Main />, document.querySelector('#app'));

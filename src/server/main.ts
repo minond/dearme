@@ -16,11 +16,6 @@ const log = logger(__filename);
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
 
-server.get('/', csrf(), (req, res) => {
-    let manifest = server.get('manifest');
-    res.render('index', { manifest });
-});
-
 (async () => {
     let db: Db;
     let chan: Channel;
@@ -109,6 +104,11 @@ server.get('/', csrf(), (req, res) => {
         } catch (err) {
             next(error(503, err.message));
         }
+    });
+
+    server.get('*', csrf(), (req, res) => {
+        let manifest = server.get('manifest');
+        res.render('index', { manifest });
     });
 
     server.listen(port, () =>

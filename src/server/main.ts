@@ -9,6 +9,7 @@ import { mongo, Db } from '../device/mongo';
 import { channel, Channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
+import { HOUR } from '../utilities';
 
 const port = config('port');
 const log = logger(__filename);
@@ -68,6 +69,7 @@ server.get('/', csrf(), (req, res) => {
 
     server.post('/signup', csrf(), limit, async (req, res, next) => {
         let { phone } = req.body;
+        let offset = new Date(Date.now() - HOUR * 6);
 
         if (!valid_phone(phone)) {
             next(error(400, 'invalid phone'));
@@ -76,7 +78,7 @@ server.get('/', csrf(), (req, res) => {
 
         try {
             let user = await users.save({ phone });
-            let msgs = build_messages(user);
+            let msgs = build_messages(user, offset);
             let conf = get_confirmation(user);
 
             await messages.save_many(msgs);

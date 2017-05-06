@@ -18,6 +18,7 @@ const mongo_1 = require("../device/mongo");
 const amqp_1 = require("../device/amqp");
 const application_1 = require("../application");
 const validation_1 = require("../validation");
+const utilities_1 = require("../utilities");
 const port = application_1.config('port');
 const log = log_1.logger(__filename);
 const server = application_1.application(application_1.config);
@@ -64,13 +65,14 @@ server.get('/', application_1.csrf(), (req, res) => {
     }));
     server.post('/signup', application_1.csrf(), limit, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         let { phone } = req.body;
+        let offset = new Date(Date.now() - utilities_1.HOUR * 6);
         if (!validation_1.valid_phone(phone)) {
             next(error(400, 'invalid phone'));
             return;
         }
         try {
             let user = yield users.save({ phone });
-            let msgs = message_2.build_messages(user);
+            let msgs = message_2.build_messages(user, offset);
             let conf = message_2.get_confirmation(user);
             yield messages.save_many(msgs);
             yield message_2.schedule(chan, user, conf);

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
+import { common } from './styles';
 import { get } from './http';
 
 interface Response {
@@ -27,10 +29,20 @@ type Props = {
     guid: string;
 };
 
+const styles = StyleSheet.create({
+    container: {
+        maxWidth: '750px',
+        margin: '100px auto',
+        padding: '20px',
+    }
+});
+
 export const MessageComponent = ({ message }: { message: Message }) =>
     <div>
-        <h2>{message.body}</h2>
-        {message.responses.map((response) => <p key={response.date.toString()}>{response.body}</p>)}
+        <h2 className={css(common.med_text)}>{message.body}</h2>
+        {message.responses.map((response) =>
+            <p className={css(common.small_text)}
+                key={response.date.toString()}>{response.body}</p>)}
     </div>;
 
 export class JournalComponent extends Component<Props, State> {
@@ -62,8 +74,9 @@ export class JournalComponent extends Component<Props, State> {
         let messages = this.state.messages.slice(1);
 
         return (
-            <div>
-                {messages.map((message) => <MessageComponent key={message._id} message={message} />)}
+            <div className={css(styles.container)}>
+                {messages.map((message) =>
+                    <MessageComponent key={message._id} message={message} />)}
             </div>
         );
     }

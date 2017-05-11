@@ -46,5 +46,3 @@ export TWILIO_SERVICE_SID=         # your twilio messaging service id
 
 run `make` to build everything. `make lint test` runs the linters and all
 tests.
-
-![dear me](https://raw.githubusercontent.com/minond/dearme/master/assets/images/banner.png)

@@ -70,8 +70,7 @@ export class JournalComponent extends Component<Props, State> {
     }
 
     render() {
-        // skip the confirmation message
-        let messages = this.state.messages.slice(1);
+        let { messages } = this.state;
 
         return (
             <div className={css(styles.container)}>

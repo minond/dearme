@@ -32,7 +32,7 @@ type Props = {
 const styles = StyleSheet.create({
     container: {
         maxWidth: '750px',
-        margin: '100px auto',
+        margin: '3em auto',
         padding: '20px',
     }
 });

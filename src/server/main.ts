@@ -3,13 +3,16 @@ import * as error from 'http-errors';
 
 import { logger } from '../log';
 import { user } from '../repository/user';
-import { message } from '../repository/message';
+import { Response, Message, message } from '../repository/message';
 import { build_messages, get_confirmation, schedule, no_response } from '../controller/message';
 import { mongo, Db } from '../device/mongo';
 import { channel, Channel } from '../device/amqp';
 import { config, application, csrf } from '../application';
 import { valid_phone } from '../validation';
 import { HOUR } from '../utilities';
+
+import { decrypt, encrypt } from '../crypto';
+import { KEY_MESSAGES } from '../keys';
 
 const port = config('port');
 const log = logger(__filename);
@@ -37,7 +40,16 @@ const limit = new RateLimit(config('ratelimit.default'));
         try {
             let user = await users.find_one({ guid });
             let msgs = await messages.find({ user_id: user._id }).toArray();
-            res.json(msgs);
+            res.json(msgs.reduce((store, msg) => {
+                msg.responses = msg.responses.reduce((store, resp) => {
+                    resp.body = decrypt(resp.body, KEY_MESSAGES);
+                    store.push(resp);
+                    return store;
+                }, [] as Response[]);
+
+                store.push(msg);
+                return store;
+            }, [] as Message[]));
         } catch (err) {
             log.error('ran into problem getting messages for user');
             log.error(err);
@@ -53,6 +65,10 @@ const limit = new RateLimit(config('ratelimit.default'));
 
             let user = await users.find_one_by_phone(phone);
 
+            if (!body) {
+                throw new Error('empty body. not saving');
+            }
+
             if (!user) {
                 throw new Error('could not find user');
             }
@@ -64,7 +80,10 @@ const limit = new RateLimit(config('ratelimit.default'));
             }
 
             let filter = { _id: item._id };
-            let update = { $push: { responses: { body, date: new Date } } };
+            let update = { $push: { responses: {
+                body: encrypt(body, KEY_MESSAGES),
+                date: new Date
+            }}};
 
             await messages.update(filter, update);
             log.info('saved response');

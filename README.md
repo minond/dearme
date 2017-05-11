@@ -1,3 +1,5 @@
+![dear me](https://raw.githubusercontent.com/minond/dearme/master/assets/images/dearme.png)
+
 the easiest way to journal ever. we send a few texts a day. you answer. we add
 your instagram photos. you have a journal.
 
@@ -44,3 +46,5 @@ export TWILIO_SERVICE_SID=         # your twilio messaging service id
 
 run `make` to build everything. `make lint test` runs the linters and all
 tests.
+
+![dear me](https://raw.githubusercontent.com/minond/dearme/master/assets/images/banner.png)

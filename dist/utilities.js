@@ -28,10 +28,6 @@ function buffer(obj) {
     return new Buffer(JSON.stringify(obj));
 }
 exports.buffer = buffer;
-function not_yet_implemented() {
-    throw new Error('Unimplemented');
-}
-exports.not_yet_implemented = not_yet_implemented;
 function format_phone(raw) {
     return raw.trim()
         .replace(/\s+/g, '')

@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_uuid_1 = require("node-uuid");
+const model_1 = require("../device/model");
 const application_1 = require("../application");
 const utilities_1 = require("../utilities");
 const personalities = [0, 1];
 function user(db) {
     const coll = () => db.collection(application_1.config('mongo.collections.users'));
+    const extras = model_1.repo(coll);
     const find = (query, fields) => coll().find(Object.assign({ inactive: false }, query), fields);
     const find_one = (query) => coll().findOne(Object.assign({ inactive: false }, query));
     const find_one_by_phone = (raw) => find_one({ phone: utilities_1.format_phone(raw) });
@@ -19,8 +21,6 @@ function user(db) {
             .insert(user)
             .then(() => user);
     };
-    const save_many = (users) => utilities_1.not_yet_implemented();
-    const update = (filter, update) => utilities_1.not_yet_implemented();
-    return { find, find_one, find_one_by_phone, save, save_many, update };
+    return Object.assign({}, extras, { find, find_one, find_one_by_phone, save });
 }
 exports.user = user;

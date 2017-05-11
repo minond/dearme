@@ -31,6 +31,10 @@ configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
 export MONGO_URL=
 export AMQP_URL=
 
+export KEY_COOKIE=                 # cookies encryption key
+export KEY_SESSION=                # session encryption key
+export KEY_MESSAGES=               # user response encryption key
+
 export TWILIO_ACCOUNT_SID=         # your twilio account id
 export TWILIO_AUTH_TOKEN=          # your twilio account auth token
 export TWILIO_SERVICE_SID=         # your twilio messaging service id

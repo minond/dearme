@@ -1,7 +1,7 @@
 import { head } from 'lodash';
 import { User } from './user';
-import { Db, Cursor, Collection } from '../device/mongo';
-import { Model, ModelID, Repository } from '../device/model';
+import { Db } from '../device/mongo';
+import { repo, Model, ModelID, Repository } from '../device/model';
 import { config } from '../application';
 
 export interface Response {
@@ -18,23 +18,8 @@ export interface Message extends Model {
 }
 
 export function message(db: Db): Repository<Message> {
-    const coll = (): Collection =>
-        db.collection(config<string>('mongo.collections.messages'));
-
-    const find = (query: object, fields?: object): Cursor<Message> =>
-        coll().find(query, fields);
-
-    const find_one = (query: object): Promise<Message> =>
-        coll().findOne(query);
-
-    const save = (message: Message): Promise<Message> =>
-        coll().insert(message).then(() => message);
-
-    const save_many = (messages: Message[]): Promise<Message[]> =>
-        coll().insertMany(messages).then(() => messages);
-
-    const update = (filter: object, update: object): Promise<null> =>
-        coll().findOneAndUpdate(filter, update).then(() => null);
+    const { find, ...extras } = repo<Message>(() =>
+        db.collection(config<string>('mongo.collections.messages')));
 
     const find_users_last_message = (user: User): Promise<Message> => {
         let { _id: user_id } = user;
@@ -51,5 +36,5 @@ export function message(db: Db): Repository<Message> {
             .then((msgs) => head(msgs));
     };
 
-    return { find, find_one, find_users_last_message, save, save_many, update };
+    return { ...extras, find, find_users_last_message };
 }

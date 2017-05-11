@@ -29,10 +29,6 @@ export function buffer(obj: object): Buffer {
     return new Buffer(JSON.stringify(obj));
 }
 
-export function not_yet_implemented(): _ {
-    throw new Error('Unimplemented');
-}
-
 export function format_phone(raw: string): string {
     return raw.trim()
         .replace(/\s+/g, '')

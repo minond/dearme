@@ -55,7 +55,7 @@ function encrypt_all_responses() {
                     could_decrypt = true;
                 } catch (ignore) {}
 
-                if (!could_decrypt) {
+                if (!could_decrypt && response.body) {
                     log.info('encrypting response');
                     response.body = encrypt(response.body, KEY_MESSAGES);
                     needs_update = true;

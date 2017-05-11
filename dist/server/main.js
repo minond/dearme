@@ -19,6 +19,8 @@ const amqp_1 = require("../device/amqp");
 const application_1 = require("../application");
 const validation_1 = require("../validation");
 const utilities_1 = require("../utilities");
+const crypto_1 = require("../crypto");
+const keys_1 = require("../keys");
 const port = application_1.config('port');
 const log = log_1.logger(__filename);
 const server = application_1.application(application_1.config);
@@ -41,7 +43,15 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
         try {
             let user = yield users.find_one({ guid });
             let msgs = yield messages.find({ user_id: user._id }).toArray();
-            res.json(msgs);
+            res.json(msgs.reduce((store, msg) => {
+                msg.responses = msg.responses.reduce((store, resp) => {
+                    resp.body = crypto_1.decrypt(resp.body, keys_1.KEY_MESSAGES);
+                    store.push(resp);
+                    return store;
+                }, []);
+                store.push(msg);
+                return store;
+            }, []));
         }
         catch (err) {
             log.error('ran into problem getting messages for user');
@@ -54,6 +64,9 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
         try {
             let { From: phone, Body: body } = req.body;
             let user = yield users.find_one_by_phone(phone);
+            if (!body) {
+                throw new Error('empty body. not saving');
+            }
             if (!user) {
                 throw new Error('could not find user');
             }
@@ -62,7 +75,10 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
                 throw new Error('could not find users last message');
             }
             let filter = { _id: item._id };
-            let update = { $push: { responses: { body, date: new Date } } };
+            let update = { $push: { responses: {
+                        body: crypto_1.encrypt(body, keys_1.KEY_MESSAGES),
+                        date: new Date
+                    } } };
             yield messages.update(filter, update);
             log.info('saved response');
         }

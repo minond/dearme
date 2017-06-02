@@ -5,6 +5,15 @@ import { StyleSheet, css } from 'aphrodite';
 import { common } from './styles';
 import { get } from './http';
 
+interface User {
+    fname: string;
+}
+
+interface ServerResponse {
+    user: User;
+    messages: Message[];
+}
+
 interface Response {
     body: string;
     date: Date;
@@ -22,6 +31,7 @@ interface Message {
 type State = {
     loading: boolean;
     error: boolean;
+    user: User;
     messages: Message[];
 };
 
@@ -52,6 +62,7 @@ export class JournalComponent extends Component<Props, State> {
         this.state = {
             loading: false,
             error: false,
+            user: { fname: '' },
             messages: [],
         };
     }
@@ -64,8 +75,8 @@ export class JournalComponent extends Component<Props, State> {
         this.setState({ loading: true, error: false });
 
         get(`/api/user/${guid}`)
-            .then((res) => res.json<Message[]>())
-            .then((messages) => this.setState({ messages, loading: false }))
+            .then((res) => res.json<ServerResponse>())
+            .then(({user, messages}) => this.setState({ user, messages, loading: false }))
             .catch(() => this.setState({ loading: false, error: true }));
     }
 

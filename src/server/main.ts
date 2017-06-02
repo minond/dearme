@@ -40,16 +40,22 @@ const limit = new RateLimit(config('ratelimit.default'));
         try {
             let user = await users.find_one({ guid });
             let msgs = await messages.find({ user_id: user._id }).toArray();
-            res.json(msgs.reduce((store, msg) => {
-                msg.responses = msg.responses.reduce((store, resp) => {
-                    resp.body = decrypt(resp.body, KEY_MESSAGES);
-                    store.push(resp);
-                    return store;
-                }, [] as Response[]);
+            res.json({
+                user: {
+                    fname: user.fname,
+                },
 
-                store.push(msg);
-                return store;
-            }, [] as Message[]));
+                messages: msgs.reduce((store, msg) => {
+                    msg.responses = msg.responses.reduce((store, resp) => {
+                        resp.body = decrypt(resp.body, KEY_MESSAGES);
+                        store.push(resp);
+                        return store;
+                    }, [] as Response[]);
+
+                    store.push(msg);
+                    return store;
+                }, [] as Message[])
+            });
         } catch (err) {
             log.error('ran into problem getting messages for user');
             log.error(err);

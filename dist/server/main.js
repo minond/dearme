@@ -43,15 +43,20 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
         try {
             let user = yield users.find_one({ guid });
             let msgs = yield messages.find({ user_id: user._id }).toArray();
-            res.json(msgs.reduce((store, msg) => {
-                msg.responses = msg.responses.reduce((store, resp) => {
-                    resp.body = crypto_1.decrypt(resp.body, keys_1.KEY_MESSAGES);
-                    store.push(resp);
+            res.json({
+                user: {
+                    fname: user.fname,
+                },
+                messages: msgs.reduce((store, msg) => {
+                    msg.responses = msg.responses.reduce((store, resp) => {
+                        resp.body = crypto_1.decrypt(resp.body, keys_1.KEY_MESSAGES);
+                        store.push(resp);
+                        return store;
+                    }, []);
+                    store.push(msg);
                     return store;
-                }, []);
-                store.push(msg);
-                return store;
-            }, []));
+                }, [])
+            });
         }
         catch (err) {
             log.error('ran into problem getting messages for user');

@@ -7,6 +7,7 @@ const start_time = new Date(1493442000000);
 const user = {
     _id: '123' as _,
     guid: '123',
+    fname: 'Marcos',
     phone: '1231231234',
     inactive: false,
     assigned_personality: 0,

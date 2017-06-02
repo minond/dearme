@@ -8,6 +8,7 @@ const personalities = [0, 1];
 
 export interface User extends Model {
     guid: string;
+    fname: string;
     phone: string;
     inactive: boolean;
     assigned_personality: number;
@@ -28,13 +29,13 @@ export function user(db: Db): Repository<User> {
     const find_one_by_phone = (raw: string): Promise<User> =>
         find_one({ phone: format_phone(raw) });
 
-    const save = ({ phone }: { phone: string }): Promise<User> => {
+    const save = ({ fname, phone }: { fname: string, phone: string }): Promise<User> => {
         let guid = v4();
         let inactive = false;
         let date_created = new Date;
         let assigned_personality = rand(personalities);
 
-        let user: User = { guid, inactive, phone, date_created, assigned_personality };
+        let user: User = { guid, inactive, fname, phone, date_created, assigned_personality };
 
         return coll()
             .insert(user)

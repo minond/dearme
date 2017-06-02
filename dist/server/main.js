@@ -89,10 +89,14 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
         res.xml(message_2.no_response());
     }));
     server.post('/api/signup', application_1.csrf(), limit, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-        let { phone } = req.body;
+        let { fname, phone } = req.body;
         let offset = new Date(Date.now() - utilities_1.HOUR * 6);
         if (!validation_1.valid_phone(phone)) {
             next(error(400, 'invalid phone'));
+            return;
+        }
+        if (!fname) {
+            next(error(400, 'missing first name'));
             return;
         }
         try {
@@ -101,7 +105,7 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
                 log.warn('duplicate phone');
                 throw new Error();
             }
-            let user = yield users.save({ phone });
+            let user = yield users.save({ fname, phone });
             let msgs = message_2.build_messages(user, offset);
             let conf = message_2.get_confirmation(user);
             yield messages.save_many(msgs);

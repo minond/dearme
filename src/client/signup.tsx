@@ -11,13 +11,21 @@ type Props = {
 };
 
 export type State = {
-    phone: string | null
+    fname: string | null,
+    phone: string | null,
 };
 
 export class SignupComponent extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { phone: null };
+        this.state = {
+            fname: null,
+            phone: null,
+        };
+    }
+
+    changedFName(fname: string | null) {
+        this.setState({ fname });
     }
 
     changedPhone(phone: string | null) {
@@ -40,9 +48,18 @@ export class SignupComponent extends Component<Props, State> {
                 <div className={css(common.fade_in_up_slow)}>
                     <form onSubmit={(ev) => { ev.preventDefault(); this.onSubmit(); }}>
                         <div className={css(common.med_text, common.large_space)}>
+                            <span>my first name is</span>
+                            <input
+                                autoFocus={true}
+                                className={css(common.text_input)}
+                                type="text"
+                                onChange={(e) => this.changedFName(e.currentTarget.value)}
+                            />
+                        </div>
+
+                        <div className={css(common.med_text, common.large_space)}>
                             <span>my phone number is</span>
                             <InputElement
-                                autoFocus={true}
                                 className={css(common.text_input)}
                                 mask={PHONE_MASK}
                                 maskChar=" "

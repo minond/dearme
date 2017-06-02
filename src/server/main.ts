@@ -96,11 +96,16 @@ const limit = new RateLimit(config('ratelimit.default'));
     });
 
     server.post('/api/signup', csrf(), limit, async (req, res, next) => {
-        let { phone } = req.body;
+        let { fname, phone } = req.body;
         let offset = new Date(Date.now() - HOUR * 6);
 
         if (!valid_phone(phone)) {
             next(error(400, 'invalid phone'));
+            return;
+        }
+
+        if (!fname) {
+            next(error(400, 'missing first name'));
             return;
         }
 
@@ -112,7 +117,7 @@ const limit = new RateLimit(config('ratelimit.default'));
                 throw new Error();
             }
 
-            let user = await users.save({ phone });
+            let user = await users.save({ fname, phone });
             let msgs = build_messages(user, offset);
             let conf = get_confirmation(user);
 

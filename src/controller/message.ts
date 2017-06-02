@@ -2,7 +2,6 @@ import * as moment from 'moment';
 import { flatten } from 'lodash';
 
 import * as sms from '../device/sms';
-import { ModelID } from '../device/model';
 import { Channel } from '../device/amqp';
 import { User } from '../repository/user';
 import { Message } from '../repository/message';
@@ -12,23 +11,35 @@ import { buffer } from '../utilities';
 export type Questions = { [index: string]: string[][] }[];
 export type QueuedMessage = { phone: string, body: string };
 
+const base_url = config<string>('app.url');
+const survey_url = config<string>('app.survey_url');
+
 const queue = config<string>('amqp.queues.messages');
 const questions = config<Questions>('questions.personalities');
+
+function merge_fields(
+    body: string,
+    user: User
+): string {
+    return body
+        .replace('[LINK TO JOURNAL]', `${base_url}/u/${user.guid}`)
+        .replace('[LINK TO SURVEY]', survey_url);
+}
 
 function build_message(
     body: string,
     send_date: Date,
-    user_id: ModelID | undefined,
+    user: User,
     scheduled: boolean
 ): Message {
-    if (!user_id) {
-        throw new Error('missing user_id');
+    if (!user._id) {
+        throw new Error('missing user._id');
     }
 
     return {
-        body,
+        body: merge_fields(body, user),
         send_date,
-        user_id,
+        user_id: user._id,
         scheduled,
         responses: []
     };
@@ -87,8 +98,6 @@ export function get_confirmation(user: User): string {
 }
 
 export function build_messages(user: User, start: Date = new Date): Message[] {
-    let { _id: user_id } = user;
-
     let my_questions = questions[user.assigned_personality];
     let days = Object.keys(my_questions).sort();
 
@@ -97,7 +106,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
 
         if (day === '0') {
             // send confirmation message another way
-            store.push(build_message(day_questions[0][0], start, user_id, true));
+            store.push(build_message(day_questions[0][0], start, user, true));
         } else {
             day_questions.map((questions: string[], question_number: number) => {
                 // because the last group in day goes at 8pm
@@ -107,7 +116,7 @@ export function build_messages(user: User, start: Date = new Date): Message[] {
                     let date = figure_out_date(start, +day,
                         is_last ? 2 : question_number, !!index);
 
-                    store.push(build_message(question, date, user_id, false));
+                    store.push(build_message(question, date, user, false));
                 });
             });
         }

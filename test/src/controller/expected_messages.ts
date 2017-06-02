@@ -1,4 +1,10 @@
-export const expected_messages = [
+import { config } from '../../../src/application';
+import { User } from '../../../src/repository/user';
+
+const base_url = config<string>('app.url');
+const survey_url = config<string>('app.survey_url');
+
+export const build_expected_messages = (user: User) => ([
     {
         "body": "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). Cool? Talk soon! 👋",
         "send_date": "2017-04-29T05:00:00.000Z"
@@ -84,7 +90,7 @@ export const expected_messages = [
         "send_date": "2017-05-06T02:00:00.000Z"
     },
     {
-        "body": "It's time for the big reveal! 😍 Check out your private journal here: [LINK TO JOURNAL]",
+        "body": `It's time for the big reveal! 😍 Check out your private journal here: ${base_url}/u/${user.guid}`,
         "send_date": "2017-05-06T18:00:00.000Z"
     },
     {
@@ -92,7 +98,7 @@ export const expected_messages = [
         "send_date": "2017-05-06T21:30:00.000Z"
     },
     {
-        "body": "One last thing: would you mind giving me some feedback on your experience? [LINK TO SURVEY]",
+        "body": `One last thing: would you mind giving me some feedback on your experience? ${survey_url}`,
         "send_date": "2017-05-07T02:00:00.000Z"
     }
-];
+]);

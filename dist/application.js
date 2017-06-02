@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv = require("dotenv");
+dotenv.config({ silent: true });
 const express_1 = require("express");
 const Tokens = require("csrf");
 const express = require("express");
@@ -7,7 +9,6 @@ const config = require("acm");
 exports.config = config;
 const express_2 = require("express");
 const swig_1 = require("swig");
-const dotenv = require("dotenv");
 const favicon = require("serve-favicon");
 const body = require("body-parser");
 const compression = require("compression");
@@ -15,7 +16,6 @@ const cookie = require("cookie-parser");
 const session = require("express-session");
 exports.router = express_1.Router;
 function configuration() {
-    dotenv.config({ silent: true });
     return config;
 }
 exports.configuration = configuration;

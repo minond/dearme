@@ -1,7 +1,7 @@
 import * as test from 'tape';
 
 import { build_messages, get_confirmation } from '../../../src/controller/message';
-import { expected_messages } from './expected_messages';
+import { build_expected_messages } from './expected_messages';
 
 const start_time = new Date(1493442000000);
 const user = {
@@ -11,6 +11,8 @@ const user = {
     inactive: false,
     assigned_personality: 0,
 };
+
+const expected_messages = build_expected_messages(user);
 
 test('messages controller', (t) => {
     t.plan(1 + expected_messages.length * 2);

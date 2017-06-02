@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ silent: true });
+
 import { Express, Request, Response, Router, RequestHandler } from 'express';
 import { Configuration } from 'acm';
 
@@ -7,7 +10,6 @@ import * as config from 'acm';
 import { static as serve } from 'express';
 import { setDefaults as swig_config, renderFile as render } from 'swig';
 
-import * as dotenv from 'dotenv';
 import * as favicon from 'serve-favicon';
 import * as body from 'body-parser';
 import * as compression from 'compression';
@@ -45,7 +47,6 @@ export interface Manifest {
 }
 
 export function configuration(): Configuration {
-    dotenv.config({ silent: true });
     return config;
 }
 

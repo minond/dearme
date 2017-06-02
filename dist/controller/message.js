@@ -5,16 +5,23 @@ const lodash_1 = require("lodash");
 const sms = require("../device/sms");
 const application_1 = require("../application");
 const utilities_1 = require("../utilities");
+const base_url = application_1.config('app.url');
+const survey_url = application_1.config('app.survey_url');
 const queue = application_1.config('amqp.queues.messages');
 const questions = application_1.config('questions.personalities');
-function build_message(body, send_date, user_id, scheduled) {
-    if (!user_id) {
-        throw new Error('missing user_id');
+function merge_fields(body, user) {
+    return body
+        .replace('[LINK TO JOURNAL]', `${base_url}/u/${user.guid}`)
+        .replace('[LINK TO SURVEY]', survey_url);
+}
+function build_message(body, send_date, user, scheduled) {
+    if (!user._id) {
+        throw new Error('missing user._id');
     }
     return {
-        body,
+        body: merge_fields(body, user),
         send_date,
-        user_id,
+        user_id: user._id,
         scheduled,
         responses: []
     };
@@ -59,20 +66,19 @@ function get_confirmation(user) {
 }
 exports.get_confirmation = get_confirmation;
 function build_messages(user, start = new Date) {
-    let { _id: user_id } = user;
     let my_questions = questions[user.assigned_personality];
     let days = Object.keys(my_questions).sort();
     return lodash_1.flatten(days.reduce((store, day) => {
         let day_questions = my_questions[day];
         if (day === '0') {
-            store.push(build_message(day_questions[0][0], start, user_id, true));
+            store.push(build_message(day_questions[0][0], start, user, true));
         }
         else {
             day_questions.map((questions, question_number) => {
                 let is_last = question_number + 1 === day_questions.length;
                 questions.map((question, index) => {
                     let date = figure_out_date(start, +day, is_last ? 2 : question_number, !!index);
-                    store.push(build_message(question, date, user_id, false));
+                    store.push(build_message(question, date, user, false));
                 });
             });
         }

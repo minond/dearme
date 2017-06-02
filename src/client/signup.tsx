@@ -33,7 +33,7 @@ export class SignupComponent extends Component<Props, State> {
     }
 
     hasValidState(): boolean {
-        return valid_phone(this.state.phone);
+        return valid_phone(this.state.phone) && !!this.state.fname;
     }
 
     onSubmit() {

@@ -44,7 +44,17 @@ const styles = StyleSheet.create({
         maxWidth: '750px',
         margin: '3em auto',
         padding: '20px',
-    }
+    },
+
+    header: {
+        width: '100%',
+        margin: '0',
+        padding: '.3em',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        color: 'white',
+        background: 'black',
+    },
 });
 
 export const MessageComponent = ({ message }: { message: Message }) =>
@@ -81,12 +91,16 @@ export class JournalComponent extends Component<Props, State> {
     }
 
     render() {
-        let { messages } = this.state;
+        let { messages, user } = this.state;
+        let { fname = "you" } = user;
 
         return (
-            <div className={css(styles.container)}>
-                {messages.map((message) =>
-                    <MessageComponent key={message._id} message={message} />)}
+            <div>
+                <div className={css(common.large_text, styles.header)}>dear {fname.toLowerCase()},</div>
+                <div className={css(styles.container)}>
+                    {messages.map((message) =>
+                        <MessageComponent key={message._id} message={message} />)}
+                </div>
             </div>
         );
     }

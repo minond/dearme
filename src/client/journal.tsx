@@ -84,6 +84,10 @@ const format_date = (maybe_date: Date | string): string => {
 
 export const group_by_days = (messages: Message[]): Message[][] =>
     messages.reduce((store, message) => {
+        if (!message.responses || !message.responses.length) {
+            return store;
+        }
+
         let hash = format_date(message.send_date);
 
         let curr_list = store[store.length - 1] || [];

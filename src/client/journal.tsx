@@ -115,8 +115,13 @@ export class JournalComponent extends Component<Props, State> {
     }
 
     render() {
-        let { messages, user } = this.state;
+        let { messages = [], user } = this.state;
         let { fname = 'you' } = user;
+
+        // the last three messages are not journal messages. don't show them
+        messages.pop();
+        messages.pop();
+        messages.pop();
 
         return (
             <div>

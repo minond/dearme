@@ -82,9 +82,15 @@ const format_date = (maybe_date: Date | string): string => {
     return `${day} ${month}, ${year}`;
 };
 
+const should_display_message = (message: Message): boolean =>
+    !!message.responses &&
+    !!message.responses.length &&
+    !!message.responses.reduce((display, response) =>
+        display && !!response.body, true);
+
 export const group_by_days = (messages: Message[]): Message[][] =>
     messages.reduce((store, message) => {
-        if (!message.responses || !message.responses.length) {
+        if (!should_display_message(message)) {
             return store;
         }
 

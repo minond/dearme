@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         color: '#b1b1b1',
     },
+
+    message_response: {
+        margin: '50px 0',
+    },
 });
 
 const format_date = (maybe_date: Date | string): string => {
@@ -98,7 +102,7 @@ export const MessageComponent = ({ message }: { message: Message }) =>
     <div>
         <p className={css(common.small_text, styles.message_body)}>{message.body}</p>
         {message.responses.map((response) =>
-            <p className={css(common.small_text)}
+            <p className={css(common.small_text, styles.message_response)}
                 key={response.date.toString()}>{response.body}</p>)}
     </div>;
 

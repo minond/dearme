@@ -12102,6 +12102,9 @@ var styles = aphrodite_1.StyleSheet.create({
         fontStyle: 'italic',
         color: '#b1b1b1',
     },
+    message_response: {
+        margin: '50px 0',
+    },
 });
 var format_date = function (maybe_date) {
     var date = new Date(maybe_date);
@@ -12132,7 +12135,7 @@ exports.MessageComponent = function (_a) {
     return React.createElement("div", null,
         React.createElement("p", { className: aphrodite_1.css(styles_1.common.small_text, styles.message_body) }, message.body),
         message.responses.map(function (response) {
-            return React.createElement("p", { className: aphrodite_1.css(styles_1.common.small_text), key: response.date.toString() }, response.body);
+            return React.createElement("p", { className: aphrodite_1.css(styles_1.common.small_text, styles.message_response), key: response.date.toString() }, response.body);
         }));
 };
 var JournalComponent = (function (_super) {

@@ -48,29 +48,33 @@ const styles = StyleSheet.create({
 
     header: {
         width: '100%',
-        margin: '0',
+        margin: '0 0 100px 0',
         padding: '.3em',
         boxSizing: 'border-box',
-        marginBottom: '50px',
         textAlign: 'center',
         color: 'white',
         background: 'black',
     },
 });
 
-const get_date_hash = (date: Date | string): string => {
-    let offset = 3600000 * 6;
-    let odate = new Date(date);
-    return new Date(odate.valueOf() - offset).toDateString();
-}
+const format_date = (maybe_date: Date | string): string => {
+    let date = new Date(maybe_date);
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let month = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November',
+        'December'][date.getMonth()];
+
+    return `${day} ${month}, ${year}`;
+};
 
 export const group_by_days = (messages: Message[]): Message[][] =>
     messages.reduce((store, message) => {
-        let hash = get_date_hash(message.send_date);
+        let hash = format_date(message.send_date);
 
         let curr_list = store[store.length - 1] || [];
         let curr_hash = !curr_list[0] ? null :
-            get_date_hash(curr_list[0].send_date);
+            format_date(curr_list[0].send_date);
 
         if (hash === curr_hash) {
             curr_list.push(message);
@@ -123,12 +127,18 @@ export class JournalComponent extends Component<Props, State> {
         messages.pop();
         messages.pop();
 
+        let groups = group_by_days(messages);
+
         return (
             <div>
                 <div className={css(common.large_text, styles.header)}>dear {fname.toLowerCase()},</div>
                 <div className={css(styles.container)}>
-                    {messages.map((message) =>
-                        <MessageComponent key={message._id} message={message} />)}
+                    {groups.map((group: Message[]) =>
+                        <div key={group[0].send_date.toString()}>
+                            <div className={css(common.med_text)}>{format_date(group[0].send_date)}</div>
+                            {group.map((message: Message) =>
+                                <MessageComponent key={message._id} message={message} />)}
+                        </div>)}
                 </div>
             </div>
         );

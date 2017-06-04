@@ -51,11 +51,35 @@ const styles = StyleSheet.create({
         margin: '0',
         padding: '.3em',
         boxSizing: 'border-box',
+        marginBottom: '50px',
         textAlign: 'center',
         color: 'white',
         background: 'black',
     },
 });
+
+const get_date_hash = (date: Date | string): string => {
+    let offset = 3600000 * 6;
+    let odate = new Date(date);
+    return new Date(odate.valueOf() - offset).toDateString();
+}
+
+export const group_by_days = (messages: Message[]): Message[][] =>
+    messages.reduce((store, message) => {
+        let hash = get_date_hash(message.send_date);
+
+        let curr_list = store[store.length - 1] || [];
+        let curr_hash = !curr_list[0] ? null :
+            get_date_hash(curr_list[0].send_date);
+
+        if (hash === curr_hash) {
+            curr_list.push(message);
+        } else {
+            store.push([message]);
+        }
+
+        return store;
+    }, [] as Message[][]);
 
 export const MessageComponent = ({ message }: { message: Message }) =>
     <div>
@@ -92,7 +116,7 @@ export class JournalComponent extends Component<Props, State> {
 
     render() {
         let { messages, user } = this.state;
-        let { fname = "you" } = user;
+        let { fname = 'you' } = user;
 
         return (
             <div>

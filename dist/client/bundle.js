@@ -12087,6 +12087,7 @@ var styles = aphrodite_1.StyleSheet.create({
         padding: '0 20px 50px 20px',
     },
     header: {
+        fontSize: '100px',
         width: '100%',
         margin: '0',
         padding: '.3em',

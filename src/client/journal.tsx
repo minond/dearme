@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     },
 
     header: {
+        fontSize: '100px',
         width: '100%',
         margin: '0',
         padding: '.3em',

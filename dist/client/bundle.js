@@ -12084,16 +12084,23 @@ var styles = aphrodite_1.StyleSheet.create({
     container: {
         maxWidth: '750px',
         margin: '3em auto',
-        padding: '20px',
+        padding: '0 20px 50px 20px',
     },
     header: {
         width: '100%',
-        margin: '0 0 100px 0',
+        margin: '0',
         padding: '.3em',
         boxSizing: 'border-box',
         textAlign: 'center',
         color: 'white',
         background: 'black',
+    },
+    message_date: {
+        marginTop: '100px',
+    },
+    message_body: {
+        fontStyle: 'italic',
+        color: '#b1b1b1',
     },
 });
 var format_date = function (maybe_date) {
@@ -12123,7 +12130,7 @@ exports.group_by_days = function (messages) {
 exports.MessageComponent = function (_a) {
     var message = _a.message;
     return React.createElement("div", null,
-        React.createElement("h2", { className: aphrodite_1.css(styles_1.common.med_text) }, message.body),
+        React.createElement("p", { className: aphrodite_1.css(styles_1.common.small_text, styles.message_body) }, message.body),
         message.responses.map(function (response) {
             return React.createElement("p", { className: aphrodite_1.css(styles_1.common.small_text), key: response.date.toString() }, response.body);
         }));
@@ -12168,7 +12175,7 @@ var JournalComponent = (function (_super) {
                 ","),
             React.createElement("div", { className: aphrodite_1.css(styles.container) }, groups.map(function (group) {
                 return React.createElement("div", { key: group[0].send_date.toString() },
-                    React.createElement("div", { className: aphrodite_1.css(styles_1.common.med_text) }, format_date(group[0].send_date)),
+                    React.createElement("div", { className: aphrodite_1.css(styles_1.common.med_text, styles.message_date) }, format_date(group[0].send_date)),
                     group.map(function (message) {
                         return React.createElement(exports.MessageComponent, { key: message._id, message: message });
                     }));

@@ -43,17 +43,26 @@ const styles = StyleSheet.create({
     container: {
         maxWidth: '750px',
         margin: '3em auto',
-        padding: '20px',
+        padding: '0 20px 50px 20px',
     },
 
     header: {
         width: '100%',
-        margin: '0 0 100px 0',
+        margin: '0',
         padding: '.3em',
         boxSizing: 'border-box',
         textAlign: 'center',
         color: 'white',
         background: 'black',
+    },
+
+    message_date: {
+        marginTop: '100px',
+    },
+
+    message_body: {
+        fontStyle: 'italic',
+        color: '#b1b1b1',
     },
 });
 
@@ -87,7 +96,7 @@ export const group_by_days = (messages: Message[]): Message[][] =>
 
 export const MessageComponent = ({ message }: { message: Message }) =>
     <div>
-        <h2 className={css(common.med_text)}>{message.body}</h2>
+        <p className={css(common.small_text, styles.message_body)}>{message.body}</p>
         {message.responses.map((response) =>
             <p className={css(common.small_text)}
                 key={response.date.toString()}>{response.body}</p>)}
@@ -135,7 +144,7 @@ export class JournalComponent extends Component<Props, State> {
                 <div className={css(styles.container)}>
                     {groups.map((group: Message[]) =>
                         <div key={group[0].send_date.toString()}>
-                            <div className={css(common.med_text)}>{format_date(group[0].send_date)}</div>
+                            <div className={css(common.med_text, styles.message_date)}>{format_date(group[0].send_date)}</div>
                             {group.map((message: Message) =>
                                 <MessageComponent key={message._id} message={message} />)}
                         </div>)}

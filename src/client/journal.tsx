@@ -89,18 +89,7 @@ const should_display_message = (message: Message): boolean =>
         display && !!response.body, true);
 
 export const group_by_days = (messages: Message[]): Message[][] =>
-    messages.sort((a, b) => {
-        let m1 = new Date(a.send_date).valueOf();
-        let m2 = new Date(b.send_date).valueOf();
-
-        if (m1 < m2) {
-            return -1;
-        } else if (m1 > m2) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }).reduce((store, message) => {
+    messages.reduce((store, message) => {
         if (!should_display_message(message)) {
             return store;
         }
@@ -156,6 +145,19 @@ export class JournalComponent extends Component<Props, State> {
     render() {
         let { messages = [], user } = this.state;
         let { fname = 'you' } = user;
+
+        messages.sort((a, b) => {
+            let m1 = new Date(a.send_date).valueOf();
+            let m2 = new Date(b.send_date).valueOf();
+
+            if (m1 < m2) {
+                return -1;
+            } else if (m1 > m2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
 
         // the last three messages are not journal messages. don't show them
         messages.pop();

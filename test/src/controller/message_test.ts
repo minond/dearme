@@ -16,9 +16,9 @@ const user = {
 const expected_messages = build_expected_messages(user);
 
 test('messages controller', (t) => {
-    t.plan(1 + expected_messages.length * 2);
-
     const schedule = build_messages(user, start_time);
+
+    t.plan(schedule.length * 2 + 1)
 
     t.equal(expected_messages[0].body, get_confirmation(user));
 

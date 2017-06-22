@@ -15,7 +15,7 @@ export const WelcomeComponent = ({ onComplete, className }: Props) =>
 
             <section className={css(common.small_text)}>
                 <div>The easiest way to journal EVER.</div>
-                <div>We send a few texts a day. You answer.</div>
+                <div>We send you some texts. You answer.</div>
             </section>
 
             <div className={css(common.med_space)}></div>

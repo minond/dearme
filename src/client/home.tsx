@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
 
     padded_content: {
-        padding: '20vw 7vw',
+        padding: '18vw 7vw',
     }
 });
 

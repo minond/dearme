@@ -89,7 +89,18 @@ const should_display_message = (message: Message): boolean =>
         display && !!response.body, true);
 
 export const group_by_days = (messages: Message[]): Message[][] =>
-    messages.reduce((store, message) => {
+    messages.sort((a, b) => {
+        let m1 = new Date(a.send_date).valueOf();
+        let m2 = new Date(b.send_date).valueOf();
+
+        if (m1 < m2) {
+            return -1;
+        } else if (m1 > m2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }).reduce((store, message) => {
         if (!should_display_message(message)) {
             return store;
         }

@@ -9,6 +9,7 @@ type Props = {
 
 export const WelcomeComponent = ({ onComplete, className }: Props) =>
     <div className={className}>
+        <div className={css(common.beta_image)}></div>
         <div className={css(common.text_centered)}>
             <div className={css(common.large_text)}>dear me,</div>
             <div className={css(common.med_space_but_a_little_smaller)}></div>

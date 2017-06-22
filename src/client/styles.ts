@@ -171,4 +171,17 @@ export const common = StyleSheet.create({
             }
         }],
     },
+
+    beta_image: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        height: '21vw',
+        width: '21vw',
+        minWidth: '180px',
+        minHeight: '180px',
+        backgroundImage: 'url(/assets/images/beta.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100%',
+    },
 });

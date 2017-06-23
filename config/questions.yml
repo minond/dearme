@@ -2,7 +2,7 @@ personalities:
   -
     0:
       -
-        - "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). If you ever get bored of me, feel free to text STOP. Cool? Talk soon! 👋" 
+        - "Oh hello! Dear Me here. Or is it Dear You? 🤔 That's way existential for my artificial intelligence. I can't wait to get to know you over the next 7 days! At the end of our first week of friendship, I'll send you a journal to commemorate it (in a private link obvs). If you ever get bored of me, feel free to text STOP. Cool? Your first text will arrive in the evening, talk soon! 👋"
     1:
       -
         - "I'm not big on small talk, but I suppose that's to be expected since a bot's life remains unaffected by the weather. So spill! How's your day? Tell me everything. 🍿"
@@ -35,7 +35,7 @@ personalities:
   -
     0:
       -
-        - "Hello! Dear Me here. After 7 days of questions, you'll get a privately linked journal. Feel free to text STOP anytime. Let's get started!"
+        - "Hello! Dear Me here. After 7 days of questions, you'll get a privately linked journal. Feel free to text STOP anytime and expect your first text in the evening."
     1:
       -
         - "How's your day? Tell me everything."

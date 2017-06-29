@@ -5,6 +5,7 @@ const { v4 } = require('node-uuid');
 const { mongo } = require('../dist/device/mongo');
 const { user } = require('../dist/repository/user');
 const { message } = require('../dist/repository/message');
+const { get_user_survey_link } = require('../dist/controller/message');
 
 const { logger } = require('../dist/log');
 
@@ -31,6 +32,38 @@ function set_user_guid() {
 
             updates.push(users.update(filter, update).then(() =>
                 log.info(`updated user#${user._id}`)));
+        }, () => Promise.all(updates).then(() => db.close()));
+    });
+}
+
+function update_message_part(regex, updater) {
+    mongo.then((db) => {
+        const users = user(db);
+        const messages = message(db);
+        const updates = [];
+
+        messages.find({
+            body: {
+                $regex: regex
+            }
+        }).forEach((message) => {
+            let original = message.body;
+            let msg_filter = { _id: message._id };
+
+            updates.push(users.find_one({ _id: message.user_id }).then((user) => {
+                let updated = updater(message, user);
+                let update = { $set: { body: updated } };
+
+                if (updated !== original) {
+                    log.info(`updating message#${message._id}`);
+                    log.info(original);
+                    log.info(updated);
+                    updates.push(messages.update(msg_filter, update).then(() =>
+                        log.info(`updated message#${message._id}`)));
+                } else {
+                    log.info(`nothing to update on message#${message._id}`);
+                }
+            }));
         }, () => Promise.all(updates).then(() => db.close()));
     });
 }
@@ -85,6 +118,15 @@ case 'set_user_guid':
 
 case 'encrypt_all_responses':
     encrypt_all_responses();
+    break;
+
+case 'update_survey_links':
+    update_message_part(/feedback/, (message, user) => {
+        return message.body
+            .replace('[LINK TO SURVEY]', get_user_survey_link(user))
+            .replace('http://bit.ly/2pLKKc3', get_user_survey_link(user))
+            .replace('https://aryel1.typeform.com/to/uXF0sA', get_user_survey_link(user));
+    });
     break;
 
 default:

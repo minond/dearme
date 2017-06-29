@@ -17,7 +17,7 @@ const survey_url = config<string>('app.survey_url');
 const queue = config<string>('amqp.queues.messages');
 const questions = config<Questions>('questions.personalities');
 
-function get_user_survey_link(user: User): string {
+export function get_user_survey_link(user: User): string {
     return `${survey_url}?personality=${user.assigned_personality}&phonenumber=${user.phone}`;
 }
 

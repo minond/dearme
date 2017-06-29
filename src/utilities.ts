@@ -29,6 +29,10 @@ export function buffer(obj: object): Buffer {
     return new Buffer(JSON.stringify(obj));
 }
 
+export function clean_phone(phone: string): string {
+    return phone.replace(/\D+/g, '');
+}
+
 export function format_phone(raw: string): string {
     return raw.trim()
         .replace(/\s+/g, '')

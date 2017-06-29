@@ -51,6 +51,11 @@ function update_message_part(regex, updater) {
             let msg_filter = { _id: message._id };
 
             updates.push(users.find_one({ _id: message.user_id }).then((user) => {
+                if (!user) {
+                    log.info(`no user found for message#${message._id}`);
+                    return;
+                }
+
                 let updated = updater(message, user);
                 let update = { $set: { body: updated } };
 

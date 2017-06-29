@@ -6,7 +6,7 @@ import { Channel } from '../device/amqp';
 import { User } from '../repository/user';
 import { Message } from '../repository/message';
 import { config } from '../application';
-import { buffer } from '../utilities';
+import { clean_phone, buffer } from '../utilities';
 
 export type Questions = { [index: string]: string[][] }[];
 export type QueuedMessage = { phone: string, body: string };
@@ -18,7 +18,7 @@ const queue = config<string>('amqp.queues.messages');
 const questions = config<Questions>('questions.personalities');
 
 export function get_user_survey_link(user: User): string {
-    return `${survey_url}?personality=${user.assigned_personality}&phonenumber=${user.phone}`;
+    return `${survey_url}?personality=${user.assigned_personality}&phonenumber=${clean_phone(user.phone)}`;
 }
 
 function get_user_journal_link(user: User): string {

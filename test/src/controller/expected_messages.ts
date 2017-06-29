@@ -1,4 +1,5 @@
 import { config } from '../../../src/application';
+import { clean_phone } from '../../../src/utilities';
 import { User } from '../../../src/repository/user';
 
 const base_url = config<string>('app.url');
@@ -46,7 +47,7 @@ export const build_expected_messages = (user: User) => ([
         "send_date": "2017-05-06T21:30:00.000Z"
     },
     {
-        "body": `One last thing: would you mind giving me some feedback on your experience? ${survey_url}?personality=${user.assigned_personality}&phonenumber=${user.phone}`,
+        "body": `One last thing: would you mind giving me some feedback on your experience? ${survey_url}?personality=${user.assigned_personality}&phonenumber=${clean_phone(user.phone)}`,
         "send_date": "2017-05-07T02:00:00.000Z"
     }
 ]);

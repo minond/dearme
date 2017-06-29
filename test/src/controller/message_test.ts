@@ -8,7 +8,7 @@ const user = {
     _id: '123' as _,
     guid: '123',
     fname: 'Marcos',
-    phone: '1231231234',
+    phone: '+1 123 123 1234',
     inactive: false,
     assigned_personality: 0,
 };

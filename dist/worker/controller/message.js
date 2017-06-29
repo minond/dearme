@@ -9,10 +9,17 @@ const base_url = application_1.config('app.url');
 const survey_url = application_1.config('app.survey_url');
 const queue = application_1.config('amqp.queues.messages');
 const questions = application_1.config('questions.personalities');
+function get_user_survey_link(user) {
+    return `${survey_url}?personality=${user.assigned_personality}&phonenumber=${utilities_1.clean_phone(user.phone)}`;
+}
+exports.get_user_survey_link = get_user_survey_link;
+function get_user_journal_link(user) {
+    return `${base_url}/u/${user.guid}`;
+}
 function merge_fields(body, user) {
     return body
-        .replace('[LINK TO JOURNAL]', `${base_url}/u/${user.guid}`)
-        .replace('[LINK TO SURVEY]', survey_url);
+        .replace('[LINK TO JOURNAL]', get_user_journal_link(user))
+        .replace('[LINK TO SURVEY]', get_user_survey_link(user));
 }
 function build_message(body, send_date, user, scheduled) {
     if (!user._id) {

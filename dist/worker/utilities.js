@@ -28,6 +28,10 @@ function buffer(obj) {
     return new Buffer(JSON.stringify(obj));
 }
 exports.buffer = buffer;
+function clean_phone(phone) {
+    return phone.replace(/\D+/g, '');
+}
+exports.clean_phone = clean_phone;
 function format_phone(raw) {
     return raw.trim()
         .replace(/\s+/g, '')

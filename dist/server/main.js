@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const RateLimit = require("express-rate-limit");
 const error = require("http-errors");
+const passport = require("passport");
+const passport_http_1 = require("passport-http");
 const log_1 = require("../log");
 const user_1 = require("../repository/user");
 const message_1 = require("../repository/message");
@@ -21,10 +23,26 @@ const validation_1 = require("../validation");
 const utilities_1 = require("../utilities");
 const crypto_1 = require("../crypto");
 const keys_1 = require("../keys");
-const port = application_1.config('port');
+const PORT = application_1.config('port');
+const USERNAME = application_1.config('app.username');
+const PASSWORD = application_1.config('app.password');
 const log = log_1.logger(__filename);
 const server = application_1.application(application_1.config);
 const limit = new RateLimit(application_1.config('ratelimit.default'));
+const basic_auth = passport.authenticate('basic', { session: false });
+passport.use(new passport_http_1.BasicStrategy((username, password, cb) => {
+    if (username &&
+        password &&
+        username === USERNAME &&
+        password === PASSWORD) {
+        cb(null, { valid: true });
+    }
+    else {
+        let err = new Error('Invalid username or password');
+        err.stack = '';
+        cb(err);
+    }
+}));
 (() => __awaiter(this, void 0, void 0, function* () {
     let db;
     let chan;
@@ -121,9 +139,22 @@ const limit = new RateLimit(application_1.config('ratelimit.default'));
             next(error(503, err.message));
         }
     }));
+    server.get('/api/stats', basic_auth, limit, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        if (!req.user) {
+            next(error(401));
+        }
+        else {
+            let user_count = yield users.count();
+            let message_count = yield messages.count();
+            res.json({
+                user_count,
+                message_count
+            });
+        }
+    }));
     server.get('*', application_1.csrf(), (req, res) => {
         let manifest = server.get('manifest');
         res.render('index', { manifest });
     });
-    server.listen(port, () => log.info('ready for http calls on port', port));
+    server.listen(PORT, () => log.info('ready for http calls on port', PORT));
 }))();

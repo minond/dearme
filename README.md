@@ -33,6 +33,9 @@ configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
 export MONGO_URL=
 export AMQP_URL=
 
+APP_USERNAME=                      # some endpoint use basic-http authentication
+APP_PASSWORD=                      # some endpoint use basic-http authentication
+
 export KEY_COOKIE=                 # cookies encryption key
 export KEY_SESSION=                # session encryption key
 export KEY_MESSAGES=               # user response encryption key

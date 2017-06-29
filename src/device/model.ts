@@ -22,6 +22,9 @@ export function repo<T>(coll: () => Collection): Repository<T> {
         find: (query: object, fields?: object): Cursor<T> =>
             coll().find(query, fields),
 
+        count: (query: object): Promise<number> =>
+            coll().count(query),
+
         find_one: (query: object): Promise<T> =>
             coll().findOne(query),
 

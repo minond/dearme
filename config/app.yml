@@ -1,6 +1,10 @@
 title: &title dear me
 description: &description The easiest way to journal ever. We send a few texts a day. You answer. We add your instagram photos. You have a journal.
 
+auth:
+  username:
+  password:
+
 url: http://dearme.co
 survey_url: https://dearme.typeform.com/to/MYGOZG
 

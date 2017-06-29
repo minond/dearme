@@ -1,6 +1,9 @@
 import * as RateLimit from 'express-rate-limit';
 import * as error from 'http-errors';
 
+import * as passport from 'passport';
+import { BasicStrategy } from 'passport-http';
+
 import { logger } from '../log';
 import { user } from '../repository/user';
 import { Response, Message, message } from '../repository/message';
@@ -14,10 +17,29 @@ import { HOUR } from '../utilities';
 import { decrypt, encrypt } from '../crypto';
 import { KEY_MESSAGES } from '../keys';
 
-const port = config('port');
+const PORT = config('port');
+const USERNAME = config('app.username');
+const PASSWORD = config('app.password');
+
 const log = logger(__filename);
 const server = application(config);
 const limit = new RateLimit(config('ratelimit.default'));
+const basic_auth = passport.authenticate('basic', { session: false });
+
+passport.use(new BasicStrategy((username, password, cb) => {
+    if (
+        username &&
+        password &&
+        username === USERNAME &&
+        password === PASSWORD
+    ) {
+        cb(null, { valid: true });
+    } else {
+        let err = new Error('Invalid username or password');
+        err.stack = '';
+        cb(err);
+    }
+}));
 
 (async () => {
     let db: Db;
@@ -136,11 +158,25 @@ const limit = new RateLimit(config('ratelimit.default'));
         }
     });
 
+    server.get('/api/stats', basic_auth, limit, async (req, res, next) => {
+        if (!req.user) {
+            next(error(401));
+        } else {
+            let user_count = await users.count();
+            let message_count = await messages.count();
+
+            res.json({
+                user_count,
+                message_count
+            });
+        }
+    });
+
     server.get('*', csrf(), (req, res) => {
         let manifest = server.get('manifest');
         res.render('index', { manifest });
     });
 
-    server.listen(port, () =>
-        log.info('ready for http calls on port', port));
+    server.listen(PORT, () =>
+        log.info('ready for http calls on port', PORT));
 })();

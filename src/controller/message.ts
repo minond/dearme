@@ -17,13 +17,21 @@ const survey_url = config<string>('app.survey_url');
 const queue = config<string>('amqp.queues.messages');
 const questions = config<Questions>('questions.personalities');
 
+function get_user_survey_link(user: User): string {
+    return `${survey_url}?personality=${user.assigned_personality}&phonenumber=${user.phone}`;
+}
+
+function get_user_journal_link(user: User): string {
+    return `${base_url}/u/${user.guid}`;
+}
+
 function merge_fields(
     body: string,
     user: User
 ): string {
     return body
-        .replace('[LINK TO JOURNAL]', `${base_url}/u/${user.guid}`)
-        .replace('[LINK TO SURVEY]', survey_url);
+        .replace('[LINK TO JOURNAL]', get_user_journal_link(user))
+        .replace('[LINK TO SURVEY]', get_user_survey_link(user));
 }
 
 function build_message(

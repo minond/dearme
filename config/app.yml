@@ -2,7 +2,7 @@ title: &title dear me
 description: &description The easiest way to journal ever. We send a few texts a day. You answer. We add your instagram photos. You have a journal.
 
 url: http://dearme.co
-survey_url: http://bit.ly/2pLKKc3
+survey_url: https://dearme.typeform.com/to/MYGOZG
 
 worker:
   scheduler:

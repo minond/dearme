@@ -11,7 +11,7 @@ export const ErrorComponent = ({ className }: Props) =>
             <div className={css(common.med_space)}></div>
 
             <section className={css(common.small_text)}>
-                <div>Something went wrong wile trying to save your information.</div>
+                <div>Something went wrong while trying to save your information.</div>
                 <div>Can you try again in a little bit?</div>
             </section>
 

@@ -58,7 +58,7 @@ export async function scheduler(
 
                 try {
                     await messages.update(message_filter, { $set: { scheduled: true } });
-                    log.info(`updated scheduled flag for for User#${user_id}`);
+                    log.info(`updated scheduled flag for User#${user_id}`);
 
                     if (!user) {
                         log.info('no user found. not scheduling message');

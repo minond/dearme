@@ -33,7 +33,7 @@ export function message(db: Db): Repository<Message> {
             .sort({ send_date: -1 })
             .limit(1)
             .toArray()
-            .then((msgs) => head(msgs));
+            .then((msgs) => head(msgs) as Message);
     };
 
     return { ...extras, find, find_users_last_message };

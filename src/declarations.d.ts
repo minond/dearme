@@ -78,6 +78,7 @@ declare module 'react-input-mask' {
     };
 
     type Props = HTMLAttributes<{ value: string }> & {
+        type: string;
         mask: string;
         maskChar: string;
     };

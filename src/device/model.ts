@@ -29,10 +29,10 @@ export function repo<T>(coll: () => Collection): Repository<T> {
             coll().findOne(query),
 
         save: (model: Partial<T>): Promise<T> =>
-            coll().insert(model as object).then(() => model),
+            coll().insert(model as object).then(() => model as T),
 
         save_many: (models: Partial<T>[]): Promise<T[]> =>
-            coll().insertMany(models as object[]).then(() => models),
+            coll().insertMany(models as object[]).then(() => models as T[]),
 
         update: (filter: object, update: object): Promise<null> =>
             coll().findOneAndUpdate(filter, update).then(() => null),

@@ -1,40 +1,35 @@
-![dear me](https://raw.githubusercontent.com/minond/dearme/master/assets/images/dearme.png)
+<center>
+<img alt="dear me" src="https://raw.githubusercontent.com/minond/dearme/master/assets/images/dearme.png" width="500px" />
+<br />
+<br />
+<br />
+</center>
 
-the easiest way to journal ever. we send a few texts a day. you answer. we add
-your instagram photos. you have a journal.
+The easiest way to journal ever. We send a few texts a day. You answer. We add
+your instagram photos. You have a journal.
 
-### messaging rules
+### Messaging Rules
 
-Three text groups go out at:
-- 12:00 PM
-- 3:30 PM
-- 8:00 PM
+| 3 Groups | 2 Groups | 1 Group |
+| -------- | -------- | ------- |
+| 12:00 PM | 12:00 PM | 8:00 PM |
+| 3:30 PM  | 8:00 PM  | -       |
+| 8:00 PM  | -        | -       |
 
-If there are only two groups send them at:
-- 12:00 PM
-- 8:00 PM
 
-If there is only one group send it at:
-- 8:00 PM
+### Running and configuration
 
-### running the app
-
-```bash
-make install
-make pm
-```
-
-### configuration
-
-configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
-`config/` directory for additional configuration options. required values:
+First, a little configuration is needed to tell the service where to save
+messages and where the worker queues are. Configuration is retrieved using
+[acm](https://www.npmjs.com/package/acm). See `config/` directory for
+additional configuration options. required values:
 
 ```bash
 export MONGO_URL=
 export AMQP_URL=
 
-APP_USERNAME=                      # some endpoint use basic-http authentication
-APP_PASSWORD=                      # some endpoint use basic-http authentication
+export APP_USERNAME=               # some endpoint use basic-http authentication
+export APP_PASSWORD=               # some endpoint use basic-http authentication
 
 export KEY_COOKIE=                 # cookies encryption key
 export KEY_SESSION=                # session encryption key
@@ -45,7 +40,10 @@ export TWILIO_AUTH_TOKEN=          # your twilio account auth token
 export TWILIO_SERVICE_SID=         # your twilio messaging service id
 ```
 
-### building, running linters and tests
+Built code is checked in so now you can just run `make pm` or `make daemon` to
+start the app.
 
-run `make` to build everything. `make lint test` runs the linters and all
-tests.
+### Building, running linters and tests
+
+Run `make` to build everything. `make install` installs deps and `make lint
+test` runs the linters and all tests.

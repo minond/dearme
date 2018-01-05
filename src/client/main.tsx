@@ -10,8 +10,8 @@ import { JournalComponent } from './journal';
 const Main = () => (
     <Router>
         <div>
-            <Route path="/" exact={true} render={() => <HomeComponent />} />
-            <Route path="/u/:guid" render={({ match }) => <JournalComponent guid={match.params.guid} />} />
+            <Route path="/dearme/" exact={true} render={() => <HomeComponent />} />
+            <Route path="/dearme/u/:guid" render={({ match }) => <JournalComponent guid={match.params.guid} />} />
         </div>
     </Router>
 );

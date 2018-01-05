@@ -5,7 +5,7 @@ auth:
   username:
   password:
 
-url: http://dearme.co
+url: https://minond.xyz/dearme
 survey_url: https://dearme.typeform.com/to/MYGOZG
 
 worker:

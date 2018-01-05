@@ -46,7 +46,7 @@ export class HomeComponent extends Component<Props, State> {
     }
 
     userSigned(signup: SignupState) {
-        post('/api/signup', signup)
+        post('/dearme/api/signup', signup)
             .then(res => this.setState({ page: Page.CONFIRM }))
             .catch(res => this.setState({ page: Page.ERROR }));
     }

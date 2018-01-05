@@ -136,7 +136,7 @@ export class JournalComponent extends Component<Props, State> {
     load(guid: string) {
         this.setState({ loading: true, error: false });
 
-        get(`/api/user/${guid}`)
+        get(`/dearme/api/user/${guid}`)
             .then((res) => res.json<ServerResponse>())
             .then(({user, messages}) => this.setState({ user, messages, loading: false }))
             .catch(() => this.setState({ loading: false, error: true }));

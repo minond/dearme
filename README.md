@@ -1,9 +1,4 @@
-<center>
-<img alt="dear me" src="https://raw.githubusercontent.com/minond/dearme/master/assets/images/dearme.png" width="500px" />
-<br />
-<br />
-<br />
-</center>
+![dear me](https://raw.githubusercontent.com/minond/dearme/master/assets/images/dearme.png)
 
 The easiest way to journal ever. We send a few texts a day. You answer. We add
 your instagram photos. You have a journal.

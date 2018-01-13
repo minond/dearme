@@ -13,16 +13,16 @@ export const poppins_bold_font = {
     fontFamily: 'Poppins',
     src: 'local("Poppins Bold"), ' +
          'local("Poppins-Bold"), ' +
-         'url("/dearme/assets/fonts/Poppins-Bold.woff2") format("woff2"),' +
-         'url("/dearme/assets/fonts/Poppins-Bold.ttf") format("truetype")'
+         'url("/assets/fonts/Poppins-Bold.woff2") format("woff2"),' +
+         'url("/assets/fonts/Poppins-Bold.ttf") format("truetype")'
 };
 
 export const century_schoolbook_std_font = {
     fontFamily: 'CenturySchoolbookStd',
-  src: 'url("/dearme/assets/fonts/CenturySchoolbookStd.eot?#iefix") format("embedded-opentype"),' +
-    'url("/dearme/assets/fonts/CenturySchoolbookStd.woff2") format("woff2"),' +
-    'url("/dearme/assets/fonts/CenturySchoolbookStd.woff") format("woff"),' +
-    'url("/dearme/assets/fonts/CenturySchoolbookStd.ttf") format("truetype")'
+  src: 'url("/assets/fonts/CenturySchoolbookStd.eot?#iefix") format("embedded-opentype"),' +
+    'url("/assets/fonts/CenturySchoolbookStd.woff2") format("woff2"),' +
+    'url("/assets/fonts/CenturySchoolbookStd.woff") format("woff"),' +
+    'url("/assets/fonts/CenturySchoolbookStd.ttf") format("truetype")'
 };
 
 export const common = StyleSheet.create({
@@ -180,7 +180,7 @@ export const common = StyleSheet.create({
         width: '18vw',
         minWidth: '150px',
         minHeight: '150px',
-        backgroundImage: 'url(/dearme/assets/images/beta.png)',
+        backgroundImage: 'url(/assets/images/beta.png)',
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
     },
